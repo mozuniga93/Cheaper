@@ -26,13 +26,14 @@ class LandingActivity : AppCompatActivity() {
     lateinit var storedVerificationId:String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    val tag = "Login log"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing)
 
         auth=FirebaseAuth.getInstance()
-
+        //auth.useEmulator("localhost",9099)
         // start verification on click of the button
         findViewById<Button>(R.id.button_otp).setOnClickListener {
             login()
@@ -43,14 +44,14 @@ class LandingActivity : AppCompatActivity() {
 
             // This method is called when the verification is completed
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                Log.d(tag , "onVerificationCompleted Success")
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
-                Log.d("GFG" , "onVerificationCompleted Success")
             }
 
             // Called when verification is failed add log statement to see the exception
             override fun onVerificationFailed(e: FirebaseException) {
-                Log.d("GFG" , "onVerificationFailed  $e")
+                Log.d(tag , "onVerificationFailed  $e")
             }
 
             // On code is sent by the firebase this method is called
@@ -59,9 +60,11 @@ class LandingActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                Log.d("GFG","onCodeSent: $verificationId")
+                Log.d(tag,"onCodeSent: $verificationId")
                 storedVerificationId = verificationId
                 resendToken = token
+                //this@LandingActivity.enableUserManuallyInputCode()
+
 
                 // Start a new activity using intent
                 // also send the storedVerificationId using intent
@@ -71,6 +74,10 @@ class LandingActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+
+            override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
+                Log.d(tag,"Timeout, verification ID: $verificationId")
+            }
         }
     }
 
@@ -79,7 +86,11 @@ class LandingActivity : AppCompatActivity() {
 
         // get the phone number from edit text and append the country cde with it
         if (number.isNotEmpty()){
-            number = "+16505551234"
+            //number = "+50687204959"
+            number = "+1 650-555-1234"
+            val code = "123456"
+
+            //auth.firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(number, code)
             //number = "$number"
             sendVerificationCode(number)
         }else{
@@ -91,14 +102,18 @@ class LandingActivity : AppCompatActivity() {
     // and starts the callback of verification
     // which is implemented above in onCreate
     private fun sendVerificationCode(number: String) {
-        Log.d("GFG" , "Phone number $number")
+        Log.d(tag , "Phone number $number")
+        // Force reCAPTCHA flow
+        //auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true)
+
+
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(number) // Phone number to verify
-            .setTimeout(5L, TimeUnit.SECONDS) // Timeout and unit
+            .setTimeout(3, TimeUnit.SECONDS) // Timeout and unit
             .setActivity(this) // Activity (for callback binding)
             .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
-        Log.d("GFG" , "Auth started")
+        Log.d(tag, "Auth started")
     }
 }
