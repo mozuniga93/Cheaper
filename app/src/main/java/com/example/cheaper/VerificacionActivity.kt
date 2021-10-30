@@ -3,6 +3,7 @@ package com.example.cheaper
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -33,7 +34,7 @@ class VerificacionActivity : AppCompatActivity() {
                     storedVerificationId.toString(), otp)
                 signInWithPhoneAuthCredential(credential)
             }else{
-                Toast.makeText(this,"Enter OTP", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Ingresar código de verificación", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -50,7 +51,8 @@ class VerificacionActivity : AppCompatActivity() {
                     // Sign in failed, display a message and update the UI
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
-                        Toast.makeText(this,"Invalid OTP", Toast.LENGTH_SHORT).show()
+                        Log.d("Login log", "Invalid OTP")
+                        Toast.makeText(this,"Código de verificación inválido", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

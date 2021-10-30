@@ -8,10 +8,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.FirebaseException
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.ktx.Firebase
 import java.util.concurrent.TimeUnit
 
 class LandingActivity : AppCompatActivity() {
@@ -21,6 +24,8 @@ class LandingActivity : AppCompatActivity() {
 
     // create instance of firebase auth
     lateinit var auth: FirebaseAuth
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     // we will use this to match the sent otp from firebase
     lateinit var storedVerificationId:String
@@ -33,6 +38,7 @@ class LandingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_landing)
 
         auth=FirebaseAuth.getInstance()
+        firebaseAnalytics = Firebase.analytics
         //auth.useEmulator("localhost",9099)
         // start verification on click of the button
         findViewById<Button>(R.id.button_otp).setOnClickListener {
@@ -44,14 +50,14 @@ class LandingActivity : AppCompatActivity() {
 
             // This method is called when the verification is completed
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.d(tag , "onVerificationCompleted Success")
+                Log.d(tag , "Verficación exitosa.")
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }
 
             // Called when verification is failed add log statement to see the exception
             override fun onVerificationFailed(e: FirebaseException) {
-                Log.d(tag , "onVerificationFailed  $e")
+                Log.d(tag , "Problema con verificación:  $e")
             }
 
             // On code is sent by the firebase this method is called
@@ -60,7 +66,7 @@ class LandingActivity : AppCompatActivity() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                Log.d(tag,"onCodeSent: $verificationId")
+                Log.d(tag,"Código enviado. ID de verificación: $verificationId")
                 storedVerificationId = verificationId
                 resendToken = token
                 //this@LandingActivity.enableUserManuallyInputCode()
@@ -87,14 +93,16 @@ class LandingActivity : AppCompatActivity() {
         // get the phone number from edit text and append the country cde with it
         if (number.isNotEmpty()){
             //number = "+50687204959"
-            number = "+1 650-555-1234"
-            val code = "123456"
 
-            //auth.firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(number, code)
+            //Para automatizar el login con un numero y no tener que hacerlo manual
+            number = "+50688294976"
+            val code = "123456"
+            auth.firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(number, code)
+
             //number = "$number"
             sendVerificationCode(number)
         }else{
-            Toast.makeText(this,"Enter mobile number", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Ingresar número telefónico", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -104,7 +112,7 @@ class LandingActivity : AppCompatActivity() {
     private fun sendVerificationCode(number: String) {
         Log.d(tag , "Phone number $number")
         // Force reCAPTCHA flow
-        //auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true)
+        auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true)
 
 
         val options = PhoneAuthOptions.newBuilder(auth)
@@ -114,6 +122,6 @@ class LandingActivity : AppCompatActivity() {
             .setCallbacks(callbacks) // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
-        Log.d(tag, "Auth started")
+        Log.d(tag, "Autenticación iniciada...")
     }
 }
