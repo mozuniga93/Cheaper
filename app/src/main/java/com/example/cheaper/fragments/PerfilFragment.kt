@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.cheaper.MainActivity
 import com.example.cheaper.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,7 +36,12 @@ class PerfilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        cargarPerfil()
         return inflater.inflate(R.layout.fragment_perfil, container, false)
+    }
+
+    fun cargarPerfil(){
+
     }
 
     companion object {
