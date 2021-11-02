@@ -7,10 +7,18 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.cheaper.model.Usuario
+import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class VerificacionActivity : AppCompatActivity() {
 
@@ -44,9 +52,7 @@ class VerificacionActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this , MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    siguienteActivity()
                 } else {
                     // Sign in failed, display a message and update the UI
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
@@ -57,4 +63,48 @@ class VerificacionActivity : AppCompatActivity() {
                 }
             }
     }
+
+    fun enviarMain(){
+        val intent = Intent(this , MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun enviarRegistrar(){
+        //TODO
+        Log.d("Login log", "Enviando a registrar")
+        var authUsuario = Firebase.auth.currentUser!!
+        var usuario = Usuario(
+            authUsuario?.phoneNumber!!,
+            "Monica",
+            "Zuniga",
+            authUsuario?.uid!!
+        )
+        UsuarioRepositorio.crearNuevoUsuario(usuario)
+        //enviarMain()
+    }
+
+    fun siguienteActivity(){
+        GlobalScope.launch(Dispatchers.IO) {
+            UsuarioRepositorio.cargarUsuarioLogueado()
+            if(UsuarioRepositorio.usuarioLogueado ==null){
+//                withContext(Dispatchers.Main){
+//
+//                    val intent = Intent(this@VerificacionActivity , MainActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                }
+            }else{
+//                withContext(Dispatchers.Main){
+//
+//                    val intent = Intent(this@VerificacionActivity , MainActivity::class.java)
+//                    startActivity(intent)
+//                    finish()
+//                }
+            }
+        }
+        enviarMain()
+
+    }
+
 }

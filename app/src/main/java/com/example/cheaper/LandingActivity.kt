@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.google.firebase.FirebaseException
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -31,7 +32,7 @@ class LandingActivity : AppCompatActivity() {
     lateinit var storedVerificationId:String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    val tag = "Login log"
+    val tag = "[Manati] Login"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +83,7 @@ class LandingActivity : AppCompatActivity() {
             }
 
             override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
-                Log.d(tag,"Timeout, verification ID: $verificationId")
+                Log.d(tag,"Código no se puedo obtener automaticamente, verification ID: $verificationId")
             }
         }
     }
@@ -92,12 +93,13 @@ class LandingActivity : AppCompatActivity() {
 
         // get the phone number from edit text and append the country cde with it
         if (number.isNotEmpty()){
-            //number = "+50687204959"
+            //Para automatizar el login con un numero ficticio registrado en Firebase
+            number = "+1 650-555-3434"
 
-            //Para automatizar el login con un numero y no tener que hacerlo manual
-            number = "+50688294976"
-            val code = "123456"
-            auth.firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(number, code)
+            // Para no tener que hacerlo manual con un usuario real, se crea un 'dumb' session
+            // pero no carga un usuario real
+            //val code = "123456"
+            //auth.firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(number, code)
 
             //number = "$number"
             sendVerificationCode(number)
@@ -112,7 +114,7 @@ class LandingActivity : AppCompatActivity() {
     private fun sendVerificationCode(number: String) {
         Log.d(tag , "Phone number $number")
         // Force reCAPTCHA flow
-        auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true)
+        //auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true)
 
 
         val options = PhoneAuthOptions.newBuilder(auth)

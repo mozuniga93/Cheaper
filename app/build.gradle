@@ -54,6 +54,10 @@ dependencies {
     implementation 'androidx.browser:browser:1.2.0'
     implementation 'com.google.firebase:firebase-auth:21.0.1'
 
+    // Declare the dependency for the Cloud Firestore library
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.9"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
