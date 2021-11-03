@@ -67,6 +67,5 @@ dependencies {
 
     apply plugin: 'com.android.application'
     apply plugin: 'kotlin-android'
-    //deprecated by Josh
     apply plugin: 'kotlin-android-extensions'
 }

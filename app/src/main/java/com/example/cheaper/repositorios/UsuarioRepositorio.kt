@@ -1,5 +1,6 @@
 package com.example.cheaper.repositorios
 
+import android.content.Context
 import android.util.Log
 import com.example.cheaper.model.Usuario
 import com.google.firebase.auth.FirebaseUser
@@ -60,4 +61,6 @@ object UsuarioRepositorio {
             Log.d(tag,"Usuario nulo.")
         }
     }
+
+
 }
