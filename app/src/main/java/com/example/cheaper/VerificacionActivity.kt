@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.google.firebase.FirebaseException
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.*
@@ -18,7 +19,6 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
 class VerificacionActivity : AppCompatActivity() {
@@ -46,12 +46,49 @@ class VerificacionActivity : AppCompatActivity() {
         firebaseAnalytics = Firebase.analytics
 
         // start verification on click of the button
-        findViewById<Button>(R.id.button_otp).setOnClickListener {
-            login()
+        findViewById<Button>(R.id.login).setOnClickListener {
+            ingresarNumeroTelefono()
+        }
+
+
+        // Callback function for Phone Auth
+        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+            // This method is called when the verification is completed
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                Log.d(tag , "Verficación exitosa.")
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                finish()
+            }
+
+            // Called when verification is failed add log statement to see the exception
+            override fun onVerificationFailed(e: FirebaseException) {
+                Log.d(tag , "Problema con verificación:  $e")
+            }
+
+            // On code is sent by the firebase this method is called
+            // in here we start a new activity where user can enter the OTP
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                Log.d(tag,"Código enviado. ID de verificación: $verificationId")
+                storedVerificationId = verificationId
+                resendToken = token
+                //this@LandingActivity.enableUserManuallyInputCode()
+
+
+                iniciarVerificacion()
+            }
+
+            override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
+                Log.d(tag,"Código no se puedo obtener automaticamente, verification ID: $verificationId")
+            }
         }
     }
-    private fun login() {
-        number = findViewById<EditText>(R.id.et_phone_number).text.trim().toString()
+
+    private fun ingresarNumeroTelefono() {
+        number = findViewById<EditText>(R.id.et_otp).text.trim().toString()
 
         // get the phone number from edit text and append the country cde with it
         if (number.isNotEmpty()){
@@ -64,12 +101,8 @@ class VerificacionActivity : AppCompatActivity() {
             //auth.firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(number, code)
 
             //number = "$number"
-            //sendVerificationCode(number)
+            sendVerificationCode(number)
 
-            //Test
-
-            findViewById<EditText>(R.id.et_phone_number).setText("Ingre")
-            findViewById<EditText>(R.id.button_otp).setText("Ingresar código de verificación")
         }else{
             Toast.makeText(this,"Ingresar número telefónico", Toast.LENGTH_SHORT).show()
         }
@@ -91,9 +124,10 @@ class VerificacionActivity : AppCompatActivity() {
     }
 
     fun iniciarVerificacion(){
-        // get storedVerificationId from the intent
-        val storedVerificationId= intent.getStringExtra("storedVerificationId")
 
+        findViewById<EditText>(R.id.et_otp).setText("")
+        findViewById<EditText>(R.id.tv_otp).setText("Ingresar código SMS")
+        //findViewById<EditText>(R.id.login).setText("login")
         // fill otp and call the on click on button
         findViewById<Button>(R.id.login).setOnClickListener {
             val otp = findViewById<EditText>(R.id.et_otp).text.trim().toString()
@@ -148,6 +182,7 @@ class VerificacionActivity : AppCompatActivity() {
     fun siguienteActivity(){
         GlobalScope.launch(Dispatchers.IO) {
             UsuarioRepositorio.cargarUsuarioLogueado()
+            guardarSesion()
             if(UsuarioRepositorio.usuarioLogueado ==null){
 //                withContext(Dispatchers.Main){
 //
@@ -170,7 +205,11 @@ class VerificacionActivity : AppCompatActivity() {
     fun guardarSesion(){
         val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
-            putString(getString(R.string.app_name)+"-login", UsuarioRepositorio.usuarioLogueado.id)
+            putString(getString(R.string.app_name)+"-login-id", UsuarioRepositorio.usuarioLogueado.id)
+            putString(getString(R.string.app_name)+"-login-nombre", UsuarioRepositorio.usuarioLogueado.nombre)
+            putString(getString(R.string.app_name)+"-login-apellido", UsuarioRepositorio.usuarioLogueado.apellido)
+            putString(getString(R.string.app_name)+"-login-telefono", UsuarioRepositorio.usuarioLogueado.telefono)
+            putString(getString(R.string.app_name)+"-login-foto", UsuarioRepositorio.usuarioLogueado.foto)
             apply()
         }
     }
@@ -178,7 +217,11 @@ class VerificacionActivity : AppCompatActivity() {
     fun cerrarSesion(){
         val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
-            remove(getString(R.string.app_name)+"-login")
+            remove(getString(R.string.app_name)+"-login-id")
+            remove(getString(R.string.app_name)+"-login-nombre")
+            remove(getString(R.string.app_name)+"-login-apellido")
+            remove(getString(R.string.app_name)+"-login-telefono")
+            remove(getString(R.string.app_name)+"-login-foto")
             apply()
         }
     }

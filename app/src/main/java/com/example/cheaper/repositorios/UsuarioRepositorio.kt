@@ -39,6 +39,7 @@ object UsuarioRepositorio {
         val docRef = db.collection(RepositorioConstantes.usuariosCollection).document(uid)
         var usuario = docRef.get().addOnSuccessListener {
             Log.d(tag,"Usuario obtenido. ${it.toObject<Usuario>()}")
+
         }
     }
 
