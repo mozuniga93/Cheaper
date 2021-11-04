@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "557923366486",
+    "firebase_url": "https://cheaper-manati4-default-rtdb.firebaseio.com",
+    "project_id": "cheaper-manati4",
+    "storage_bucket": "cheaper-manati4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557923366486:android:5966106c33b30152fd6df7",
+        "android_client_info": {
+          "package_name": "com.example.cheaper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557923366486-u2jq5574r7s1jqiimuo0496qcgqktfmb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cheaper",
+            "certificate_hash": "079b2693d197d0e839142f646d0054752968f3fa"
+          }
+        },
+        {
+          "client_id": "557923366486-4gfklackscqgah8dnk146h0afldtl4qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGgljETKy2fLrq3gDHxq26jcY3PEdqyB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557923366486-4gfklackscqgah8dnk146h0afldtl4qm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

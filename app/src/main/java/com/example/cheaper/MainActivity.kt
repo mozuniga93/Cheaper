@@ -1,7 +1,10 @@
 package com.example.cheaper
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.cheaper.fragments.BuscarFragment
 import com.example.cheaper.fragments.FavoritosFragment
@@ -19,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val buscarFragment = BuscarFragment()
         val favoritosFragment = FavoritosFragment()
         val perfilFragment = PerfilFragment()
+        val lst = ProductsListActivity()
 
         makeCurrentFragment(inicioFragment)
 
@@ -26,11 +30,12 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.ic_inicio -> makeCurrentFragment(inicioFragment)
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
-                R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
+                R.id.ic_favoritos -> makeCurrentActivity(lst)
                 R.id.ic_perfil -> makeCurrentFragment(perfilFragment)
             }
             true
         }
+
     }
 
     private fun makeCurrentFragment(fragment: Fragment) =
@@ -38,4 +43,11 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
+
+    private fun makeCurrentActivity(fragment: Activity) {
+
+        val intent = Intent(this, ProductsListActivity::class.java)
+        startActivity(intent)
+
+    }
 }
