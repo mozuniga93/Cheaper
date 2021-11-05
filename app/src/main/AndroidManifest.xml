@@ -13,6 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cheaper">
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/Shape" />
+
         <activity
             android:name=".VerificacionActivity"
             android:exported="true" />
@@ -27,7 +31,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
