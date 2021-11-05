@@ -15,7 +15,7 @@
             android:id="@+id/textViewMisProductos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="48dp"
             android:fontFamily="@font/montserrat"
             android:paddingTop="10dp"
             android:text="Mis productos"
@@ -97,12 +97,12 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/relativeLayout"
-            app:layout_constraintVertical_bias="0.222" />
+            app:layout_constraintVertical_bias="0.256" />
 
         <ScrollView
             android:id="@+id/scrollViewProduct"
-            android:layout_width="match_parent"
-            android:layout_height="115dp"
+            android:layout_width="403dp"
+            android:layout_height="161dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewMisProductos">
 
@@ -189,8 +189,8 @@
 
         <ScrollView
             android:id="@+id/scrollViewResena"
-            android:layout_width="match_parent"
-            android:layout_height="115dp"
+            android:layout_width="411dp"
+            android:layout_height="167dp"
             android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/idTextViewMisResenas"
@@ -282,7 +282,7 @@
             android:id="@+id/idTextViewMisResenas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="392dp"
+            android:layout_marginTop="432dp"
             android:fontFamily="@font/montserrat"
             android:text="Mis reseñas"
             android:textSize="20sp"
