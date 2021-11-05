@@ -11,12 +11,10 @@ import com.google.firebase.firestore.*
 
 class ProductsListActivity : AppCompatActivity() {
 
-    private lateinit var dbref : DatabaseReference
     private lateinit var productRecyclerView : RecyclerView
     private lateinit var productArrayList : ArrayList<Product>
     private lateinit var myAdapter : AdapterProduct
     private lateinit var db : FirebaseFirestore
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,3 +57,4 @@ class ProductsListActivity : AppCompatActivity() {
         })
     }
 }
+// COMENTARIO
