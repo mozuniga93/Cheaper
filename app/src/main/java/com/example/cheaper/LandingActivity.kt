@@ -33,14 +33,13 @@ class LandingActivity : AppCompatActivity() {
     }
 
     fun revisarPrimerInicio() {
-        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
-        val primerInicio = false //sharedPref.getBoolean(getString(R.string.app_name)+"-login-inicio", false)
+        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
+        val primerInicio = sharedPref.getBoolean(getString(R.string.app_name)+"-login-inicio", false)
 
         Log.d(tag , "Es primer uso: $primerInicio")
         if(primerInicio){
             primerInicio()
         }else{
-            //enviarVerificacionActivity()
             revisarSesion()
         }
     }
@@ -49,7 +48,7 @@ class LandingActivity : AppCompatActivity() {
 
         //TODO Mostrar mensajes o guia de primer instalacion
 
-        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putBoolean(getString(R.string.app_name)+"-login-inicio", false)
             apply()
@@ -66,15 +65,9 @@ class LandingActivity : AppCompatActivity() {
 
     fun revisarSesion() {
         Log.d(tag,"revisando sesion...")
-        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
-
-        sharedPref.all.forEach{
-            Log.d(tag,"Preference: ${it.toString()}")
-        }
-
+        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
 
         val usuarioId = sharedPref.getString(getString(R.string.app_name)+"-login-id", "")
-        Log.d(tag,"Shared preference de usuario ID: $usuarioId")
         if(usuarioId!=""){
             UsuarioRepositorio.usuarioLogueado = Usuario(
                 usuarioId,
@@ -86,7 +79,6 @@ class LandingActivity : AppCompatActivity() {
             Log.d(tag, "Usuario logueado")
             Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
         }
-
         enviarMain()
     }
 

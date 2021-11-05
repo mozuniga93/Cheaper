@@ -169,51 +169,7 @@ class VerificacionActivity : AppCompatActivity() {
             }
     }
 
-    fun enviarMain(){
-        val intent = Intent(this , MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
-
     fun siguienteActivity(){
-        /*GlobalScope.launch(Dispatchers.IO) {
-
-            UsuarioRepositorio.authUsuario = Firebase.auth.currentUser!!
-            val db = Firebase.firestore
-            val docRef = db.collection(RepositorioConstantes.usuariosCollection).document(
-                UsuarioRepositorio.authUsuario.uid)
-            val res = docRef.get().await()
-            if(res != null){
-                UsuarioRepositorio.usuarioLogueado = res.toObject<Usuario>()!!
-                Log.d(UsuarioRepositorio.tag,"Usuario ${UsuarioRepositorio.usuarioLogueado}")
-            }else{
-                Log.d(UsuarioRepositorio.tag,"Usuario nulo.")
-            }
-
-
-            if(UsuarioRepositorio.usuarioLogueado ==null){
-                withContext(Dispatchers.Main){
-
-                    val intent = Intent(this@VerificacionActivity , RegistrarUsuarioActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }else{
-                guardarSesion()
-                withContext(Dispatchers.Main){
-
-                    val intent = Intent(this@VerificacionActivity , MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
-        }*/
-/*
-        viewModel.doWork()
-        viewModel.usuario.observe(this, Observer {
-            Log.d(tag, it.toString())
-        })
-*/
         Log.d(tag, "Cargando usuario")
         UsuarioRepositorio.authUsuario = Firebase.auth.currentUser!!
         val db = Firebase.firestore
@@ -237,14 +193,11 @@ class VerificacionActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-
-        //enviarMain()
     }
 
     fun guardarSesion(){
         Log.d(tag, "Guardando sesion...")
-        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putString(getString(R.string.app_name)+"-login-id", UsuarioRepositorio.usuarioLogueado.id)
             putString(getString(R.string.app_name)+"-login-nombre", UsuarioRepositorio.usuarioLogueado.nombre)
@@ -253,13 +206,10 @@ class VerificacionActivity : AppCompatActivity() {
             putString(getString(R.string.app_name)+"-login-foto", UsuarioRepositorio.usuarioLogueado.foto)
             apply()
         }
-        sharedPref.all.forEach{
-            Log.d(tag,"Preference: ${it.toString()}")
-        }
     }
 
     fun cerrarSesion(){
-        val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             remove(getString(R.string.app_name)+"-login-id")
             remove(getString(R.string.app_name)+"-login-nombre")

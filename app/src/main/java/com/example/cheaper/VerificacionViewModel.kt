@@ -3,7 +3,7 @@ package com.example.cheaper
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+//import androidx.lifecycle.viewModelScope
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.UsuarioRepositorio
@@ -24,10 +24,10 @@ class VerificacionViewModel : ViewModel(){
     // create instance of firebase auth
     lateinit var auth: FirebaseAuth
 
-    fun  doWork(){
-        viewModelScope.launch {
+    fun doWork(){
+/*        viewModelScope.launch {
             usuario.value = cargarUsuario()
-        }
+        }*/
     }
 
     private suspend fun cargarUsuario(): Usuario {

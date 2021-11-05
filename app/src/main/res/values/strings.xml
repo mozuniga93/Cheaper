@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Cheaper</string>
+    <string name="preference_file">com.example.cheaper.key</string>
 </resources>
