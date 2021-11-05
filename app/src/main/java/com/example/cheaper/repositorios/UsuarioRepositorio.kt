@@ -22,6 +22,8 @@ object UsuarioRepositorio {
 
     }
 
+    fun usuarioEstaLogueado() = ::usuarioLogueado.isInitialized
+
     fun crearNuevoUsuario(usuarioNuevo:Usuario){
         val db = Firebase.firestore
         db.collection(RepositorioConstantes.usuariosCollection).document(usuarioNuevo?.id!!)

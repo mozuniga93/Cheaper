@@ -34,11 +34,13 @@ class LandingActivity : AppCompatActivity() {
 
     fun revisarPrimerInicio() {
         val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
-        val primerInicio = sharedPref.getBoolean(getString(R.string.app_name)+"-login-inicio", false)
+        val primerInicio = false //sharedPref.getBoolean(getString(R.string.app_name)+"-login-inicio", false)
 
+        Log.d(tag , "Es primer uso: $primerInicio")
         if(primerInicio){
             primerInicio()
         }else{
+            //enviarVerificacionActivity()
             revisarSesion()
         }
     }
@@ -63,8 +65,16 @@ class LandingActivity : AppCompatActivity() {
     }
 
     fun revisarSesion() {
+        Log.d(tag,"revisando sesion...")
         val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
+
+        sharedPref.all.forEach{
+            Log.d(tag,"Preference: ${it.toString()}")
+        }
+
+
         val usuarioId = sharedPref.getString(getString(R.string.app_name)+"-login-id", "")
+        Log.d(tag,"Shared preference de usuario ID: $usuarioId")
         if(usuarioId!=""){
             UsuarioRepositorio.usuarioLogueado = Usuario(
                 usuarioId,
@@ -73,10 +83,10 @@ class LandingActivity : AppCompatActivity() {
                 sharedPref.getString(getString(R.string.app_name)+"-login-telefono", ""),
                 sharedPref.getString(getString(R.string.app_name)+"-login-foto", "")
             )
+            Log.d(tag, "Usuario logueado")
+            Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
         }
 
-        Log.i(tag,
-            sharedPref.getString(getString(R.string.app_name)+"-login-id", "")!!)
         enviarMain()
     }
 

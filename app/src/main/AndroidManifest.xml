@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cheaper">
         <activity
-            android:name=".RegistrarUsuario"
+            android:name=".RegistrarUsuarioActivity"
             android:exported="true" />
         <activity
             android:name=".VerificacionActivity"

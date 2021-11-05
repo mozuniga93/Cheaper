@@ -7,18 +7,26 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.cheaper.model.Usuario
+import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.google.firebase.FirebaseException
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
 class VerificacionActivity : AppCompatActivity() {
@@ -28,6 +36,8 @@ class VerificacionActivity : AppCompatActivity() {
 
     // create instance of firebase auth
     lateinit var auth: FirebaseAuth
+
+    private lateinit var viewModel: VerificacionViewModel
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -45,13 +55,10 @@ class VerificacionActivity : AppCompatActivity() {
 
         firebaseAnalytics = Firebase.analytics
 
-        // start verification on click of the button
         findViewById<Button>(R.id.login).setOnClickListener {
             ingresarNumeroTelefono()
         }
 
-
-        // Callback function for Phone Auth
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             // This method is called when the verification is completed
@@ -78,13 +85,19 @@ class VerificacionActivity : AppCompatActivity() {
                 //this@LandingActivity.enableUserManuallyInputCode()
 
 
+                findViewById<EditText>(R.id.et_otp).setText("")
+                findViewById<TextView>(R.id.tv_otp).setText("Ingresar código SMS")
+                findViewById<Button>(R.id.login).setText("Verificar")
                 iniciarVerificacion()
             }
 
             override fun onCodeAutoRetrievalTimeOut(verificationId: String) {
-                Log.d(tag,"Código no se puedo obtener automaticamente, verification ID: $verificationId")
+                //Log.d(tag,"Código no se puedo obtener automaticamente, verification ID: $verificationId")
             }
         }
+
+        viewModel = ViewModelProvider(this).get(VerificacionViewModel::class.java)
+
     }
 
     private fun ingresarNumeroTelefono() {
@@ -125,10 +138,6 @@ class VerificacionActivity : AppCompatActivity() {
 
     fun iniciarVerificacion(){
 
-        findViewById<EditText>(R.id.et_otp).setText("")
-        findViewById<EditText>(R.id.tv_otp).setText("Ingresar código SMS")
-        //findViewById<EditText>(R.id.login).setText("login")
-        // fill otp and call the on click on button
         findViewById<Button>(R.id.login).setOnClickListener {
             val otp = findViewById<EditText>(R.id.et_otp).text.trim().toString()
             if(otp.isNotEmpty()){
@@ -142,8 +151,9 @@ class VerificacionActivity : AppCompatActivity() {
     }
 
     // verifies if the code matches sent by firebase
-    // if success start the new activity in our case it is main Activity
+    // if success start the new activity
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -165,44 +175,75 @@ class VerificacionActivity : AppCompatActivity() {
         finish()
     }
 
-    fun enviarRegistrar(){
-        //TODO
-        Log.d("Login log", "Enviando a registrar")
-        var authUsuario = Firebase.auth.currentUser!!
-        var usuario = Usuario(
-            authUsuario?.phoneNumber!!,
-            "Monica",
-            "Zuniga",
-            authUsuario?.uid!!
-        )
-        UsuarioRepositorio.crearNuevoUsuario(usuario)
+    fun siguienteActivity(){
+        /*GlobalScope.launch(Dispatchers.IO) {
+
+            UsuarioRepositorio.authUsuario = Firebase.auth.currentUser!!
+            val db = Firebase.firestore
+            val docRef = db.collection(RepositorioConstantes.usuariosCollection).document(
+                UsuarioRepositorio.authUsuario.uid)
+            val res = docRef.get().await()
+            if(res != null){
+                UsuarioRepositorio.usuarioLogueado = res.toObject<Usuario>()!!
+                Log.d(UsuarioRepositorio.tag,"Usuario ${UsuarioRepositorio.usuarioLogueado}")
+            }else{
+                Log.d(UsuarioRepositorio.tag,"Usuario nulo.")
+            }
+
+
+            if(UsuarioRepositorio.usuarioLogueado ==null){
+                withContext(Dispatchers.Main){
+
+                    val intent = Intent(this@VerificacionActivity , RegistrarUsuarioActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }else{
+                guardarSesion()
+                withContext(Dispatchers.Main){
+
+                    val intent = Intent(this@VerificacionActivity , MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+        }*/
+/*
+        viewModel.doWork()
+        viewModel.usuario.observe(this, Observer {
+            Log.d(tag, it.toString())
+        })
+*/
+        Log.d(tag, "Cargando usuario")
+        UsuarioRepositorio.authUsuario = Firebase.auth.currentUser!!
+        val db = Firebase.firestore
+        val docRef = db.collection(RepositorioConstantes.usuariosCollection)
+            .document(UsuarioRepositorio.authUsuario.uid)
+        docRef.get().addOnSuccessListener { document ->
+
+            val tag = "[Manati] Login"
+            if (document != null) {
+                UsuarioRepositorio.usuarioLogueado = document.toObject<Usuario>()!!
+                Log.d(tag, "Usuario logueado")
+                Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
+                guardarSesion()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                Log.d(tag, "No usuario logueado")
+                val intent = Intent(this, RegistrarUsuarioActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+
+
         //enviarMain()
     }
 
-    fun siguienteActivity(){
-        GlobalScope.launch(Dispatchers.IO) {
-            UsuarioRepositorio.cargarUsuarioLogueado()
-            guardarSesion()
-            if(UsuarioRepositorio.usuarioLogueado ==null){
-//                withContext(Dispatchers.Main){
-//
-//                    val intent = Intent(this@VerificacionActivity , MainActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
-            }else{
-//                withContext(Dispatchers.Main){
-//
-//                    val intent = Intent(this@VerificacionActivity , MainActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
-            }
-        }
-        enviarMain()
-    }
-
     fun guardarSesion(){
+        Log.d(tag, "Guardando sesion...")
         val sharedPref = this?.getPreferences(Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
             putString(getString(R.string.app_name)+"-login-id", UsuarioRepositorio.usuarioLogueado.id)
@@ -211,6 +252,9 @@ class VerificacionActivity : AppCompatActivity() {
             putString(getString(R.string.app_name)+"-login-telefono", UsuarioRepositorio.usuarioLogueado.telefono)
             putString(getString(R.string.app_name)+"-login-foto", UsuarioRepositorio.usuarioLogueado.foto)
             apply()
+        }
+        sharedPref.all.forEach{
+            Log.d(tag,"Preference: ${it.toString()}")
         }
     }
 
