@@ -1,5 +1,6 @@
 package com.example.cheaper.repositorios
 
+import android.content.Context
 import android.util.Log
 import com.example.cheaper.model.Usuario
 import com.google.firebase.auth.FirebaseUser
@@ -21,6 +22,8 @@ object UsuarioRepositorio {
 
     }
 
+    fun usuarioEstaLogueado() = ::usuarioLogueado.isInitialized
+
     fun crearNuevoUsuario(usuarioNuevo:Usuario){
         val db = Firebase.firestore
         db.collection(RepositorioConstantes.usuariosCollection).document(usuarioNuevo?.id!!)
@@ -38,6 +41,7 @@ object UsuarioRepositorio {
         val docRef = db.collection(RepositorioConstantes.usuariosCollection).document(uid)
         var usuario = docRef.get().addOnSuccessListener {
             Log.d(tag,"Usuario obtenido. ${it.toObject<Usuario>()}")
+
         }
     }
 
@@ -60,4 +64,6 @@ object UsuarioRepositorio {
             Log.d(tag,"Usuario nulo.")
         }
     }
+
+
 }

@@ -1,8 +1,10 @@
 package com.example.cheaper.model
 
 data class Usuario (
-    var telefono: String? = null,
+    var id: String? = null,
     var nombre: String? = null,
     var apellido: String? = null,
-    var id: String? = null,
+    var telefono: String? = null,
+    var foto: String? = null,
+    var habilitado: Boolean? = null
 )

@@ -14,8 +14,12 @@
         android:theme="@style/Theme.Cheaper">
 
         <activity
-            android:name=".VerificacionActivity"
+            android:name=".RegistrarUsuarioActivity"
             android:exported="true" />
+        <activity
+            android:name=".VerificacionActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".LandingActivity"
             android:name=".ProductsListActivity"
@@ -27,8 +31,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            </intent-filter></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true" />
