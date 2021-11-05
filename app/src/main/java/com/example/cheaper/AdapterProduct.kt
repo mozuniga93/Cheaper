@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class AdapterProduct(private val productsList: ArrayList<Product>) :
+
     RecyclerView.Adapter<AdapterProduct.MyViewHolder>() {
 
 
@@ -19,18 +20,18 @@ class AdapterProduct(private val productsList: ArrayList<Product>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        val currentItem = productsList[position]
+        val currentItem : Product = productsList[position]
 
-        holder.productName.text = currentItem.productName
-        holder.productBrand.text = currentItem.productBrand
-        holder.productDescription.text = currentItem.productDescription
+        holder.productName.text = currentItem.nombre
+        holder.productBrand.text = currentItem.marca
+        holder.productDescription.text = currentItem.descripcion
     }
 
     override fun getItemCount(): Int {
         return productsList.size
     }
 
-    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    public class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
         val productName : TextView = itemView.findViewById(R.id.tvName)
         val productBrand : TextView = itemView.findViewById(R.id.tvBrand)
