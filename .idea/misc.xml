@@ -5,7 +5,6 @@
       <map>
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/drawable-v24/ic_buscar.xml" value="0.3567708333333333" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/drawable-v24/ic_perfil.xml" value="0.3567708333333333" />
-        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/drawable/searchview_background.xml" value="0.31197916666666664" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/drawable/selector.xml" value="0.21354166666666666" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/activity_main.xml" value="0.232016210739615" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_buscar.xml" value="0.2708333333333333" />
@@ -13,6 +12,13 @@
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_inicio.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_perfil.xml" value="0.2708333333333333" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/menu/nav_menu.xml" value="0.340625" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_landing.xml" value="0.1" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_main.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_registrar_usuario.xml" value="0.10916919959473151" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_verficacion.xml" value="0.21302083333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_buscar.xml" value="0.10277777777777777" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_perfil.xml" value="0.264" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/xml/network_security_config.xml" value="0.129981884057971" />
         <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/drawable/selector.xml" value="0.1" />
         <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/drawable/shape.xml" value="0.1" />
         <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/fragment_buscar.xml" value="0.1390625" />
