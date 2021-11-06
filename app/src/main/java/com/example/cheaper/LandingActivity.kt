@@ -40,7 +40,8 @@ class LandingActivity : AppCompatActivity() {
         if(primerInicio){
             primerInicio()
         }else{
-            revisarSesion()
+            //revisarSesion()
+            enviarVerificacionActivity()
         }
     }
 
@@ -64,7 +65,7 @@ class LandingActivity : AppCompatActivity() {
     }
 
     fun revisarSesion() {
-        Log.d(tag,"revisando sesion...")
+        Log.d(tag,"Revisando sesion...")
         val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
 
         val usuarioId = sharedPref.getString(getString(R.string.app_name)+"-login-id", "")

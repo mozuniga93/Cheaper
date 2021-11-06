@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.example.cheaper.repositorios.UsuarioRepositorio.guardarSesion
 import com.google.firebase.FirebaseException
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -37,7 +38,6 @@ class VerificacionActivity : AppCompatActivity() {
     // create instance of firebase auth
     lateinit var auth: FirebaseAuth
 
-    private lateinit var viewModel: VerificacionViewModel
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -96,8 +96,6 @@ class VerificacionActivity : AppCompatActivity() {
             }
         }
 
-        viewModel = ViewModelProvider(this).get(VerificacionViewModel::class.java)
-
     }
 
     private fun ingresarNumeroTelefono() {
@@ -106,7 +104,7 @@ class VerificacionActivity : AppCompatActivity() {
         // get the phone number from edit text and append the country cde with it
         if (number.isNotEmpty()){
             //Para automatizar el login con un numero ficticio registrado en Firebase
-            number = "+1 650-555-3434"
+            number = "+1 928-599-2411"
 
             // Para no tener que hacerlo manual con un usuario real, se crea un 'dumb' session
             // pero no carga un usuario real
@@ -178,11 +176,12 @@ class VerificacionActivity : AppCompatActivity() {
         docRef.get().addOnSuccessListener { document ->
 
             val tag = "[Manati] Login"
-            if (document != null) {
+            if (document?.getData() != null) {
+                Log.d(tag, "Documento $document")
                 UsuarioRepositorio.usuarioLogueado = document.toObject<Usuario>()!!
                 Log.d(tag, "Usuario logueado")
                 Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
-                guardarSesion()
+                guardarSesion(this)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
@@ -195,29 +194,6 @@ class VerificacionActivity : AppCompatActivity() {
         }
     }
 
-    fun guardarSesion(){
-        Log.d(tag, "Guardando sesion...")
-        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
-            putString(getString(R.string.app_name)+"-login-id", UsuarioRepositorio.usuarioLogueado.id)
-            putString(getString(R.string.app_name)+"-login-nombre", UsuarioRepositorio.usuarioLogueado.nombre)
-            putString(getString(R.string.app_name)+"-login-apellido", UsuarioRepositorio.usuarioLogueado.apellido)
-            putString(getString(R.string.app_name)+"-login-telefono", UsuarioRepositorio.usuarioLogueado.telefono)
-            putString(getString(R.string.app_name)+"-login-foto", UsuarioRepositorio.usuarioLogueado.foto)
-            apply()
-        }
-    }
 
-    fun cerrarSesion(){
-        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
-        with (sharedPref.edit()) {
-            remove(getString(R.string.app_name)+"-login-id")
-            remove(getString(R.string.app_name)+"-login-nombre")
-            remove(getString(R.string.app_name)+"-login-apellido")
-            remove(getString(R.string.app_name)+"-login-telefono")
-            remove(getString(R.string.app_name)+"-login-foto")
-            apply()
-        }
-    }
 
 }
