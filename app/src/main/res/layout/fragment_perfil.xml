@@ -106,176 +106,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewMisProductos">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerProductPerfil"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:isScrollContainer="false"
-                android:orientation="vertical"
-                android:scrollbars="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMisProductos">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp">
-
-                    <ImageView
-                        android:id="@+id/imageProduct2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="263dp"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:layout_width="246dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="7dp"
-                        android:layout_marginBottom="105dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Nombre del producto"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="246dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="9dp"
-                        android:layout_marginBottom="80dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Precio"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="247dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="9dp"
-                        android:layout_marginBottom="48dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Tienda"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="247dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="9dp"
-                        android:layout_marginBottom="17dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Localización"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-
-                </RelativeLayout>
-
-
-            </LinearLayout>
-
+                android:layout_height="wrap_content" />
         </ScrollView>
 
         <ScrollView
             android:id="@+id/scrollViewResena"
-            android:layout_width="411dp"
+            android:layout_width="match_parent"
             android:layout_height="167dp"
             android:layout_marginBottom="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/idTextViewMisResenas"
             app:layout_constraintVertical_bias="0.192"
+            tools:ignore="SpeakableTextPresentCheck"
             tools:layout_editor_absoluteX="0dp">
 
-            <LinearLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerResennaPerfil"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:isScrollContainer="false"
-                android:orientation="vertical"
-                android:scrollbars="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMisProductos">
-
-
-                <RelativeLayout
-                    android:id="@+id/relativeLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp">
-
-                    <ImageView
-                        android:id="@+id/imageResena1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="263dp"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:layout_width="246dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="7dp"
-                        android:layout_marginBottom="105dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Nombre del producto"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="246dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="9dp"
-                        android:layout_marginBottom="80dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Precio"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="247dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="9dp"
-                        android:layout_marginBottom="48dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Tienda"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="247dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="9dp"
-                        android:layout_marginBottom="17dp"
-                        android:fontFamily="@font/montserrat"
-                        android:text="Localización"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-
-                </RelativeLayout>
-            </LinearLayout>
-
+                android:layout_height="wrap_content" />
         </ScrollView>
 
         <TextView
