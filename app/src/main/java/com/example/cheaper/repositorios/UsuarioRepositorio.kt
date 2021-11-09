@@ -73,6 +73,25 @@ object UsuarioRepositorio {
         }
     }
 
+    fun cargarSesion(context: Context) {
+        Log.d(tag,"Cargando sesion...")
+        val sharedPref = context.getSharedPreferences(RepositorioConstantes.sharedPreferenceFile,Context.MODE_PRIVATE) ?: return
+
+        val appName = RepositorioConstantes.appName
+        val usuarioId = sharedPref.getString(appName+"-login-id", "")
+        if(usuarioId!=""){
+            usuarioLogueado = Usuario(
+                usuarioId,
+                sharedPref.getString(appName+"-login-nombre", ""),
+                sharedPref.getString(appName+"-login-apellido", ""),
+                sharedPref.getString(appName+"-login-telefono", ""),
+                sharedPref.getString(appName+"-login-foto", "")
+            )
+            Log.d(tag, "Usuario logueado")
+            Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
+        }
+    }
+
     fun cerrarSesion(context: Context){
         val sharedPref = context.getSharedPreferences(RepositorioConstantes.sharedPreferenceFile, Context.MODE_PRIVATE) ?: return
         with (sharedPref.edit()) {
