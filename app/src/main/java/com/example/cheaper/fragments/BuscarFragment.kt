@@ -1,16 +1,29 @@
 package com.example.cheaper.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cheaper.Product
 import com.example.cheaper.R
+import com.example.cheaper.adapters.CategoriaAdapter
+import com.example.cheaper.model.Categoria
+import com.google.firebase.firestore.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+private lateinit var categoriaRecyclerView : RecyclerView
+private lateinit var categoriaArrayList : ArrayList<Categoria>
+private lateinit var myAdapter : CategoriaAdapter
+private lateinit var db : FirebaseFirestore
+private lateinit var viewOfLayout: View
 
 /**
  * A simple [Fragment] subclass.
@@ -35,7 +48,14 @@ class BuscarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buscar, container, false)
+        viewOfLayout =  inflater.inflate(R.layout.fragment_buscar, container, false)
+        categoriaRecyclerView = viewOfLayout.findViewById(R.id.categoriasListBuscar)
+        categoriaRecyclerView.layoutManager = GridLayoutManager(this.context, 2)
+        categoriaArrayList = arrayListOf()
+        myAdapter = CategoriaAdapter(categoriaArrayList)
+        categoriaRecyclerView.adapter = myAdapter
+        EventChangeListener()
+        return viewOfLayout
     }
 
     companion object {
@@ -56,5 +76,30 @@ class BuscarFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun EventChangeListener(){
+
+        db = FirebaseFirestore.getInstance()
+        db.collection("categorias").
+        addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?, error: FirebaseFirestoreException?
+            ) {
+
+                if (error != null){
+                    Log.e("Firestore Error", error.message.toString())
+                    return
+                }
+
+                for (dc : DocumentChange in value?.documentChanges!!){
+
+                    if (dc.type == DocumentChange.Type.ADDED){
+                        categoriaArrayList.add(dc.document.toObject(Categoria::class.java))
+                    }
+                }
+                myAdapter.notifyDataSetChanged()
+            }
+        })
     }
 }
