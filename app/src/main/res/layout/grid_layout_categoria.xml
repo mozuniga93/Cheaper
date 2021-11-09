@@ -25,6 +25,13 @@
             android:alpha="255"
             />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shadoweffect"
+            />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -37,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/app_name"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:layout_centerInParent="true"
                 android:textStyle="bold" />
