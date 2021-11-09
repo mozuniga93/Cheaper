@@ -54,13 +54,23 @@
                 tools:src="@tools:sample/avatars" />
 
             <TextView
+                android:id="@+id/txtCerrarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/txtNombre"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/white"
+                android:clickable="true"
+                android:text="Cerrar Sesión" />
+
+            <TextView
                 android:id="@+id/txtNombre"
                 android:layout_width="205dp"
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@id/txtApellido"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginEnd="22dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="76dp"
                 android:fontFamily="@font/montserrat"
                 android:text="Nombre"
