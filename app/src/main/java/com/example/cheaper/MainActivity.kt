@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         val buscarFragment = BuscarFragment()
         val favoritosFragment = FavoritosFragment()
         val perfilFragment = PerfilFragment()
-        val lst = ProductsListActivity()
 
         makeCurrentFragment(inicioFragment)
 
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.ic_inicio -> makeCurrentFragment(inicioFragment)
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
-                R.id.ic_favoritos -> makeCurrentActivity(lst)
+                R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
                 R.id.ic_perfil -> makeCurrentFragment(perfilFragment)
             }
             true
@@ -51,10 +50,10 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
-    private fun makeCurrentActivity(fragment: Activity) {
+/*    private fun makeCurrentActivity(fragment: Activity) {
 
         val intent = Intent(this, ProductsListActivity::class.java)
         startActivity(intent)
 
-    }
+    }*/
 }
