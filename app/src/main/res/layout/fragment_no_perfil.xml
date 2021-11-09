@@ -2,30 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/perfil_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PerfilFragment">
+    tools:context=".fragments.NoPerfilFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/textViewMisProductos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:fontFamily="@font/montserrat"
-            android:paddingTop="10dp"
-            android:text="Mis productos"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.118"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -53,16 +37,6 @@
                 app:civ_border_color="#FFFFFFFF"
                 app:civ_border_width="4dp"
                 tools:src="@tools:sample/avatars" />
-
-            <TextView
-                android:id="@+id/txtCerrarSesion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/txtNombre"
-                android:layout_marginEnd="10dp"
-                android:textColor="@color/white"
-                android:clickable="true"
-                android:text="Cerrar Sesión" />
 
             <TextView
                 android:id="@+id/txtNombre"
@@ -96,64 +70,19 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/button_crear_prod"
+            android:id="@+id/buttonIniciarSesion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:backgroundTint="@color/secundario_amarillo"
+            android:background="@drawable/button_add_product"
+            android:clickable="true"
             android:fontFamily="@font/montserrat"
-            android:text="Crear nuevo producto"
+            android:text="Iniciar Sesión"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/relativeLayout"
             app:layout_constraintVertical_bias="0.256" />
-
-        <ScrollView
-            android:id="@+id/scrollViewProduct"
-            android:layout_width="403dp"
-            android:layout_height="161dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewMisProductos">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerProductPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
-
-        <ScrollView
-            android:id="@+id/scrollViewResena"
-            android:layout_width="match_parent"
-            android:layout_height="167dp"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idTextViewMisResenas"
-            app:layout_constraintVertical_bias="0.192"
-            tools:ignore="SpeakableTextPresentCheck"
-            tools:layout_editor_absoluteX="0dp">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerResennaPerfil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
-
-        <TextView
-            android:id="@+id/idTextViewMisResenas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="432dp"
-            android:fontFamily="@font/montserrat"
-            android:text="Mis reseñas"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/textViewMisProductos"
-            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

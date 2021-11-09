@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.example.cheaper.fragments.BuscarFragment
-import com.example.cheaper.fragments.FavoritosFragment
-import com.example.cheaper.fragments.InicioFragment
-import com.example.cheaper.fragments.PerfilFragment
+import com.example.cheaper.fragments.*
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.google.firebase.auth.ktx.auth
@@ -29,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val buscarFragment = BuscarFragment()
         val favoritosFragment = FavoritosFragment()
         val perfilFragment = PerfilFragment()
+        val noPerfilFragment = NoPerfilFragment()
 
         makeCurrentFragment(inicioFragment)
 
@@ -38,6 +36,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
                 R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
                 R.id.ic_perfil -> makeCurrentFragment(perfilFragment)
+                R.id.ic_favoritos -> makeCurrentActivity(lst)
+                R.id.ic_perfil -> {
+                    if(UsuarioRepositorio.usuarioEstaLogueado())
+                        makeCurrentFragment(perfilFragment)
+                    else
+                        makeCurrentFragment(noPerfilFragment)
+                }
             }
             true
         }

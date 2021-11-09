@@ -41,6 +41,10 @@ class LandingActivity : AppCompatActivity() {
             primerInicio()
         }else{
             revisarSesion()
+            //TESTING, MUST DELETE
+            /*val intent = Intent(this , RegistrarUsuarioActivity::class.java)
+            startActivity(intent)
+            finish()*/
         }
     }
 
@@ -64,21 +68,8 @@ class LandingActivity : AppCompatActivity() {
     }
 
     fun revisarSesion() {
-        Log.d(tag,"revisando sesion...")
-        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
-
-        val usuarioId = sharedPref.getString(getString(R.string.app_name)+"-login-id", "")
-        if(usuarioId!=""){
-            UsuarioRepositorio.usuarioLogueado = Usuario(
-                usuarioId,
-                sharedPref.getString(getString(R.string.app_name)+"-login-nombre", ""),
-                sharedPref.getString(getString(R.string.app_name)+"-login-apellido", ""),
-                sharedPref.getString(getString(R.string.app_name)+"-login-telefono", ""),
-                sharedPref.getString(getString(R.string.app_name)+"-login-foto", "")
-            )
-            Log.d(tag, "Usuario logueado")
-            Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
-        }
+        Log.d(tag,"Revisando sesion...")
+        UsuarioRepositorio.cargarSesion(this)
         enviarMain()
     }
 
