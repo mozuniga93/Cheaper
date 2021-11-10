@@ -1,7 +1,6 @@
 package com.example.cheaper.fragments
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,14 +9,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.*
 import com.example.cheaper.R
+import com.example.cheaper.adapters.AdapterProduct
+import com.example.cheaper.model.Product
 import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.google.firebase.firestore.*
-import kotlinx.android.synthetic.main.fragment_perfil.*
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_perfil.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +36,8 @@ class PerfilFragment : Fragment() {
     private lateinit var db : FirebaseFirestore
     private lateinit var viewOfLayout: View
 
+   // private val usuario = UsuarioRepositorio.usuarioLogueado
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,12 +53,12 @@ class PerfilFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        cargarPerfil()
         viewOfLayout = inflater.inflate(R.layout.fragment_perfil, container, false)
         viewOfLayout?.findViewById<TextView>(R.id.txtCerrarSesion)?.setOnClickListener {
             cerrarSesion()
         }
 
+        cargarPerfil(viewOfLayout)
         mostrarListaMisProducos()
         mostrarListaMisResennas()
 
@@ -121,8 +124,16 @@ class PerfilFragment : Fragment() {
         this?.requireActivity().finish()
     }
 
-    fun cargarPerfil(){
+    fun cargarPerfil(viewOfLayout: View){
 
+        val usuario = UsuarioRepositorio.usuarioLogueado
+
+        viewOfLayout.txtNombre.setText(usuario.nombre.toString())
+        viewOfLayout.txtApellido.setText(usuario.apellido.toString())
+
+        val imageUri = usuario.foto.toString()
+        val ivBasicImage = viewOfLayout.imageViewPerfil
+        Picasso.get().load(imageUri).into(ivBasicImage)
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.cheaper
+package com.example.cheaper.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cheaper.R
+import com.example.cheaper.model.Product
 import com.squareup.picasso.Picasso
 
 class AdapterProduct(private val productsList: ArrayList<Product>) :
@@ -15,7 +17,8 @@ class AdapterProduct(private val productsList: ArrayList<Product>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_producto_perfil,
+        val itemView = LayoutInflater.from(parent.context).inflate(
+            R.layout.item_producto_perfil,
             parent, false)
         return MyViewHolder(itemView)
     }

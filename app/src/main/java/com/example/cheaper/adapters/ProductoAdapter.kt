@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cheaper.Product
+import com.example.cheaper.model.Product
 import com.example.cheaper.R
 import com.squareup.picasso.Picasso
 

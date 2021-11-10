@@ -6,16 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.get
-import androidx.core.view.isNotEmpty
-import androidx.fragment.app.FragmentTransaction
-import com.example.cheaper.Product
 import com.example.cheaper.R
 import com.example.cheaper.databinding.FragmentRegistrarProductoBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.fragment_registrar_producto.*
-import kotlinx.android.synthetic.main.fragment_registrar_producto.view.*
-import java.lang.reflect.Field
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

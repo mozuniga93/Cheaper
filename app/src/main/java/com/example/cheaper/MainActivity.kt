@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.ic_inicio -> makeCurrentFragment(inicioFragment)
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
                 R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
-                R.id.ic_perfil -> makeCurrentFragment(perfilFragment)
                 R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
                 R.id.ic_perfil -> {
                     if(UsuarioRepositorio.usuarioEstaLogueado())

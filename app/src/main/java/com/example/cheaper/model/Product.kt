@@ -1,4 +1,4 @@
-package com.example.cheaper
+package com.example.cheaper.model
 
 class Product(var id: String ?= null, var nombre: String ?= null,  var marca: String ?= null,
                 var descripcion: String ?= null, var codigo: String ?= null,
