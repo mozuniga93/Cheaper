@@ -15,34 +15,7 @@ tools:context=".RegistrarUsuarioActivity">
     android:background="@android:drawable/toast_frame"
     android:backgroundTint="@color/primario"
     android:src="@android:drawable/divider_horizontal_dark" />
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="175dp"
 
-        android:background="@drawable/back_with_border"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="119dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="116dp"
-            android:layout_marginTop="39dp"
-            android:layout_marginEnd="156dp"
-            android:layout_marginBottom="27dp"
-            app:civ_border_color="#FFFFFFFF"
-            app:civ_border_width="4dp"
-            tools:src="@tools:sample/avatars" />
-
-    </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
