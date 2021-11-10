@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
                 R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
                 R.id.ic_perfil -> makeCurrentFragment(perfilFragment)
-                R.id.ic_favoritos -> makeCurrentActivity(lst)
+                R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
                 R.id.ic_perfil -> {
                     if(UsuarioRepositorio.usuarioEstaLogueado())
                         makeCurrentFragment(perfilFragment)
@@ -55,10 +55,9 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
-/*    private fun makeCurrentActivity(fragment: Activity) {
+/*   private fun makeCurrentActivity(fragment: Activity) {
 
         val intent = Intent(this, ProductsListActivity::class.java)
         startActivity(intent)
-
     }*/
 }
