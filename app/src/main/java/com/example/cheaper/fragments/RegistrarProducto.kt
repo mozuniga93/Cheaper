@@ -1,17 +1,19 @@
 package com.example.cheaper.fragments
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import com.example.cheaper.R
 import com.example.cheaper.databinding.FragmentRegistrarProductoBinding
+import com.example.cheaper.model.Product
 import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -45,16 +47,59 @@ class RegistrarProducto : Fragment() {
     }
 
 
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentRegistrarProductoBinding.inflate(inflater, container, false)
+        val vista =  inflater.inflate(R.layout.fragment_registrar_producto, container, false)
+        registrarProducto(vista)
 
+        return vista
+    }
 
-        return binding.root
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun registrarProducto(vista: View) {
+        val btnRegistrarProducto = vista.findViewById<Button>(R.id.btn_guardar_producto)
+        btnRegistrarProducto.setOnClickListener {
+            val nombre = vista.findViewById<EditText>(R.id.txtNombreProducto)
+            val marca = vista.findViewById<EditText>(R.id.txtMarcaProducto)
+            val descripcion = vista.findViewById<EditText>(R.id.txtDescripcionProducto)
+            val categria = vista.findViewById<EditText>(R.id.dropCategoriaProducto)
+            verificarCampostxt(nombre, marca, descripcion, categria)
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun verificarCampostxt(nombre: EditText, marca: EditText, descripcion: EditText, categria: EditText) {
+
+        if (!nombre.text.isNullOrBlank() && !marca.text.isNullOrBlank()
+            && !descripcion.text.isNullOrBlank() && !categria.equals("Categoría")) {
+            crearNuevoProducto(nombre, marca, descripcion, categria)
+        } else {
+            Log.d("Registro de producto", "Registro fallido")
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun crearNuevoProducto(nombre: EditText, marca: EditText, descripcion: EditText, categria: EditText) {
+
+        val nombretxt = nombre.text.toString()
+        val marcatxt = marca.text.toString()
+        val descripciontxt = descripcion.text.toString()
+        val categoriatxt = categria.text.toString()
+        var nuevoProducto = Product(
+            nombretxt,
+            marcatxt,
+            descripciontxt,
+            categoriatxt
+        )
+
+        Log.d("Nuevo producto", nuevoProducto.toString())
+       // ProductoRepositorio.crearNuevoProducto(nuevoProducto)
+
     }
 
     companion object {
