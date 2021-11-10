@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="10dp"
-    tools:context=".BlankFragment">
+    android:elevation="10dp">
 
     <ImageView
         android:id="@+id/imageView10"
@@ -25,7 +24,7 @@
         tools:layout_gravity="center">
 
         <TextView
-            android:id="@+id/lbl_producto"
+            android:id="@+id/lbl_productoreg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -47,10 +46,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_producto">
+            app:layout_constraintTop_toBottomOf="@+id/lbl_productoreg">
 
             <EditText
-                android:id="@+id/txt_precio"
+                android:id="@+id/txtNombreProducto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -72,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <EditText
-                android:id="@+id/txt_tienda"
+                android:id="@+id/txtMarcaProducto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -96,7 +95,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <EditText
-                android:id="@+id/txt_provincia"
+                android:id="@+id/txtDescripcionProducto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -134,7 +133,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_agregar_resenna"
+            android:id="@+id/btn_guardar_producto"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
