@@ -45,7 +45,7 @@ class NoPerfilFragment : Fragment() {
             Log.d("[Manati] NoPerfil","Iniciando Sesion.")
             val intent = Intent(context, VerificacionActivity::class.java)
             context?.startActivity(intent)
-            this?.requireActivity().finish()
+            //this?.requireActivity().finish()
         }
         // Inflate the layout for this fragment
         return mView

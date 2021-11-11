@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.UsuarioRepositorio
@@ -30,6 +31,15 @@ class LandingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_landing)
 
         revisarPrimerInicio()
+
+        findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_registrarme).setOnClickListener {
+            enviarVerificacionActivity()
+        }
+
+        findViewById<TextView>(R.id.textView3).setOnClickListener {
+            UsuarioRepositorio.cargarSesion(this)
+            enviarMain()
+        }
     }
 
     fun revisarPrimerInicio() {
@@ -40,11 +50,7 @@ class LandingActivity : AppCompatActivity() {
         if(primerInicio){
             primerInicio()
         }else{
-            revisarSesion()
-            //TESTING, MUST DELETE
-            /*val intent = Intent(this , RegistrarUsuarioActivity::class.java)
-            startActivity(intent)
-            finish()*/
+            //revisarSesion()
         }
     }
 
@@ -58,7 +64,7 @@ class LandingActivity : AppCompatActivity() {
             apply()
         }
 
-        enviarVerificacionActivity()
+        //enviarVerificacionActivity()
     }
 
     fun enviarVerificacionActivity(){
