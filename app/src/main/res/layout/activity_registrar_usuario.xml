@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -34,8 +35,8 @@
 
         <LinearLayout
             android:id="@+id/linearLayout6"
-            android:layout_width="269dp"
-            android:layout_height="309dp"
+            android:layout_width="251dp"
+            android:layout_height="460dp"
             android:layout_marginBottom="100dp"
             android:background="@android:drawable/toast_frame"
             android:elevation="60dp"
@@ -47,7 +48,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="309dp"
+                android:layout_height="460dp"
                 android:elevation="40dp"
                 tools:layout_gravity="center">
 
@@ -66,6 +67,47 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="250dp"
+                    android:layout_height="99dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:elevation="40dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lbl_producto">
+
+                    <!--                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:id="@+id/usuarioImagen"
+                        android:layout_marginVertical="30dp"
+                        android:scaleType="centerCrop">
+
+                    </ImageView>-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="99dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/usuarioImagen"
+                            android:layout_width="110dp"
+                            android:layout_height="98dp"
+                            app:civ_border_color="#FFFFFFFF"
+                            app:civ_border_width="4dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:id="@+id/linearLayout2"
                     android:layout_width="250dp"
                     android:layout_height="50dp"
@@ -76,7 +118,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lbl_producto">
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
 
                     <EditText
                         android:id="@+id/txt_Nombre"
@@ -113,7 +155,7 @@
                 </LinearLayout>
 
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_registrarme"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
@@ -122,10 +164,14 @@
                     android:layout_marginEnd="10dp"
                     android:background="@android:drawable/toast_frame"
                     android:backgroundTint="@color/secundario_amarillo"
+                    android:fontFamily="@font/montserrat"
                     android:text="Registrarme"
+                    android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,26 +53,6 @@ object UsuarioRepositorio {
         }
     }
 
-    suspend fun buscarUsuarioPorIdSus(uid: String):Usuario?{
-        val db = Firebase.firestore
-        val docRef = db.collection(RepositorioConstantes.usuariosCollection).document(uid)
-        var usuario = docRef.get().await().toObject<Usuario>()
-        return usuario
-    }
-
-    suspend fun cargarUsuarioLogueado(){
-        authUsuario = Firebase.auth.currentUser!!
-        val db = Firebase.firestore
-        val docRef = db.collection(RepositorioConstantes.usuariosCollection).document(authUsuario.uid)
-        val res = docRef.get().await()
-        if(res != null){
-            usuarioLogueado = res.toObject<Usuario>()!!
-            Log.d(tag,"Usuario $usuarioLogueado")
-        }else{
-            Log.d(tag,"Usuario nulo.")
-        }
-    }
-
     fun cargarSesion(context: Context) {
         Log.d(tag,"Cargando sesion...")
         val sharedPref = context.getSharedPreferences(RepositorioConstantes.sharedPreferenceFile,Context.MODE_PRIVATE) ?: return
@@ -88,7 +68,7 @@ object UsuarioRepositorio {
                 sharedPref.getString(appName+"-login-foto", "")
             )
             Log.d(tag, "Usuario logueado")
-            Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
+            Log.d(tag, usuarioLogueado.toString())
         }
     }
 

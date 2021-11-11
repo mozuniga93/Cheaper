@@ -86,6 +86,7 @@ class VerificacionActivity : AppCompatActivity() {
 
 
                 findViewById<EditText>(R.id.et_otp).setText("")
+                findViewById<EditText>(R.id.et_otp).setHint("")
                 findViewById<TextView>(R.id.tv_otp).setText("Ingresar código SMS")
                 findViewById<Button>(R.id.login).setText("Verificar")
                 iniciarVerificacion()
