@@ -17,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_registrar_usuario.*
+import kotlinx.android.synthetic.main.fragment_registrar_producto.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -54,7 +55,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
     }
 
     fun cargarImagenPorDefecto(){
-        Picasso.get().load(imagenUrlFinal).into(this.usuarioImagen)
+        Picasso.get().load(imagenUrlFinal).into(this.imagenIdProducto)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

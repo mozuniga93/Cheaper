@@ -14,7 +14,7 @@
 
 
         <ImageView
-            android:id="@+id/imageViewProducto"
+            android:id="@+id/imageViewProductoPerfil"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_weight="1"
@@ -25,7 +25,7 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/txtNombreProducto_perfil"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
@@ -37,12 +37,12 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageViewProducto"
+            app:layout_constraintStart_toEndOf="@+id/imageViewProductoPerfil"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/tvBrand"
+            android:id="@+id/txtMarcaProducto_perfil"
             android:layout_width="wrap_content"
 
             android:layout_height="match_parent"
@@ -54,12 +54,12 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageViewProducto"
-            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            app:layout_constraintStart_toEndOf="@+id/imageViewProductoPerfil"
+            app:layout_constraintTop_toBottomOf="@+id/txtNombreProducto_perfil"
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/txtDescripcionProducto_perfil"
             android:layout_width="wrap_content"
 
             android:layout_height="match_parent"
@@ -72,12 +72,12 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageViewProducto"
-            app:layout_constraintTop_toBottomOf="@+id/tvBrand"
+            app:layout_constraintStart_toEndOf="@+id/imageViewProductoPerfil"
+            app:layout_constraintTop_toBottomOf="@+id/txtMarcaProducto_perfil"
             tools:ignore="TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/buttonProduct"
+            android:id="@+id/buttonProduct_perfil"
             style="@style/Widget.MaterialComponents.Button.Icon"
             android:layout_width="44dp"
             android:layout_height="50dp"
@@ -88,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            app:layout_constraintTop_toBottomOf="@+id/txtDescripcionProducto_perfil"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="TouchTargetSizeCheck" />
 
