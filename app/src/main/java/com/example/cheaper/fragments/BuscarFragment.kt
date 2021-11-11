@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cheaper.Product
 import com.example.cheaper.R
 import com.example.cheaper.adapters.CategoriaAdapter
 import com.example.cheaper.model.Categoria

@@ -8,9 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cheaper.*
 import com.example.cheaper.R
 import com.example.cheaper.adapters.ProductoAdapter
+import com.example.cheaper.model.Product
 import com.google.firebase.firestore.*
 
 // TODO: Rename parameter arguments, choose names that match
