@@ -1,6 +1,7 @@
 package com.example.cheaper.fragments
 
 import android.app.Activity.RESULT_OK
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -16,9 +17,18 @@ import com.example.cheaper.R
 import com.example.cheaper.databinding.FragmentRegistrarProductoBinding
 import com.example.cheaper.model.Product
 import com.example.cheaper.repositorios.ProductoRepositorio
+import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_registrar_usuario.*
+import kotlinx.android.synthetic.main.fragment_registrar_producto.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -29,7 +39,12 @@ class RegistrarProducto : Fragment() {
     private var param2: String? = null
 
     private lateinit var db : FirebaseFirestore
+    private var dataBase = Firebase.database
     private val fileResult = 1
+    private val myRef = dataBase.getReference("Imagenes")
+    lateinit var ImageUri : Uri
+    var imagenUrlFinal = "https://firebasestorage.googleapis.com/v0/b/cheaper-manati4.appspot.com/o/user.png?alt=media&token=98ae4512-acf3-4254-a780-e893db9b19b7"
+
 
     private var _binding: FragmentRegistrarProductoBinding? = null
     private val binding get() = _binding!!
@@ -71,7 +86,47 @@ class RegistrarProducto : Fragment() {
             verificarCampostxt(nombre, marca, descripcion, categria)
         }
 
+        val btnCargarImagen = _binding!!.root.findViewById<Button>(R.id.btnCargarImg)
+        btnCargarImagen.setOnClickListener {
+            fileManager()
+        }
+
         return binding.root
+    }
+
+    private fun fileManager(){
+        val intent = Intent()
+        intent.type= "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent,100)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode==100 && resultCode == RESULT_OK){
+            ImageUri = data?.data!!
+            Picasso.get().load(ImageUri).into(this.imagenIdProducto)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun fileUpload(nombre: EditText, marca: EditText, descripcion: EditText, categria: EditText) {
+
+        //*GUID*
+        val formatter = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.getDefault())
+        val now = Date()
+        val fileName = formatter.format(now)
+        val path = "Imagenes/"
+
+        val storageReference = FirebaseStorage.getInstance().getReference("$path$fileName")
+
+        storageReference.putFile(ImageUri).addOnSuccessListener {
+            it.metadata?.reference?.downloadUrl?.addOnSuccessListener {
+                imagenUrlFinal = it.toString()
+                crearNuevoProducto(nombre, marca, descripcion, categria)
+            }
+        }
     }
 
 
@@ -80,7 +135,7 @@ class RegistrarProducto : Fragment() {
 
             if (!nombre.text.isNullOrBlank() && !marca.text.isNullOrBlank()
                 && !descripcion.text.isNullOrBlank() && !categria.equals("Categoría")) {
-                crearNuevoProducto(nombre, marca, descripcion, categria)
+                fileUpload(nombre, marca, descripcion, categria)
             } else {
                 Log.d("Registro de producto", "Registro fallido")
             }
@@ -89,6 +144,8 @@ class RegistrarProducto : Fragment() {
         @RequiresApi(Build.VERSION_CODES.O)
         private fun crearNuevoProducto(nombre: EditText, marca: EditText, descripcion: EditText, categria: EditText) {
 
+            val usuario = UsuarioRepositorio.usuarioLogueado
+            val idUsuario = usuario.id.toString()
             val nombretxt = nombre.text.toString()
             val marcatxt = marca.text.toString()
             val descripciontxt = descripcion.text.toString()
@@ -100,7 +157,8 @@ class RegistrarProducto : Fragment() {
                 descripciontxt,
                 "",
                 categoriatxt,
-                ""
+                imagenUrlFinal,
+                idUsuario
             )
 
             Log.d("Nuevo producto", nuevoProducto.toString())
@@ -109,15 +167,6 @@ class RegistrarProducto : Fragment() {
         }
 
         companion object {
-            /**
-             * Use this factory method to create a new instance of
-             * this fragment using the provided parameters.
-             *
-             * @param param1 Parameter 1.
-             * @param param2 Parameter 2.
-             * @return A new instance of fragment RegistrarProducto.
-             */
-            // TODO: Rename and change types and number of parameters
             @JvmStatic
             fun newInstance(param1: String, param2: String) =
                 RegistrarProducto().apply {

@@ -16,9 +16,21 @@ import com.example.cheaper.R
 import com.example.cheaper.adapters.AdapterProduct
 import com.example.cheaper.model.Product
 import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.*
+import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil.view.*
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.ValueEventListener
+
+
+
+
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,7 +48,7 @@ class PerfilFragment : Fragment() {
     private lateinit var db : FirebaseFirestore
     private lateinit var viewOfLayout: View
 
-   // private val usuario = UsuarioRepositorio.usuarioLogueado
+    // private val usuario = UsuarioRepositorio.usuarioLogueado
 
 
 
@@ -82,10 +94,25 @@ class PerfilFragment : Fragment() {
     }
 
 
+
+
+    private fun mostrarListaMisResennas(){
+
+    }
+
     private fun EventChangeProductosListener(){
 
+        val usuario = UsuarioRepositorio.usuarioLogueado
+        val myUserId = usuario.id.toString()
+
+        // Crear una referencia a la base de datos y la colección que quiero consultar
         db = FirebaseFirestore.getInstance()
-        db.collection("productos").
+        val productosRef = db.collection("productos")
+
+       // Crear un query a esa colección para buscar con datos de un campo específico
+        val query = productosRef.whereEqualTo("usuario", myUserId)
+
+       query.
         addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(
                 value: QuerySnapshot?, error: FirebaseFirestoreException?
@@ -105,14 +132,6 @@ class PerfilFragment : Fragment() {
                 myAdapter.notifyDataSetChanged()
             }
         })
-    }
-
-    private fun mostrarListaMisResennas(){
-
-    }
-
-    private fun EventChangeResennasListener(){
-
     }
 
 
