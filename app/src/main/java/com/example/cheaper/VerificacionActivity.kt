@@ -86,6 +86,7 @@ class VerificacionActivity : AppCompatActivity() {
 
 
                 findViewById<EditText>(R.id.et_otp).setText("")
+                findViewById<EditText>(R.id.et_otp).setHint("")
                 findViewById<TextView>(R.id.tv_otp).setText("Ingresar código SMS")
                 findViewById<Button>(R.id.login).setText("Verificar")
                 iniciarVerificacion()
@@ -103,8 +104,9 @@ class VerificacionActivity : AppCompatActivity() {
 
         // get the phone number from edit text and append the country cde with it
         if (number.isNotEmpty()){
+            number = "+506$number"
             //Para automatizar el login con un numero ficticio registrado en Firebase
-            number = "+1 650-555-3434"
+            //number = "+1 650-555-3434"
 
             // Para no tener que hacerlo manual con un usuario real, se crea un 'dumb' session
             // pero no carga un usuario real
