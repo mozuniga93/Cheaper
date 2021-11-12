@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="10dp">
+    android:elevation="10dp"
+    android:background="@color/white"
+    android:id="@+id/container_registrar_producto"
+    >
 
     <ImageView
         android:id="@+id/imageView10"
@@ -16,20 +19,22 @@
         android:src="@android:drawable/divider_horizontal_dark" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layourFormRegProd"
         android:layout_width="344dp"
-        android:layout_height="495dp"
+        android:layout_height="575dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
         android:elevation="40dp"
         tools:background="@android:drawable/toast_frame"
-        tools:backgroundTint="@color/white"
-        tools:layout_gravity="center">
+        tools:backgroundTint="@color/white">
 
         <TextView
             android:id="@+id/lbl_editperfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="Producto"
+            android:text="Registro de producto"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -41,7 +46,7 @@
             android:id="@+id/linearLayout2"
             android:layout_width="306dp"
             android:layout_height="50dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:elevation="40dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,21 +54,23 @@
             app:layout_constraintTop_toBottomOf="@+id/lbl_editperfil">
 
             <EditText
-                android:id="@+id/txt_precio"
+                android:id="@+id/txtNombreProducto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:drawable/toast_frame"
                 android:backgroundTint="#D6DCDC"
-                android:hint="   Precio"
-                android:inputType="numberDecimal" />
+                android:hint="Nombre del producto"
+                android:inputType="text"
+                android:paddingStart="20sp"
+                android:textAlignment="viewStart" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="306dp"
             android:layout_height="50dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
             android:elevation="40dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,22 +78,23 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <EditText
-                android:id="@+id/txt_tienda"
+                android:id="@+id/txtMarcaProducto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:drawable/toast_frame"
                 android:backgroundTint="#D6DCDC"
                 android:gravity="center|start"
-                android:hint="   Tienda"
-                android:inputType="textMultiLine" />
+                android:hint="Marca"
+                android:inputType="textMultiLine"
+                android:paddingStart="20sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="306dp"
             android:layout_height="50dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
             android:elevation="40dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +103,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <EditText
-                android:id="@+id/txt_provincia"
+                android:id="@+id/txtDescripcionProducto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -103,15 +111,16 @@
                 android:backgroundTint="#D6DCDC"
                 android:ems="10"
                 android:gravity="center|start"
-                android:hint="   Provincia"
-                android:inputType="textMultiLine" />
+                android:hint="Descripción"
+                android:inputType="textMultiLine"
+                android:paddingStart="20sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout5"
-            android:layout_width="306dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="312dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="10dp"
             android:elevation="40dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,38 +128,78 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
-            <EditText
-                android:id="@+id/txt_canton"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dropCategoriaProducto"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="Categoría" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="308dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="10dp"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.421"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+            <ImageView
+                android:id="@+id/imagenIdProducto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:drawable/toast_frame"
-                android:backgroundTint="#D6DCDC"
-                android:ems="10"
-                android:gravity="center|start"
-                android:hint="   Cantón"
-                android:inputType="textMultiLine" />
+                android:src="@android:drawable/ic_menu_gallery" />
+
+
         </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnCargarImgProducto"
+            android:layout_width="194dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="13dp"
+            android:backgroundTint="@color/secundario_amarillo"
+            android:text="Cargar imagen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
         <Button
             android:id="@+id/btn_actualizar_usuario"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:background="@android:drawable/toast_frame"
-            android:backgroundTint="@color/secundario_amarillo"
-            android:text="Agregar reseña"
+            android:layout_marginTop="24dp"
+            android:text="Registrar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCargarImgProducto" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/volverFromRegistrarResenna"
+        android:id="@+id/volverFromRegistrarProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:text="Volver"
         android:textColor="@color/white"
         android:textSize="20sp" />

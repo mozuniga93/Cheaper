@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         val favoritosFragment = FavoritosFragment()
         val perfilFragment = PerfilFragment()
         val noPerfilFragment = NoPerfilFragment()
-        val lst = ProductsListActivity()
 
         makeCurrentFragment(inicioFragment)
 
@@ -37,7 +36,8 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.ic_inicio -> makeCurrentFragment(inicioFragment)
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
-                R.id.ic_favoritos -> makeCurrentActivity(lst)
+                R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
+                R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
                 R.id.ic_perfil -> {
                     if(UsuarioRepositorio.usuarioEstaLogueado())
                         makeCurrentFragment(perfilFragment)
@@ -50,16 +50,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun makeCurrentFragment(fragment: Fragment) =
+      fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
 
-    private fun makeCurrentActivity(fragment: Activity) {
+/*   private fun makeCurrentActivity(fragment: Activity) {
 
         val intent = Intent(this, ProductsListActivity::class.java)
         startActivity(intent)
-
-    }
+    }*/
 }

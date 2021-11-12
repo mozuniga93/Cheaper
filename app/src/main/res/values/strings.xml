@@ -5,4 +5,14 @@
     <string name="preference_file">com.example.cheaper.key</string>
 
     <string name="opcion_buscar">Buscar</string>
+
+    <string-array name="categotias">
+        <item>Alimentos</item>
+        <item>Cosméticos</item>
+        <item>Deporte</item>
+        <item>Hogar</item>
+        <item>Salud</item>
+        <item>Videojuegos</item>
+    </string-array>
+
 </resources>

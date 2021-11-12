@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.UsuarioRepositorio
@@ -30,41 +31,45 @@ class LandingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_landing)
 
         revisarPrimerInicio()
+
+        findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.landing_btn_registrarme).setOnClickListener {
+            enviarVerificacionActivity()
+        }
+
+        findViewById<TextView>(R.id.landing_textView3).setOnClickListener {
+            UsuarioRepositorio.cargarSesion(this)
+            enviarMain()
+        }
     }
 
     fun revisarPrimerInicio() {
         val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
-        val primerInicio = sharedPref.getBoolean(getString(R.string.app_name)+"-login-inicio", false)
+        val primerInicio = sharedPref.getBoolean(getString(R.string.app_name)+"-login-inicio", true)
 
         Log.d(tag , "Es primer uso: $primerInicio")
         if(primerInicio){
             primerInicio()
         }else{
             revisarSesion()
-            //TESTING, MUST DELETE
-            /*val intent = Intent(this , RegistrarUsuarioActivity::class.java)
-            startActivity(intent)
-            finish()*/
         }
     }
 
     fun primerInicio() {
-
-        //TODO Mostrar mensajes o guia de primer instalacion
-
         val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
+
         with (sharedPref.edit()) {
             putBoolean(getString(R.string.app_name)+"-login-inicio", false)
             apply()
         }
-
-        enviarVerificacionActivity()
+        //Para leer todos los preferences
+        /*for (pref in sharedPref.all)
+            Log.d(tag, "Pref: $pref")*/
     }
 
     fun enviarVerificacionActivity(){
         val intent = Intent(this , VerificacionActivity::class.java)
         startActivity(intent)
-        finish()
+        //finish()
     }
 
     fun revisarSesion() {
