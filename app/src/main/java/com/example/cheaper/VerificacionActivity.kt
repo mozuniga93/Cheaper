@@ -1,20 +1,20 @@
 package com.example.cheaper
 
-import android.content.Context
+import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.FragmentActivity
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.example.cheaper.repositorios.UsuarioRepositorio.guardarSesion
+import com.example.cheaper.utilidades.TelefonoDialog
 import com.google.firebase.FirebaseException
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -23,14 +23,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 
-class VerificacionActivity : AppCompatActivity() {
+class VerificacionActivity : FragmentActivity() {
 
     // this stores the phone number of the user
     var number : String =""
@@ -47,6 +42,8 @@ class VerificacionActivity : AppCompatActivity() {
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     val tag = "[Manati] Login"
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verficacion)
@@ -55,26 +52,34 @@ class VerificacionActivity : AppCompatActivity() {
 
         firebaseAnalytics = Firebase.analytics
 
-        findViewById<Button>(R.id.login).setOnClickListener {
+        findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.login).setOnClickListener {
             ingresarNumeroTelefono()
+        }
+
+        findViewById<TextView>(R.id.textView7).setOnClickListener {
+            val dialogo = TelefonoDialog()
+            dialogo.show(supportFragmentManager, "TelefonoDialog")
+        }
+
+
+
+
+        findViewById<TextView>(R.id.textView4).setOnClickListener {
+            finish()
         }
 
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
-            // This method is called when the verification is completed
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 Log.d(tag , "Verficación exitosa.")
                 startActivity(Intent(applicationContext, MainActivity::class.java))
                 finish()
             }
 
-            // Called when verification is failed add log statement to see the exception
             override fun onVerificationFailed(e: FirebaseException) {
                 Log.d(tag , "Problema con verificación:  $e")
             }
 
-            // On code is sent by the firebase this method is called
-            // in here we start a new activity where user can enter the OTP
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
@@ -89,6 +94,9 @@ class VerificacionActivity : AppCompatActivity() {
                 findViewById<EditText>(R.id.et_otp).setHint("")
                 findViewById<TextView>(R.id.tv_otp).setText("Ingresar código SMS")
                 findViewById<Button>(R.id.login).setText("Verificar")
+
+
+
                 iniciarVerificacion()
             }
 
@@ -102,18 +110,11 @@ class VerificacionActivity : AppCompatActivity() {
     private fun ingresarNumeroTelefono() {
         number = findViewById<EditText>(R.id.et_otp).text.trim().toString()
 
-        // get the phone number from edit text and append the country cde with it
         if (number.isNotEmpty()){
             number = "+506$number"
-            //Para automatizar el login con un numero ficticio registrado en Firebase
-            //number = "+1 650-555-3434"
 
-            // Para no tener que hacerlo manual con un usuario real, se crea un 'dumb' session
-            // pero no carga un usuario real
-            //val code = "123456"
-            //auth.firebaseAuthSettings.setAutoRetrievedSmsCodeForPhoneNumber(number, code)
 
-            //number = "$number"
+            mostrarCargando()
             sendVerificationCode(number)
 
         }else{
@@ -121,10 +122,18 @@ class VerificacionActivity : AppCompatActivity() {
         }
     }
 
+    fun mostrarCargando(){
+        var progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Cargando...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+        Handler().postDelayed({
+            progressDialog.dismiss()
+        }, 3000)
+    }
+
     private fun sendVerificationCode(number: String) {
         Log.d(tag , "Phone number $number")
-        // Force reCAPTCHA flow
-        //auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true)
 
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(number) // Phone number to verify
@@ -153,7 +162,6 @@ class VerificacionActivity : AppCompatActivity() {
     // verifies if the code matches sent by firebase
     // if success start the new activity
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:elevation="100dp"
-tools:context=".VerificacionActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
+    android:elevation="100dp"
+    tools:context=".VerificacionActivity">
 
     <ImageView
         android:id="@+id/imageView10"
@@ -18,17 +20,19 @@ tools:context=".VerificacionActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/white">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="300dp"
+            android:fontFamily="@font/montserrat"
             android:text="Volver"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,8 +42,8 @@ tools:context=".VerificacionActivity">
             android:layout_width="269dp"
             android:layout_height="309dp"
             android:layout_marginBottom="130dp"
-            android:background="@android:drawable/toast_frame"
-            android:elevation="60dp"
+            android:background="@drawable/toast_frame_white"
+            android:elevation="15dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +52,7 @@ tools:context=".VerificacionActivity">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="282dp"
+                android:layout_height="309dp"
                 android:elevation="40dp"
                 tools:layout_gravity="center">
 
@@ -57,6 +61,7 @@ tools:context=".VerificacionActivity">
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:fontFamily="@font/montserrat"
                     android:gravity="center"
                     android:text="Iniciar Sesión"
                     android:textColor="@color/black"
@@ -65,6 +70,7 @@ tools:context=".VerificacionActivity">
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
@@ -85,23 +91,44 @@ tools:context=".VerificacionActivity">
                         android:layout_width="200dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
                         android:hint="   Número telefónico" />
                     android:background="@android:drawable/toast_frame"
                     android:backgroundTint="#D6DCDC" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="201dp"
+                    android:layout_height="18dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toTopOf="@+id/login"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-                <Button
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat"
+                        android:text="¿Por qué el número es requerido?"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/login"
                     android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="8dp"
                     android:background="@android:drawable/toast_frame"
                     android:backgroundTint="@color/secundario_amarillo"
-                    android:text="Enviar código"
+                    android:fontFamily="@font/montserrat"
+                    android:text="Continuar"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

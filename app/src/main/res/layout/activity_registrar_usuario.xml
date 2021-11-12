@@ -21,24 +21,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="300dp"
-            android:text="Volver"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="50dp" />
-
         <LinearLayout
             android:id="@+id/linearLayout6"
-            android:layout_width="251dp"
-            android:layout_height="460dp"
+            android:layout_width="235dp"
+            android:layout_height="385dp"
             android:layout_marginBottom="100dp"
-            android:background="@android:drawable/toast_frame"
+            android:background="@drawable/toast_frame_white"
             android:elevation="60dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +36,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="460dp"
+                android:layout_height="wrap_content"
                 android:elevation="40dp"
                 tools:layout_gravity="center">
 
@@ -56,12 +44,13 @@
                     android:id="@+id/lbl_producto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="320dp"
                     android:gravity="center"
                     android:text="Ingresa tus datos"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -71,7 +60,7 @@
                     android:layout_width="250dp"
                     android:layout_height="99dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="10dp"
                     android:elevation="40dp"
                     android:orientation="horizontal"
@@ -109,8 +98,8 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
+                    android:layout_width="205dp"
+                    android:layout_height="48dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="10dp"
@@ -132,10 +121,10 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
-                    android:layout_width="250dp"
-                    android:layout_height="50dp"
+                    android:layout_width="202dp"
+                    android:layout_height="41dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="10dp"
                     android:elevation="40dp"
                     android:orientation="horizontal"
@@ -145,7 +134,7 @@
 
                     <EditText
                         android:id="@+id/txt_apellido"
-                        android:layout_width="match_parent"
+                        android:layout_width="228dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@android:drawable/toast_frame"
@@ -157,16 +146,18 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_registrarme"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="209dp"
+                    android:layout_height="43dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="24dp"
                     android:background="@android:drawable/toast_frame"
                     android:backgroundTint="@color/secundario_amarillo"
                     android:fontFamily="@font/montserrat"
                     android:text="Registrarme"
                     android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />

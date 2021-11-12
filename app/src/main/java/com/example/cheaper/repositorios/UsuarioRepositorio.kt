@@ -70,10 +70,13 @@ object UsuarioRepositorio {
             Log.d(tag, "Usuario logueado")
             Log.d(tag, usuarioLogueado.toString())
         }
+        else
+            Log.d(tag,"No hay usuario logueado.")
     }
 
     fun cerrarSesion(context: Context){
         val sharedPref = context.getSharedPreferences(RepositorioConstantes.sharedPreferenceFile, Context.MODE_PRIVATE) ?: return
+
         with (sharedPref.edit()) {
             remove(RepositorioConstantes.appName+"-login-id")
             remove(RepositorioConstantes.appName+"-login-nombre")
