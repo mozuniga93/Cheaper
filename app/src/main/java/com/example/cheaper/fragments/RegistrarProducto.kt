@@ -56,7 +56,7 @@ class RegistrarProducto : Fragment() {
 
         _binding = FragmentRegistrarProductoBinding.inflate(inflater, container, false)
 
-        _binding!!.root.findViewById<Button>(R.id.btn_actualizar_usuario).setOnClickListener {
+        _binding!!.root.findViewById<TextView>(R.id.volverFromRegistrarProducto).setOnClickListener {
             val perfilFragment = PerfilFragment()
             (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
         }
