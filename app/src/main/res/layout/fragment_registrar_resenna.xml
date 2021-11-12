@@ -59,11 +59,13 @@
                     android:id="@+id/btn_agregar_resenna"
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:background="@android:drawable/toast_frame"
-                    android:backgroundTint="@color/secundario_amarillo"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/button_add_product"
                     android:text="Agregar reseña"
+                    android:textColor="@color/white"
+                    android:textStyle="normal"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.492"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
@@ -87,8 +89,9 @@
                         android:backgroundTint="#D6DCDC"
                         android:ems="10"
                         android:gravity="center|start"
-                        android:hint="   Lugar"
-                        android:inputType="textMultiLine" />
+                        android:hint="Lugar"
+                        android:inputType="textMultiLine"
+                        android:paddingStart="20dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,8 +114,9 @@
                         android:backgroundTint="#D6DCDC"
                         android:ems="10"
                         android:gravity="center|start"
-                        android:hint="   Provincia"
-                        android:inputType="textMultiLine" />
+                        android:hint="Provincia"
+                        android:inputType="textMultiLine"
+                        android:paddingStart="20dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -134,8 +138,9 @@
                         android:background="@android:drawable/toast_frame"
                         android:backgroundTint="#D6DCDC"
                         android:gravity="center|start"
-                        android:hint="   Tienda"
-                        android:inputType="textMultiLine" />
+                        android:hint="Tienda"
+                        android:inputType="textMultiLine"
+                        android:paddingStart="20dp" />
                 </LinearLayout>
 
                 <TextView
@@ -170,8 +175,9 @@
                         android:layout_weight="1"
                         android:background="@android:drawable/toast_frame"
                         android:backgroundTint="#D6DCDC"
-                        android:hint="   Precio"
-                        android:inputType="numberDecimal" />
+                        android:hint="Precio"
+                        android:inputType="numberDecimal"
+                        android:paddingStart="20dp" />
                 </LinearLayout>
 
                 <Switch
@@ -188,6 +194,7 @@
                     tools:ignore="TouchTargetSizeCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -69,7 +69,7 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
     private fun validarDias(diff: Int): String {
         var cuantoTiempo = ""
 
-        if (diff == 1) {
+        if (diff <= 1) {
             cuantoTiempo = "Hace 1 día"
         } else if (diff > 1 && diff < 31) {
             cuantoTiempo = "Hace " + diff + " días"
