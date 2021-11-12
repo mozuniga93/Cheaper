@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.ic_inicio -> makeCurrentFragment(perfilProdutoFragment)
+                R.id.ic_inicio -> makeCurrentFragment(inicioFragment)
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
-                R.id.ic_favoritos -> makeCurrentActivity(lst)
+                R.id.ic_favoritos -> makeCurrentFragment(perfilProdutoFragment)
                 R.id.ic_perfil -> makeCurrentFragment(perfilFragment)
             }
             true
