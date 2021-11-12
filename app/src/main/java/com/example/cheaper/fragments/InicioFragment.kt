@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.*
 import com.example.cheaper.R
 import com.example.cheaper.adapters.ProductoAdapter
+import com.example.cheaper.model.Product
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.*
 
