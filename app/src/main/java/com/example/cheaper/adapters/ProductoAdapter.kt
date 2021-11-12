@@ -1,4 +1,4 @@
-package com.example.cheaper.adapters
+package com.example.cheaper
 
 
 import android.view.LayoutInflater

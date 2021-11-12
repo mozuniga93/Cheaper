@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         val buscarFragment = BuscarFragment()
         val favoritosFragment = FavoritosFragment()
         val perfilFragment = PerfilFragment()
+        val resennaFragment = ResennaFragment()
+        val perfilProdutoFragment = PerfilProductoFragment()
         val noPerfilFragment = NoPerfilFragment()
 
         makeCurrentFragment(inicioFragment)
@@ -36,8 +38,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.ic_inicio -> makeCurrentFragment(inicioFragment)
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
-                R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
-                R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
+                R.id.ic_favoritos -> makeCurrentFragment(perfilProdutoFragment)
                 R.id.ic_perfil -> {
                     if(UsuarioRepositorio.usuarioEstaLogueado())
                         makeCurrentFragment(perfilFragment)
