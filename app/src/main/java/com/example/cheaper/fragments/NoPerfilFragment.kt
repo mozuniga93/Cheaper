@@ -1,5 +1,6 @@
 package com.example.cheaper.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.cheaper.R
 import com.example.cheaper.VerificacionActivity
+import com.example.cheaper.repositorios.RepositorioConstantes
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +47,11 @@ class NoPerfilFragment : Fragment() {
             Log.d("[Manati] NoPerfil","Iniciando Sesion.")
             val intent = Intent(context, VerificacionActivity::class.java)
             context?.startActivity(intent)
-            //this?.requireActivity().finish()
+            this?.requireActivity().finish()
+        }
+
+        mView.findViewById<TextView>(R.id.no_perfil_restaurar)?.setOnClickListener {
+            restaurarAFabrica()
         }
         // Inflate the layout for this fragment
         return mView
@@ -53,6 +59,22 @@ class NoPerfilFragment : Fragment() {
 
     fun enviarVerificacionActivity(){
 
+    }
+
+    fun restaurarAFabrica(){
+        val sharedPref = this.requireActivity().getSharedPreferences(RepositorioConstantes.sharedPreferenceFile, Context.MODE_PRIVATE) ?: return
+        val tag = "[Manati] NoPerfil"
+        Log.d(tag,"Restaurando.")
+        Log.d(tag, "All preferences")
+        for (pref in sharedPref.all)
+            Log.d(tag, "Pref: ${pref.toString()}")
+
+        with (sharedPref.edit()) {
+            remove(RepositorioConstantes.appName+"-login-inicio")
+            apply()
+        }
+
+        this?.requireActivity().finish()
     }
 
 

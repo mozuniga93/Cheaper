@@ -34,6 +34,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
         binding = ActivityRegistrarUsuarioBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_registrar_usuario)
         cargarImagenPorDefecto()
+        Log.d(tag, "Mostrando registrar")
 
         findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.usuarioImagen).setOnClickListener {
             selectImage()
@@ -55,7 +56,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
     }
 
     fun cargarImagenPorDefecto(){
-        Picasso.get().load(imagenUrlFinal).into(this.imagenIdProducto)
+        Picasso.get().load(imagenUrlFinal).into(this.usuarioImagen)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -68,7 +69,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
     }
 
     fun registrar(){
-        Log.d("Login log", "Enviando a registrar")
+        Log.d(tag, "Enviando a registrar")
         var authUsuario = Firebase.auth.currentUser!!
         var nuevoUsuario = Usuario(
             authUsuario?.uid!!,
@@ -88,7 +89,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
     private fun subirImagenYRegistrarUsuario() {
         val progressDialog = ProgressDialog(this)
-        progressDialog.setMessage("Subiendo imagen...")
+        progressDialog.setMessage("Registrando...")
         progressDialog.setCancelable(false)
         progressDialog.show()
 
