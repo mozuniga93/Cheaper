@@ -32,11 +32,11 @@ class LandingActivity : AppCompatActivity() {
 
         revisarPrimerInicio()
 
-        findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_registrarme).setOnClickListener {
+        findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.landing_btn_registrarme).setOnClickListener {
             enviarVerificacionActivity()
         }
 
-        findViewById<TextView>(R.id.textView3).setOnClickListener {
+        findViewById<TextView>(R.id.landing_textView3).setOnClickListener {
             UsuarioRepositorio.cargarSesion(this)
             enviarMain()
         }
@@ -44,33 +44,32 @@ class LandingActivity : AppCompatActivity() {
 
     fun revisarPrimerInicio() {
         val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
-        val primerInicio = sharedPref.getBoolean(getString(R.string.app_name)+"-login-inicio", false)
+        val primerInicio = sharedPref.getBoolean(getString(R.string.app_name)+"-login-inicio", true)
 
         Log.d(tag , "Es primer uso: $primerInicio")
         if(primerInicio){
             primerInicio()
         }else{
-            //revisarSesion()
+            revisarSesion()
         }
     }
 
     fun primerInicio() {
-
-        //TODO Mostrar mensajes o guia de primer instalacion
-
         val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
+
         with (sharedPref.edit()) {
             putBoolean(getString(R.string.app_name)+"-login-inicio", false)
             apply()
         }
-
-        //enviarVerificacionActivity()
+        //Para leer todos los preferences
+        /*for (pref in sharedPref.all)
+            Log.d(tag, "Pref: $pref")*/
     }
 
     fun enviarVerificacionActivity(){
         val intent = Intent(this , VerificacionActivity::class.java)
         startActivity(intent)
-        finish()
+        //finish()
     }
 
     fun revisarSesion() {
