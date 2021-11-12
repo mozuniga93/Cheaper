@@ -1,16 +1,19 @@
 package com.example.cheaper.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.*
 import com.example.cheaper.R
 import com.example.cheaper.adapters.ProductoAdapter
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +25,8 @@ private lateinit var productArrayList : ArrayList<Product>
 private lateinit var myAdapter : ProductoAdapter
 private lateinit var db : FirebaseFirestore
 private lateinit var viewOfLayout: View
+private lateinit var searchViewProduct : androidx.appcompat.widget.SearchView
+private var sTextSearch:String=""
 
 /**
  * A simple [Fragment] subclass.
@@ -54,7 +59,11 @@ class InicioFragment : Fragment() {
         productArrayList = arrayListOf()
         myAdapter = ProductoAdapter(productArrayList)
         productRecyclerView.adapter = myAdapter
-        EventChangeListener()
+        searchViewProduct = viewOfLayout.findViewById(R.id.search_view_producto)
+        myAdapter.notifyDataSetChanged()
+        searching(searchViewProduct)
+        getProductos()
+        //EventChangeListener()
         return viewOfLayout
     }
 
@@ -79,10 +88,46 @@ class InicioFragment : Fragment() {
             }
     }
 
+
+    private fun getProductos(){
+        if(sTextSearch.isEmpty()){
+            db = FirebaseFirestore.getInstance()
+            db.collection("productos").
+            orderBy("nombre").
+            get().
+            addOnSuccessListener { documents ->
+                productArrayList.clear()
+                productArrayList.addAll(documents.toObjects(Product::class.java))
+                productRecyclerView.adapter = ProductoAdapter(productArrayList)
+            }
+                .addOnFailureListener{ exception ->
+                    Log.w(TAG, "Error getting products: ", exception)
+                }
+        } else {
+            db = FirebaseFirestore.getInstance()
+            db.collection("productos").
+                //whereLessThan("nombre", sTextSearch).
+                orderBy("nombre").
+                startAt(sTextSearch.uppercase()).
+                endAt(sTextSearch.lowercase() + "\uf8ff").
+                get().
+                addOnSuccessListener { documents ->
+                    productArrayList.clear()
+                    productArrayList.addAll(documents.toObjects(Product::class.java))
+                    productRecyclerView.adapter = ProductoAdapter(productArrayList)
+                }
+                    .addOnFailureListener{ exception ->
+                        Log.w(TAG, "Error getting products: ", exception)
+                    }
+        }
+
+    }
+
+
     private fun EventChangeListener(){
 
         db = FirebaseFirestore.getInstance()
-        db.collection("productos").
+        db.collection("productos").whereEqualTo("marca","Vans").
         addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(
                 value: QuerySnapshot?, error: FirebaseFirestoreException?
@@ -103,4 +148,20 @@ class InicioFragment : Fragment() {
             }
         })
     }
+
+    private fun searching(search: androidx.appcompat.widget.SearchView) {
+        search.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                sTextSearch=newText!!
+                getProductos()
+                return true
+            }
+        })
+    }
+
+
 }

@@ -23,6 +23,7 @@
             android:contentDescription="Cover"
             android:scaleType="fitXY"
             android:alpha="255"
+            android:clickable="true"
             />
 
         <ImageView

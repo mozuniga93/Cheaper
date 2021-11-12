@@ -45,6 +45,8 @@ class ProductoAdapter(private val productsList: ArrayList<Product>) :
         val productDescription : TextView = itemView.findViewById(R.id.tvDescription)
         val productImage : ImageView = itemView.findViewById(R.id.imageViewProducto)
 
+
+
     }
 
 }

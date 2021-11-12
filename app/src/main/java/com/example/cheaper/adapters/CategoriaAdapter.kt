@@ -6,10 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
+import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.model.Categoria
 import com.squareup.picasso.Picasso
+import androidx.appcompat.app.AppCompatActivity
+
+
+
 
 class CategoriaAdapter(private val categoriasList: ArrayList<Categoria>):
     RecyclerView.Adapter<CategoriaAdapter.MyViewCategorieHolder>() {
@@ -26,6 +33,15 @@ class CategoriaAdapter(private val categoriasList: ArrayList<Categoria>):
 
         holder.nombreCategoria.text = currentItem.nombre
         Picasso.get().load(currentItem.foto).into(holder.fotoCategoria)
+
+        holder.itemView.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                val activity=v!!.context as AppCompatActivity
+                val inicioFragment = InicioFragment()
+                activity.supportFragmentManager.beginTransaction().replace(R.id.categoriasListBuscar, inicioFragment).addToBackStack(null).commit()
+            }
+        })
+
     }
 
     override fun getItemCount(): Int {
