@@ -29,7 +29,7 @@
         tools:backgroundTint="@color/white">
 
         <TextView
-            android:id="@+id/lbl_productoreg"
+            android:id="@+id/lbl_editperfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -51,7 +51,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_productoreg">
+            app:layout_constraintTop_toBottomOf="@+id/lbl_editperfil">
 
             <EditText
                 android:id="@+id/txtNombreProducto"
@@ -172,7 +172,7 @@
 
 
         <Button
-            android:id="@+id/btnCargarImg"
+            android:id="@+id/btnCargarImgProducto"
             android:layout_width="194dp"
             android:layout_height="48dp"
             android:layout_gravity="center_horizontal"
@@ -184,18 +184,18 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
 
         <Button
-            android:id="@+id/btn_guardar_producto"
+            android:id="@+id/btn_actualizar_usuario"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:text="Registrar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCargarImg" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCargarImgProducto" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/volverFromRegistrarProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"

@@ -5,9 +5,14 @@ import android.content.Intent
 import android.util.Log
 import com.example.cheaper.R
 import com.example.cheaper.VerificacionActivity
+import com.example.cheaper.model.Product
 import com.example.cheaper.model.Usuario
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -42,6 +47,20 @@ object UsuarioRepositorio {
             .addOnFailureListener { e ->
                 Log.w(tag, "Error al crear el nuevo usuario.", e)
             }
+    }
+
+   // mDatabase.child("UID2").child("KEY2").setValue(yourNewValueOrObject);
+   // mDatabase.child("UID2").child("KEY2").child("email").setValue(newEmail);
+    // database.child("users").child(userId).setValue(user)
+    fun actualizarUsuario(usuario: Usuario){
+
+       val db = Firebase.firestore
+       val docRef = db.collection(RepositorioConstantes.usuariosCollection).
+       document(usuario.id.toString()).set(usuario).addOnSuccessListener {
+           Log.d(tag, "Usuario actualizado exitosamente.")
+       }.addOnFailureListener {e ->
+           Log.w(tag, "Error al actualizar el usuario.", e)
+       }
     }
 
     fun buscarUsuarioPorId(uid: String){

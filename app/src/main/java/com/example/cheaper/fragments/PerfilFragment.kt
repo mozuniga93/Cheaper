@@ -29,18 +29,7 @@ import com.google.firebase.database.ValueEventListener
 
 
 
-
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class PerfilFragment : Fragment() {
-
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var productRecyclerView : RecyclerView
     private lateinit var myProductArrayList : ArrayList<Product>
@@ -48,17 +37,6 @@ class PerfilFragment : Fragment() {
     private lateinit var db : FirebaseFirestore
     private lateinit var viewOfLayout: View
 
-    // private val usuario = UsuarioRepositorio.usuarioLogueado
-
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,9 +44,14 @@ class PerfilFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         viewOfLayout = inflater.inflate(R.layout.fragment_perfil, container, false)
-        viewOfLayout?.findViewById<TextView>(R.id.txtCerrarSesion)?.setOnClickListener {
-            cerrarSesion()
+
+        // Me lleva al editar perfil
+        viewOfLayout?.findViewById<TextView>(R.id.textViewEditarPerfil)?.setOnClickListener {
+            val secondFragment = editarUsuarioFragment()
+            val transaction = fragmentManager?.beginTransaction()
+            transaction?.replace(R.id.perfil_container, secondFragment)?.commit()
         }
+
 
         cargarPerfil(viewOfLayout)
         mostrarListaMisProducos()
@@ -92,9 +75,6 @@ class PerfilFragment : Fragment() {
         productRecyclerView.adapter = myAdapter
         EventChangeProductosListener()
     }
-
-
-
 
     private fun mostrarListaMisResennas(){
 
@@ -155,16 +135,4 @@ class PerfilFragment : Fragment() {
         Picasso.get().load(imageUri).into(ivBasicImage)
     }
 
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PerfilFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
