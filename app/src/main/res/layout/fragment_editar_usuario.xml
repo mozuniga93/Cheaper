@@ -1,14 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.editarUsuarioFragment">
+    android:elevation="10dp"
+    android:background="@color/white"
+    android:id="@+id/container_editar_usuario"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:id="@+id/imageView10"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="406dp"
+        android:layout_marginTop="-20dp"
+        android:background="@android:drawable/toast_frame"
+        android:backgroundTint="@color/primario"
+        android:src="@android:drawable/divider_horizontal_dark" />
+
+    <TextView
+        android:id="@+id/txtCerrarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        android:fontFamily="@font/montserrat"
+        android:minHeight="48dp"
+        android:text="Cerrar Sesión"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layourFormRegProd"
+        android:layout_width="344dp"
+        android:layout_height="514dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:elevation="40dp"
+        tools:background="@android:drawable/toast_frame"
+        tools:backgroundTint="@color/white">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/fotoUsuarioEditar"
+            android:layout_width="158dp"
+            android:layout_height="145dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="306dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="40dp"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnActualizarImgUsuario">
+
+            <EditText
+                android:id="@+id/txtTelefonoUsuarioEditar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:drawable/toast_frame"
+                android:backgroundTint="#D6DCDC"
+                android:hint="Telefono"
+                android:inputType="text"
+                android:paddingStart="20sp"
+                android:textAlignment="viewStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="306dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="25dp"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <EditText
+                android:id="@+id/txtNombreUEditar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:drawable/toast_frame"
+                android:backgroundTint="#D6DCDC"
+                android:gravity="center|start"
+                android:hint="Nombre"
+                android:inputType="textMultiLine"
+                android:paddingStart="20sp" />
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnActualizarImgUsuario"
+            android:layout_width="194dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/secundario_amarillo"
+            android:text="Cargar imagen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fotoUsuarioEditar" />
+
+        <Button
+            android:id="@+id/btn_actualizar_usuario"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="Actualizar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/volverFromEditarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat"
+        android:text="Volver"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 </FrameLayout>
