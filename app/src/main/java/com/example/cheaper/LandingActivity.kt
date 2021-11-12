@@ -32,11 +32,11 @@ class LandingActivity : AppCompatActivity() {
 
         revisarPrimerInicio()
 
-        findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_registrarme).setOnClickListener {
+        findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.landing_btn_registrarme).setOnClickListener {
             enviarVerificacionActivity()
         }
 
-        findViewById<TextView>(R.id.textView3).setOnClickListener {
+        findViewById<TextView>(R.id.landing_textView3).setOnClickListener {
             UsuarioRepositorio.cargarSesion(this)
             enviarMain()
         }

@@ -7,12 +7,12 @@
     tools:context=".LandingActivity">
 
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/imageView10"
         android:layout_width="match_parent"
-        android:layout_height="766dp"
+        android:layout_height="753dp"
         android:layout_marginTop="-20dp"
-        android:background="@android:drawable/toast_frame"
+        android:background="@color/primario"
         android:backgroundTint="@color/primario"
         android:src="@android:drawable/divider_horizontal_dark" />
 
@@ -80,7 +80,7 @@
                 </LinearLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_registrarme"
+                    android:id="@+id/landing_btn_registrarme"
                     android:layout_width="225dp"
                     android:layout_height="44dp"
                     android:layout_marginTop="16dp"
@@ -129,13 +129,13 @@
                 android:layout_height="58dp">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/landing_textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:fontFamily="@font/montserrat"
-                    android:text="No deseo registrarme..."
+                    android:text="No deseo registrarme."
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"

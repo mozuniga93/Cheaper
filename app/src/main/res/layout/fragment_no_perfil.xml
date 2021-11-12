@@ -6,12 +6,12 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".fragments.NoPerfilFragment">
 
-<ImageView
+<LinearLayout
     android:id="@+id/imageView10"
     android:layout_width="match_parent"
     android:layout_height="766dp"
     android:layout_marginTop="-20dp"
-    android:background="@android:drawable/toast_frame"
+    android:background="@color/primario"
     android:backgroundTint="@color/primario"
     android:src="@android:drawable/divider_horizontal_dark" />
 
@@ -87,7 +87,7 @@ tools:context=".fragments.NoPerfilFragment">
                 android:background="@drawable/button_add_product"
                 android:clickable="true"
                 android:fontFamily="@font/montserrat"
-                android:text="Iniciar Sesión"
+                android:text="Iniciar sesión"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

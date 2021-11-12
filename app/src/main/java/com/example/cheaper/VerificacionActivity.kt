@@ -56,15 +56,12 @@ class VerificacionActivity : FragmentActivity() {
             ingresarNumeroTelefono()
         }
 
-        findViewById<TextView>(R.id.textView7).setOnClickListener {
+        findViewById<TextView>(R.id.verificacion_numero_requerido).setOnClickListener {
             val dialogo = TelefonoDialog()
             dialogo.show(supportFragmentManager, "TelefonoDialog")
         }
 
-
-
-
-        findViewById<TextView>(R.id.textView4).setOnClickListener {
+        findViewById<TextView>(R.id.verificacion_volver_texto).setOnClickListener {
             finish()
         }
 
