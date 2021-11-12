@@ -24,7 +24,7 @@
         tools:layout_gravity="center">
 
         <TextView
-            android:id="@+id/lbl_productoreg"
+            android:id="@+id/lbl_editperfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -46,10 +46,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_productoreg">
+            app:layout_constraintTop_toBottomOf="@+id/lbl_editperfil">
 
             <EditText
-                android:id="@+id/txtNombreProducto"
+                android:id="@+id/txt_precio"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -71,7 +71,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
             <EditText
-                android:id="@+id/txtMarcaProducto"
+                android:id="@+id/txt_tienda"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -95,7 +95,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <EditText
-                android:id="@+id/txtDescripcionProducto"
+                android:id="@+id/txt_provincia"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -133,7 +133,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_guardar_producto"
+            android:id="@+id/btn_actualizar_usuario"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -146,7 +146,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/volverFromRegistrarResenna"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
