@@ -1,15 +1,22 @@
 package com.example.cheaper.repositorios
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
+import com.example.cheaper.R
+import com.example.cheaper.VerificacionActivity
+import com.example.cheaper.model.Product
 import com.example.cheaper.model.Usuario
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
-import javax.security.auth.callback.Callback
 
 object UsuarioRepositorio {
 
@@ -22,18 +29,38 @@ object UsuarioRepositorio {
 
     }
 
-    fun usuarioEstaLogueado() = ::usuarioLogueado.isInitialized
+    fun usuarioEstaLogueado():Boolean {
+        return if(::usuarioLogueado.isInitialized){
+            usuarioLogueado.id != null
+        } else false
+    }
 
-    fun crearNuevoUsuario(usuarioNuevo:Usuario){
+    fun crearNuevoUsuario(usuarioNuevo:Usuario, context: Context){
         val db = Firebase.firestore
         db.collection(RepositorioConstantes.usuariosCollection).document(usuarioNuevo?.id!!)
             .set(usuarioNuevo)
             .addOnSuccessListener { documentReference ->
                 Log.d(tag, "Usuario creado exitosamente.")
+                usuarioLogueado = usuarioNuevo
+                guardarSesion(context)
             }
             .addOnFailureListener { e ->
                 Log.w(tag, "Error al crear el nuevo usuario.", e)
             }
+    }
+
+   // mDatabase.child("UID2").child("KEY2").setValue(yourNewValueOrObject);
+   // mDatabase.child("UID2").child("KEY2").child("email").setValue(newEmail);
+    // database.child("users").child(userId).setValue(user)
+    fun actualizarUsuario(usuario: Usuario){
+
+       val db = Firebase.firestore
+       val docRef = db.collection(RepositorioConstantes.usuariosCollection).
+       document(usuario.id.toString()).set(usuario).addOnSuccessListener {
+           Log.d(tag, "Usuario actualizado exitosamente.")
+       }.addOnFailureListener {e ->
+           Log.w(tag, "Error al actualizar el usuario.", e)
+       }
     }
 
     fun buscarUsuarioPorId(uid: String){
@@ -45,25 +72,50 @@ object UsuarioRepositorio {
         }
     }
 
-    suspend fun buscarUsuarioPorIdSus(uid: String):Usuario?{
-        val db = Firebase.firestore
-        val docRef = db.collection(RepositorioConstantes.usuariosCollection).document(uid)
-        var usuario = docRef.get().await().toObject<Usuario>()
-        return usuario
-    }
+    fun cargarSesion(context: Context) {
+        Log.d(tag,"Cargando sesion...")
+        val sharedPref = context.getSharedPreferences(RepositorioConstantes.sharedPreferenceFile,Context.MODE_PRIVATE) ?: return
 
-    suspend fun cargarUsuarioLogueado(){
-        authUsuario = Firebase.auth.currentUser!!
-        val db = Firebase.firestore
-        val docRef = db.collection(RepositorioConstantes.usuariosCollection).document(authUsuario.uid)
-        val res = docRef.get().await()
-        if(res != null){
-            usuarioLogueado = res.toObject<Usuario>()!!
-            Log.d(tag,"Usuario $usuarioLogueado")
-        }else{
-            Log.d(tag,"Usuario nulo.")
+        val appName = RepositorioConstantes.appName
+        val usuarioId = sharedPref.getString(appName+"-login-id", "")
+        if(usuarioId!=""){
+            usuarioLogueado = Usuario(
+                usuarioId,
+                sharedPref.getString(appName+"-login-nombre", ""),
+                sharedPref.getString(appName+"-login-apellido", ""),
+                sharedPref.getString(appName+"-login-telefono", ""),
+                sharedPref.getString(appName+"-login-foto", "")
+            )
+            Log.d(tag, "Usuario logueado")
+            Log.d(tag, usuarioLogueado.toString())
         }
     }
 
+    fun cerrarSesion(context: Context){
+        val sharedPref = context.getSharedPreferences(RepositorioConstantes.sharedPreferenceFile, Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            remove(RepositorioConstantes.appName+"-login-id")
+            remove(RepositorioConstantes.appName+"-login-nombre")
+            remove(RepositorioConstantes.appName+"-login-apellido")
+            remove(RepositorioConstantes.appName+"-login-telefono")
+            remove(RepositorioConstantes.appName+"-login-foto")
+            apply()
+        }
+        Firebase.auth.signOut()
+        usuarioLogueado = Usuario()
+    }
+
+    fun guardarSesion(context: Context){
+        Log.d(tag, "Guardando sesion...")
+        val sharedPref = context.getSharedPreferences(RepositorioConstantes.sharedPreferenceFile,Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putString(RepositorioConstantes.appName+"-login-id", usuarioLogueado.id)
+            putString(RepositorioConstantes.appName+"-login-nombre", usuarioLogueado.nombre)
+            putString(RepositorioConstantes.appName+"-login-apellido", usuarioLogueado.apellido)
+            putString(RepositorioConstantes.appName+"-login-telefono", usuarioLogueado.telefono)
+            putString(RepositorioConstantes.appName+"-login-foto", usuarioLogueado.foto)
+            apply()
+        }
+    }
 
 }

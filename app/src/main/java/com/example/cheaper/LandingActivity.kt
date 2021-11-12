@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.UsuarioRepositorio
@@ -30,6 +31,15 @@ class LandingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_landing)
 
         revisarPrimerInicio()
+
+        findViewById<androidx.appcompat.widget.AppCompatButton>(R.id.btn_registrarme).setOnClickListener {
+            enviarVerificacionActivity()
+        }
+
+        findViewById<TextView>(R.id.textView3).setOnClickListener {
+            UsuarioRepositorio.cargarSesion(this)
+            enviarMain()
+        }
     }
 
     fun revisarPrimerInicio() {
@@ -40,7 +50,7 @@ class LandingActivity : AppCompatActivity() {
         if(primerInicio){
             primerInicio()
         }else{
-            revisarSesion()
+            //revisarSesion()
         }
     }
 
@@ -54,7 +64,7 @@ class LandingActivity : AppCompatActivity() {
             apply()
         }
 
-        enviarVerificacionActivity()
+        //enviarVerificacionActivity()
     }
 
     fun enviarVerificacionActivity(){
@@ -64,21 +74,8 @@ class LandingActivity : AppCompatActivity() {
     }
 
     fun revisarSesion() {
-        Log.d(tag,"revisando sesion...")
-        val sharedPref = this?.getSharedPreferences(getString(R.string.preference_file),Context.MODE_PRIVATE) ?: return
-
-        val usuarioId = sharedPref.getString(getString(R.string.app_name)+"-login-id", "")
-        if(usuarioId!=""){
-            UsuarioRepositorio.usuarioLogueado = Usuario(
-                usuarioId,
-                sharedPref.getString(getString(R.string.app_name)+"-login-nombre", ""),
-                sharedPref.getString(getString(R.string.app_name)+"-login-apellido", ""),
-                sharedPref.getString(getString(R.string.app_name)+"-login-telefono", ""),
-                sharedPref.getString(getString(R.string.app_name)+"-login-foto", "")
-            )
-            Log.d(tag, "Usuario logueado")
-            Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
-        }
+        Log.d(tag,"Revisando sesion...")
+        UsuarioRepositorio.cargarSesion(this)
         enviarMain()
     }
 
