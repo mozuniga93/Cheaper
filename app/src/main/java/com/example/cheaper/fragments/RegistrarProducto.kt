@@ -148,5 +148,8 @@ class RegistrarProducto : Fragment() {
         Log.d("Nuevo producto", nuevoProducto.toString())
         ProductoRepositorio.crearNuevoProducto(nuevoProducto)
 
+        // Volver al perfil luego de registrar
+        val perfilFragment = PerfilFragment()
+        (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
     }
 }
