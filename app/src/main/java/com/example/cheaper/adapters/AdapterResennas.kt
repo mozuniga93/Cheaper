@@ -1,4 +1,4 @@
-package com.example.cheaper
+package com.example.cheaper.adapters
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cheaper.R
 import com.example.cheaper.model.Resenna
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
