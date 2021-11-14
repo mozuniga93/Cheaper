@@ -15,6 +15,7 @@ import com.example.cheaper.*
 import com.example.cheaper.R
 import com.example.cheaper.adapters.AdapterProduct
 import com.example.cheaper.adapters.AdapterResennas
+import com.example.cheaper.adapters.AdapterResennasPerfil
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.repositorios.UsuarioRepositorio
@@ -28,9 +29,9 @@ class PerfilFragment : Fragment() {
     private lateinit var productRecyclerView : RecyclerView
     private lateinit var myProductArrayList : ArrayList<Product>
     private lateinit var resennaRecyclerView : RecyclerView
-    private lateinit var myResennatArrayList : ArrayList<Resenna>
+    private lateinit var myResennaArrayList : ArrayList<Resenna>
     private lateinit var myAdapter : AdapterProduct
-    private lateinit var myResennaAdapter: AdapterResennas
+    private lateinit var myResennaAdapter: AdapterResennasPerfil
     private lateinit var db : FirebaseFirestore
     private lateinit var viewOfLayout: View
 
@@ -76,8 +77,8 @@ class PerfilFragment : Fragment() {
     private fun mostrarListaMisResennas(){
         resennaRecyclerView = viewOfLayout.findViewById(R.id.recyclerResennaPerfil)
         resennaRecyclerView.layoutManager = LinearLayoutManager(this.context)
-        myResennatArrayList = arrayListOf()
-        myResennaAdapter = AdapterResennas(myResennatArrayList)
+        myResennaArrayList = arrayListOf()
+        myResennaAdapter = AdapterResennasPerfil(myResennaArrayList)
         resennaRecyclerView.adapter = myResennaAdapter
         EventChangeResennasListener()
     }
@@ -142,7 +143,7 @@ class PerfilFragment : Fragment() {
                 for (dc : DocumentChange in value?.documentChanges!!){
 
                     if (dc.type == DocumentChange.Type.ADDED){
-                        myResennatArrayList.add(dc.document.toObject(Resenna::class.java))
+                        myResennaArrayList.add(dc.document.toObject(Resenna::class.java))
                     }
                 }
                 myResennaAdapter.notifyDataSetChanged()
