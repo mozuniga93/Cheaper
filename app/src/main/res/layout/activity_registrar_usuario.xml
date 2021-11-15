@@ -116,7 +116,8 @@
                         android:layout_weight="1"
                         android:background="@android:drawable/toast_frame"
                         android:backgroundTint="#D6DCDC"
-                        android:hint="   Nombre" />
+                        android:hint="Nombre"
+                        android:paddingLeft="15dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -140,7 +141,8 @@
                         android:background="@android:drawable/toast_frame"
                         android:backgroundTint="#D6DCDC"
                         android:gravity="center|start"
-                        android:hint="   Apellido" />
+                        android:hint="Apellido"
+                        android:paddingLeft="15dp" />
                 </LinearLayout>
 
 

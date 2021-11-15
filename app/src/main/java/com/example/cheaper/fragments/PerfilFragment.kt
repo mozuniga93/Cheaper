@@ -115,13 +115,6 @@ class PerfilFragment : Fragment() {
     }
 
 
-    fun cerrarSesion(){
-        Log.d("[Manati] PerfilFragment","Cerrando Sesion.")
-        UsuarioRepositorio.cerrarSesion(this?.requireActivity())
-        val intent = Intent(context, MainActivity::class.java)
-        startActivity(intent)
-        this?.requireActivity().finish()
-    }
 
     fun cargarPerfil(viewOfLayout: View){
 
