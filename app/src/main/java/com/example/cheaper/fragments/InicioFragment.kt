@@ -96,7 +96,9 @@ class InicioFragment : Fragment() {
                 for (dc : DocumentChange in value?.documentChanges!!){
 
                     if (dc.type == DocumentChange.Type.ADDED){
-                        productArrayList.add(dc.document.toObject(Product::class.java))
+                        val producto = dc.document.toObject(Product::class.java)
+                        producto.id = dc.document.id
+                        productArrayList.add(producto)
                     }
                 }
                 myAdapter.notifyDataSetChanged()

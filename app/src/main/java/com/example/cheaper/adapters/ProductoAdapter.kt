@@ -2,6 +2,7 @@ package com.example.cheaper
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,12 +42,13 @@ class ProductoAdapter(private val productsList: ArrayList<Product>) :
 
                 val perfilProductoFragment = PerfilProductoFragment()
                 var bundle = Bundle()
-                bundle.putString("id", currentItem.id)
+                bundle.putString("id", currentItem.id.toString())
                 bundle.putString("nombre", currentItem.nombre.toString())
                 bundle.putString("marca", currentItem.marca.toString())
                 bundle.putString("descripcion", currentItem.descripcion.toString())
                 bundle.putString("imagen", currentItem.foto.toString())
                 perfilProductoFragment.arguments = bundle
+                Log.e("bundle", bundle.toString())
                 val transaction: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.list_productos, perfilProductoFragment).addToBackStack(null)
                 transaction.commit()

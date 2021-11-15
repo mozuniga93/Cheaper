@@ -3,18 +3,17 @@ package com.example.cheaper.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cheaper.*
+import com.example.cheaper.MainActivity
 import com.example.cheaper.R
 import com.example.cheaper.adapters.AdapterProduct
-import com.example.cheaper.adapters.AdapterResennas
 import com.example.cheaper.adapters.AdapterResennasPerfil
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
@@ -22,6 +21,9 @@ import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil.view.*
+
+
+
 
 
 class PerfilFragment : Fragment() {
@@ -143,14 +145,15 @@ class PerfilFragment : Fragment() {
                 for (dc : DocumentChange in value?.documentChanges!!){
 
                     if (dc.type == DocumentChange.Type.ADDED){
-                        myResennaArrayList.add(dc.document.toObject(Resenna::class.java))
+                        var resenna = dc.document.toObject(Resenna::class.java)
+                        resenna.id = dc.document.id
+                        myResennaArrayList.add(resenna)
                     }
                 }
                 myResennaAdapter.notifyDataSetChanged()
             }
         })
     }
-
 
     fun cerrarSesion(){
         Log.d("[Manati] PerfilFragment","Cerrando Sesion.")
