@@ -48,7 +48,7 @@ class ProductoAdapter(private val productsList: ArrayList<Product>) :
                 bundle.putString("imagen", currentItem.foto.toString())
                 perfilProductoFragment.arguments = bundle
                 val transaction: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.list_productos, perfilProductoFragment).addToBackStack(null)
+                transaction.replace(R.id.inicio, perfilProductoFragment).addToBackStack(null)
                 transaction.commit()
             }
         })
