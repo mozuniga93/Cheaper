@@ -1,21 +1,11 @@
 package com.example.cheaper
 
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.cheaper.fragments.*
-import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.UsuarioRepositorio
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
+
 
 /*   private fun makeCurrentActivity(fragment: Activity) {
 

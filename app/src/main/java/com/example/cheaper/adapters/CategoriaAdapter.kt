@@ -1,6 +1,9 @@
 package com.example.cheaper.adapters
 
+import android.content.ContentValues.TAG
 import android.media.Image
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +17,7 @@ import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.model.Categoria
 import com.squareup.picasso.Picasso
 import androidx.appcompat.app.AppCompatActivity
-
-
+import com.example.cheaper.fragments.ProductoCategoriaFragment
 
 
 class CategoriaAdapter(private val categoriasList: ArrayList<Categoria>):
@@ -34,14 +36,20 @@ class CategoriaAdapter(private val categoriasList: ArrayList<Categoria>):
         holder.nombreCategoria.text = currentItem.nombre
         Picasso.get().load(currentItem.foto).into(holder.fotoCategoria)
 
+        val CatName = currentItem.nombre
+
         holder.itemView.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
+                val bundle = Bundle()
+                bundle.putString("categoria", CatName)
                 val activity=v!!.context as AppCompatActivity
-                val inicioFragment = InicioFragment()
-                activity.supportFragmentManager.beginTransaction().replace(R.id.categoriasListBuscar, inicioFragment).addToBackStack(null).commit()
+                val productoFragment = ProductoCategoriaFragment()
+                productoFragment.arguments = bundle
+               // productoFragment.arguments = CatName
+                Log.i(TAG, "Categoria " +CatName)
+                activity.supportFragmentManager.beginTransaction().replace(R.id.buscar, productoFragment).addToBackStack(null).commit()
             }
         })
-
     }
 
     override fun getItemCount(): Int {

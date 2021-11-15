@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,29 +8,12 @@
     tools:context=".fragments.BuscarFragment"
     android:id="@+id/buscar">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoriasListBuscar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <SearchView
-            android:id="@+id/searchViewProducts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/searchview_background"
-            />
+        android:layout_height="match_parent"
+        tools:listitem="@layout/grid_layout_categoria"
+        android:clickable="true"
+        android:focusable="true"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoriasListBuscar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/grid_layout_categoria"
-            android:clickable="true"
-            android:focusable="true"/>
-
-    </LinearLayout>
-
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
