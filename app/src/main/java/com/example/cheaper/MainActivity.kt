@@ -1,7 +1,7 @@
 package com.example.cheaper
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.cheaper.fragments.*
 import com.example.cheaper.repositorios.UsuarioRepositorio
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
+
 
 /*   private fun makeCurrentActivity(fragment: Activity) {
 
