@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
         <ImageView
@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat"
             android:inputType="text"
             android:text="Nombre del producto"
             android:textAlignment="textStart"
@@ -47,11 +48,12 @@
 
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/montserrat"
             android:inputType="text"
             android:text="Marca del producto"
             android:textAlignment="textStart"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageViewProductoPerfil"
@@ -65,11 +67,12 @@
             android:layout_height="match_parent"
             android:layout_marginStart="5dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="@font/montserrat"
             android:inputType="text"
             android:text="Descripcion del producto"
             android:textAlignment="textStart"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageViewProductoPerfil"
