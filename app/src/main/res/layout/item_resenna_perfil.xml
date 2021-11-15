@@ -19,7 +19,7 @@
             android:layout_height="140dp">
 
             <ImageView
-                android:id="@+id/imageResena1"
+                android:id="@+id/imageResenaPerfil"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
@@ -27,6 +27,7 @@
                 tools:srcCompat="@tools:sample/avatars[3]" />
 
             <TextView
+                android:id="@+id/txtNomreResenaPerfil"
                 android:layout_width="246dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -35,47 +36,65 @@
                 android:layout_marginBottom="105dp"
                 android:fontFamily="@font/montserrat"
                 android:text="Nombre del producto"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtPrecioResenaPerfil"
                 android:layout_width="246dp"
-                android:layout_height="wrap_content"
 
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="9dp"
                 android:layout_marginBottom="80dp"
                 android:fontFamily="@font/montserrat"
                 android:text="Precio"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/txtTiendaResenaPerfil"
                 android:layout_width="247dp"
-                android:layout_height="wrap_content"
 
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="9dp"
                 android:layout_marginBottom="48dp"
                 android:fontFamily="@font/montserrat"
                 android:text="Tienda"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/txtLocalizacionResenaPerfil"
                 android:layout_width="247dp"
-                android:layout_height="wrap_content"
 
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="9dp"
                 android:layout_marginBottom="17dp"
                 android:fontFamily="@font/montserrat"
                 android:text="Localización"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/buttonEliminarResennaPerfil"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="44dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="313dp"
+                android:layout_marginTop="76dp"
+                android:backgroundTint="@color/secundario_amarillo"
+                android:drawableLeft="@android:drawable/ic_menu_delete"
+                android:paddingLeft="7dp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
 
         </RelativeLayout>
