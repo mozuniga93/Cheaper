@@ -3,16 +3,15 @@ package com.example.cheaper.fragments
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cheaper.*
+import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
 import com.example.cheaper.model.Product
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -96,7 +95,15 @@ class InicioFragment : Fragment() {
             get().
             addOnSuccessListener { documents ->
                 productArrayList.clear()
-                productArrayList.addAll(documents.toObjects(Product::class.java))
+                var productos = ArrayList<Product>()
+                productos = arrayListOf()
+                for (document in documents) {
+                    var producto = document.toObject(Product::class.java)
+                    producto.id = document.id
+                    productos.add(producto)
+                }
+                Log.d("Productos", productos.toString())
+                productArrayList.addAll(productos)
                 productRecyclerView.adapter = ProductoAdapter(productArrayList)
             }
                 .addOnFailureListener{ exception ->
@@ -113,7 +120,15 @@ class InicioFragment : Fragment() {
                 get().
                 addOnSuccessListener { documents ->
                     productArrayList.clear()
-                    productArrayList.addAll(documents.toObjects(Product::class.java))
+                    var productos = ArrayList<Product>()
+                    productos = arrayListOf()
+                    for (document in documents) {
+                    var producto = document.toObject(Product::class.java)
+                    producto.id = document.id
+                        productos.add(producto)
+                }
+                    Log.d("Productos", productos.toString())
+                    productArrayList.addAll(productos)
                     productRecyclerView.adapter = ProductoAdapter(productArrayList)
                 }
                     .addOnFailureListener{ exception ->
