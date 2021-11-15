@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +17,7 @@ import com.example.cheaper.model.Resenna
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.google.firebase.firestore.*
+import com.squareup.picasso.Picasso
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +29,11 @@ private lateinit var usuarioArrayList:  ArrayList<Usuario>
 private lateinit var myAdapter: AdapterResennas
 lateinit var db: FirebaseFirestore
 private lateinit var viewOfLayout: View
+private var idProducto : Any? = ""
+private var nombreProducto : Any? = ""
+private var marcaProducto : Any? = ""
+private var descripcionProducto : Any? = ""
+private var imagenProducto : Any? = ""
 
 /**
  * A simple [Fragment] subclass.
@@ -49,6 +57,7 @@ class PerfilProductoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        obtenerInfoProducto()
         obtenerFotoUsuario()
         usuarioArrayList = arrayListOf()
         // Inflate the layout for this fragment
@@ -59,7 +68,47 @@ class PerfilProductoFragment : Fragment() {
         myAdapter = AdapterResennas(resennaArrayList)
         resennaRecyclerView.adapter = myAdapter
         irARegistrar(viewOfLayout)
+        mostrarInfoProducto(viewOfLayout)
         return viewOfLayout
+    }
+
+    private fun obtenerInfoProducto() {
+        val args = this.arguments
+        idProducto = args?.get("id")
+        nombreProducto = args?.get("nombre")
+        marcaProducto = args?.get("marca")
+        descripcionProducto = args?.get("descripcion")
+        imagenProducto = args?.get("imagen")
+    }
+
+//    private fun mostrarResennaDestacada() {
+//        val tag = "ResennaDestacada"
+//        var resennas : ArrayList<Resenna>
+//        resennas = arrayListOf()
+//        db = FirebaseFirestore.getInstance()
+//        val resennasRef = db.collection("resennas")
+//        val query = resennasRef.whereEqualTo("producto", "76XUiUeovNOXeZguXvpl")
+//        query.get().addOnSuccessListener { result ->
+//                for (document in result) {
+//                    resennas.add(document.toObject(Resenna::class.java))
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.d(tag, "Error getting documents: ", exception)
+//            }
+//
+//        Log.d(tag, resennas.toString())
+//    }
+
+    private fun mostrarInfoProducto(vista: View) {
+        val nombreProd: TextView = vista.findViewById(R.id.lblNombreProducto)
+        nombreProd.text = nombreProducto.toString()
+        val marcaProd: TextView = vista.findViewById(R.id.lblMarcaProducto)
+        marcaProd.text = marcaProducto.toString()
+        val descripcionProd: TextView = vista.findViewById(R.id.lblDescripcionProducto)
+        descripcionProd.text = descripcionProducto.toString()
+        val fotoProducto: ImageView = vista.findViewById(R.id.IvProducto)
+        Picasso.get().load(imagenProducto.toString()).into(fotoProducto)
     }
 
     private fun irARegistrar(vista: View) {
@@ -67,6 +116,13 @@ class PerfilProductoFragment : Fragment() {
 
         btnAgregarResenna.setOnClickListener {
             val resennaFragment = ResennaFragment()
+            var bundle = Bundle()
+            bundle.putString("productoId", idProducto.toString())
+            bundle.putString("productoNombre", nombreProducto.toString())
+            bundle.putString("productoMarca", marcaProducto.toString())
+            bundle.putString("productoDescripcion", descripcionProducto.toString())
+            bundle.putString("productoImagen", imagenProducto.toString())
+            resennaFragment.arguments = bundle
             val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
             transaction.replace(R.id.fl_perfil_producto, resennaFragment)
             transaction.commit()
@@ -112,6 +168,9 @@ class PerfilProductoFragment : Fragment() {
     }
 
     private fun EventChangeListener() {
+        if(resennaArrayList.size != 0){
+            resennaArrayList.clear()
+        }
         db = FirebaseFirestore.getInstance()
         db.collection("resennas").addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(
@@ -125,10 +184,10 @@ class PerfilProductoFragment : Fragment() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         var resenna = dc.document.toObject(Resenna::class.java)
                         val resennaFoto = cambiarIdPorFoto(resenna)
-                        Log.d("[Manati] resenna foto",resennaFoto.toString())
-                        resennaArrayList.add(resennaFoto)
-                        val docRef = db.collection(RepositorioConstantes.usuariosCollection)
-                            .document(dc.document.toObject(Resenna::class.java).usuario!!)
+                        Log.d("[Manati] resenna foto:"," id producto" + idProducto.toString()  +" id producto resenna" + resennaFoto.producto)
+                        if(resennaFoto.producto.equals(idProducto.toString())) {
+                            resennaArrayList.add(resennaFoto)
+                        }
                     }
                 }
                 myAdapter.notifyDataSetChanged()
