@@ -59,20 +59,6 @@
                     android:layout_height="match_parent"
                     android:backgroundTint="@color/white">
 
-                    <Button
-                        android:id="@+id/btn_agregar_resenna"
-                        android:layout_width="280dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/button_add_product"
-                        android:text="Agregar reseña"
-                        android:textColor="@color/white"
-                        android:textStyle="normal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.492"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
-
                     <LinearLayout
                         android:id="@+id/linearLayout5"
                         android:layout_width="306dp"
@@ -95,7 +81,8 @@
                             android:gravity="center|start"
                             android:hint="Lugar"
                             android:inputType="textMultiLine"
-                            android:paddingStart="20dp" />
+                            android:paddingStart="20dp"
+                            android:textColorHint="#4B5963" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -120,7 +107,8 @@
                             android:gravity="center|start"
                             android:hint="Provincia"
                             android:inputType="textMultiLine"
-                            android:paddingStart="20dp" />
+                            android:paddingStart="20dp"
+                            android:textColorHint="#4B5963" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -144,7 +132,8 @@
                             android:gravity="center|start"
                             android:hint="Tienda"
                             android:inputType="textMultiLine"
-                            android:paddingStart="20dp" />
+                            android:paddingStart="20dp"
+                            android:textColorHint="#4B5963" />
                     </LinearLayout>
 
                     <TextView
@@ -181,7 +170,8 @@
                             android:backgroundTint="#D6DCDC"
                             android:hint="Precio"
                             android:inputType="numberDecimal"
-                            android:paddingStart="20dp" />
+                            android:paddingStart="20dp"
+                            android:textColorHint="#4B5963" />
                     </LinearLayout>
 
                     <Switch
@@ -191,11 +181,26 @@
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="12dp"
                         android:text="Es virtual"
-                        android:textColor="@color/secundario_gris"
+                        android:textColor="#4B5963"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
                         tools:ignore="TouchTargetSizeCheck" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_agregar_resenna"
+                        android:layout_width="288dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@android:drawable/toast_frame"
+                        android:backgroundTint="@color/secundario_amarillo"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Agregar reseña"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|bold"
+                        app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 

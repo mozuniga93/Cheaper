@@ -183,8 +183,8 @@ class PerfilProductoFragment : Fragment() {
                 for (dc: DocumentChange in value?.documentChanges!!) {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         var resenna = dc.document.toObject(Resenna::class.java)
+                        resenna.id = dc.document.id
                         val resennaFoto = cambiarIdPorFoto(resenna)
-                        Log.d("[Manati] resenna foto:"," id producto" + idProducto.toString()  +" id producto resenna" + resennaFoto.producto)
                         if(resennaFoto.producto.equals(idProducto.toString())) {
                             resennaArrayList.add(resennaFoto)
                         }

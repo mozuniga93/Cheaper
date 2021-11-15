@@ -31,7 +31,6 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem: Resenna = listaResennas[position]
-
         holder.resennaPrecio.text = currentItem.precio.toString()
         holder.resennaTienda.text = currentItem.tienda
         val ubicacion =

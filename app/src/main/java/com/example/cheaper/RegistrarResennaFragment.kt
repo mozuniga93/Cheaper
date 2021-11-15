@@ -83,6 +83,8 @@ class ResennaFragment : Fragment() {
         esVirtual.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 with(vista) {
+                    txt_provincia.setText("")
+                    txt_provincia.setText("")
                     txt_provincia.setEnabled(false)
                     txt_canton.setEnabled(false)
                     txt_provincia.setHintTextColor(Color.parseColor("#B7BABA"))
@@ -91,8 +93,8 @@ class ResennaFragment : Fragment() {
             }else{
                 vista.txt_provincia.setEnabled(true)
                 vista.txt_canton.setEnabled(true)
-                vista.txt_provincia.setHintTextColor(Color.parseColor("#667c8a"))
-                vista.txt_canton.setHintTextColor(Color.parseColor("#667c8a"))
+                vista.txt_provincia.setHintTextColor(Color.parseColor("#4B5963"))
+                vista.txt_canton.setHintTextColor(Color.parseColor("#4B5963"))
             }
         }
     }
@@ -141,6 +143,7 @@ class ResennaFragment : Fragment() {
         val provinciatxt = provincia.text.toString()
         val cantontxt = canton.text.toString()
         var nuevaResenna = Resenna(
+            "",
             authUsuario?.uid!!,
             idProducto.toString(),
             preciotxt,
@@ -151,7 +154,6 @@ class ResennaFragment : Fragment() {
             0,
             LocalDate.now().toString()
         )
-        Log.d("Nueva resenna", nuevaResenna.toString())
         ResennaRepositorio.crearNuevaResenna(nuevaResenna)
         limpiartxt(precio, tienda, provincia, canton, esVirtual)
     }
@@ -162,10 +164,6 @@ class ResennaFragment : Fragment() {
         provincia.setText("")
         canton.setText("")
 
-//        val perfilProductoFragment = PerfilProductoFragment()
-//        activity?.supportFragmentManager!!.beginTransaction().replace(R.id.fl_registrar_resenna, perfilProductoFragment)
-//            .addToBackStack(null).commit()
-
         val perfilProductoFragment = PerfilProductoFragment()
         var bundle = Bundle()
         bundle.putString("id", idProducto.toString())
@@ -173,7 +171,6 @@ class ResennaFragment : Fragment() {
         bundle.putString("marca", marcaProducto.toString())
         bundle.putString("descripcion", descripcionProducto.toString())
         bundle.putString("imagen", imagenProducto.toString())
-        Log.d("Registrar resenna ", bundle.toString())
         perfilProductoFragment.arguments = bundle
         val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
         transaction.replace(R.id.fl_registrar_resenna, perfilProductoFragment)
