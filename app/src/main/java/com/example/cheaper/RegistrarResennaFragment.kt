@@ -1,5 +1,6 @@
 package com.example.cheaper
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,10 +12,17 @@ import android.widget.EditText
 import android.widget.Switch
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.repositorios.ResennaRepositorio
+import com.example.cheaper.utilidades.RegistrarDialog
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_registrar_resenna.view.*
 import java.time.LocalDate
+
+
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +38,11 @@ class ResennaFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var idProducto : Any? = ""
+    private var nombreProducto : Any? = ""
+    private var marcaProducto : Any? = ""
+    private var descripcionProducto : Any? = ""
+    private var imagenProducto : Any? = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +61,22 @@ class ResennaFragment : Fragment() {
     ): View? {
 
         val vista =  inflater.inflate(R.layout.fragment_registrar_resenna, container, false)
+        obtenerIdProducto()
         verificarSiTiendaEsVirtual(vista)
         registrar(vista)
         return vista
         // Inflate the layout for this fragment
     }
+
+    private fun obtenerIdProducto() {
+       val args = this.arguments
+        idProducto = args?.get("productoId")
+        nombreProducto = args?.get("productoNombre")
+        marcaProducto = args?.get("productoMarca")
+        descripcionProducto = args?.get("productoDescripcion")
+        imagenProducto = args?.get("productoImagen")
+    }
+
 
     private fun verificarSiTiendaEsVirtual(vista: View){
         val esVirtual: Switch = vista.findViewById(R.id.switchEsVirtual)
@@ -61,11 +85,14 @@ class ResennaFragment : Fragment() {
                 with(vista) {
                     txt_provincia.setEnabled(false)
                     txt_canton.setEnabled(false)
-
+                    txt_provincia.setHintTextColor(Color.parseColor("#B7BABA"))
+                    txt_canton.setHintTextColor(Color.parseColor("#B7BABA"))
                 }
             }else{
                 vista.txt_provincia.setEnabled(true)
                 vista.txt_canton.setEnabled(true)
+                vista.txt_provincia.setHintTextColor(Color.parseColor("#667c8a"))
+                vista.txt_canton.setHintTextColor(Color.parseColor("#667c8a"))
             }
         }
     }
@@ -91,19 +118,16 @@ class ResennaFragment : Fragment() {
                 crearNuevaResenna(precio, tienda, provincia, canton, esVirtual)
             } else {
                 Log.d("Registro resenna", "Registro fallido")
-//                val context = this
-//                val alertBuilder = AlertDialog.Builder()
-//                alertBuilder.setTitle(title)
-//                alertBuilder.setMessage("Se deben rellenar todos los campos.")
-//                alertBuilder.setPositiveButton("Aceptar", null)
-//                val dialog: AlertDialog = alertBuilder.create()
-//                dialog.show()
+                val dialogo = RegistrarDialog()
+                dialogo.show(parentFragmentManager, "RegistroDialog")
             }
         }else{
             if (!precio.text.isNullOrBlank() && !tienda.text.isNullOrBlank()) {
                 crearNuevaResenna(precio, tienda, provincia, canton, esVirtual)
             } else {
                 Log.d("Registro resenna", "Registro fallido")
+                val dialogo = RegistrarDialog()
+                dialogo.show(parentFragmentManager, "RegistroDialog")
             }
         }
 
@@ -111,14 +135,14 @@ class ResennaFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun crearNuevaResenna(precio: EditText, tienda: EditText, provincia: EditText, canton: EditText, esVirtual: Switch) {
-//        var authUsuario = Firebase.auth.currentUser!!
+        var authUsuario = Firebase.auth.currentUser!!
         val preciotxt = precio.text.toString().toInt()
         val tiendatxt = tienda.text.toString()
         val provinciatxt = provincia.text.toString()
         val cantontxt = canton.text.toString()
         var nuevaResenna = Resenna(
-            "Juan",
-            "Bloqueador Solar NO-AD",
+            authUsuario?.uid!!,
+            idProducto.toString(),
             preciotxt,
             tiendatxt,
             provinciatxt,
@@ -137,6 +161,23 @@ class ResennaFragment : Fragment() {
         tienda.setText("")
         provincia.setText("")
         canton.setText("")
+
+//        val perfilProductoFragment = PerfilProductoFragment()
+//        activity?.supportFragmentManager!!.beginTransaction().replace(R.id.fl_registrar_resenna, perfilProductoFragment)
+//            .addToBackStack(null).commit()
+
+        val perfilProductoFragment = PerfilProductoFragment()
+        var bundle = Bundle()
+        bundle.putString("id", idProducto.toString())
+        bundle.putString("nombre", nombreProducto.toString())
+        bundle.putString("marca", marcaProducto.toString())
+        bundle.putString("descripcion", descripcionProducto.toString())
+        bundle.putString("imagen", imagenProducto.toString())
+        Log.d("Registrar resenna ", bundle.toString())
+        perfilProductoFragment.arguments = bundle
+        val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
+        transaction.replace(R.id.fl_registrar_resenna, perfilProductoFragment)
+        transaction.commit()
     }
 
     companion object {
