@@ -1,4 +1,4 @@
-package com.example.cheaper
+package com.example.cheaper.adapters
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cheaper.R
 import com.example.cheaper.model.Resenna
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
@@ -69,7 +70,9 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
     private fun validarDias(diff: Int): String {
         var cuantoTiempo = ""
 
-        if (diff <= 1) {
+        if (diff == 0) {
+            cuantoTiempo = "Hoy"
+        }else if (diff == 1) {
             cuantoTiempo = "Hace 1 día"
         } else if (diff > 1 && diff < 31) {
             cuantoTiempo = "Hace " + diff + " días"
