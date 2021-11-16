@@ -116,10 +116,11 @@ class ProductoCategoriaFragment : Fragment() {
             } else if (categoria != "" && sTextSearch.isNotEmpty()) {
             db = FirebaseFirestore.getInstance()
             db.collection("productos").
-            orderBy("nombre").
+            whereEqualTo("categoria",categoria).
+            orderBy("nombre", Query.Direction.ASCENDING).
             startAt(sTextSearch.uppercase()).
             endAt(sTextSearch.lowercase() + "\uf8ff").
-            whereEqualTo("categoria",categoria).
+            limit(10).
             get().
             addOnSuccessListener { documents ->
                 productArrayList.clear()

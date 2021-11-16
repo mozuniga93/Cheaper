@@ -115,6 +115,7 @@ class InicioFragment : Fragment() {
                 //whereEqualTo("nombre", sTextSearch).
                 //whereLessThan("nombre", sTextSearch).
                 orderBy("nombre").
+                orderBy("marca").
                 startAt(sTextSearch.uppercase()).
                 endAt(sTextSearch.lowercase() + "\uf8ff").
                 get().
