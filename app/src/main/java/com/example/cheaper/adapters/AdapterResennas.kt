@@ -31,7 +31,6 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem: Resenna = listaResennas[position]
-
         holder.resennaPrecio.text = currentItem.precio.toString()
         holder.resennaTienda.text = currentItem.tienda
         val ubicacion =
@@ -70,7 +69,9 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
     private fun validarDias(diff: Int): String {
         var cuantoTiempo = ""
 
-        if (diff <= 1) {
+        if (diff == 0) {
+            cuantoTiempo = "Hoy"
+        }else if (diff == 1) {
             cuantoTiempo = "Hace 1 día"
         } else if (diff > 1 && diff < 31) {
             cuantoTiempo = "Hace " + diff + " días"

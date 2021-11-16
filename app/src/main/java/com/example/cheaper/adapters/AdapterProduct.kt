@@ -12,21 +12,22 @@ import com.squareup.picasso.Picasso
 
 class AdapterProduct(private val productsList: ArrayList<Product>) :
 
-    RecyclerView.Adapter<AdapterProduct.MyViewHolder>() {
+    RecyclerView.Adapter<AdapterProduct.MyViewHolder>(){
 
+    private lateinit var listener : View.OnClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.item_producto_perfil,
             parent, false)
+
         return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem : Product = productsList[position]
-
         holder.productName.text = currentItem.nombre
         holder.productBrand.text = currentItem.marca
         holder.productDescription.text = currentItem.descripcion
@@ -44,6 +45,7 @@ class AdapterProduct(private val productsList: ArrayList<Product>) :
         val productBrand : TextView = itemView.findViewById(R.id.txtMarcaProducto_perfil)
         val productDescription : TextView = itemView.findViewById(R.id.txtDescripcionProducto_perfil)
         val productImage : ImageView = itemView.findViewById(R.id.imageViewProductoPerfil)
-
     }
+
+
 }

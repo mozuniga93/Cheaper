@@ -1,15 +1,19 @@
 package com.example.cheaper.adapters
 
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
+import com.example.cheaper.db
 import com.example.cheaper.model.Resenna
+import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
@@ -29,8 +33,8 @@ class AdapterResennasPerfil(private val listaResennas: ArrayList<Resenna>):
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: AdapterResennasPerfil.MyViewHolder, position: Int) {
 
+        val posicion = position
         val currentItem: Resenna = listaResennas[position]
-
         holder.resennaProducto.text = currentItem.producto.toString()
         holder.resennaPrecio.text = currentItem.precio.toString()
         holder.resennaTienda.text = currentItem.tienda
@@ -40,8 +44,24 @@ class AdapterResennasPerfil(private val listaResennas: ArrayList<Resenna>):
        // val tiempo = transformarFecha(currentItem.fecha)
        // holder.resennaTiempo.text = tiempo
         Picasso.get().load(currentItem.usuario).into(holder.fotoResenna)
+        holder.btnEliminarResenna.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                db = FirebaseFirestore.getInstance()
+                db.collection("resennas").document(currentItem.id!!)
+                    .delete()
+                    .addOnSuccessListener { Log.d("Eliminar resenna", "DocumentSnapshot successfully deleted!" +
+                    " Resenna eliminada: " + currentItem.toString()) }
+                    .addOnFailureListener { e -> Log.w("Eliminar resenna", "Error deleting document", e) }
+                actualizarLista(posicion)
+            }
+        })
 
 
+    }
+
+    private fun actualizarLista(position: Int){
+        listaResennas.removeAt(position)
+        notifyDataSetChanged()
     }
 
     private fun obtenerUbicacion(provincia: String?, lugar: String?, virtual: Boolean?): String {
@@ -114,6 +134,7 @@ class AdapterResennasPerfil(private val listaResennas: ArrayList<Resenna>):
         val resennaTienda: TextView = itemView.findViewById(R.id.txtTiendaResenaPerfil)
         val resennaDireccion: TextView = itemView.findViewById(R.id.txtLocalizacionResenaPerfil)
         val fotoResenna: ImageView = itemView.findViewById(R.id.imageResenaPerfil)
+        val btnEliminarResenna = itemView.findViewById<Button>(R.id.buttonEliminarResennaPerfil)
 
     }
 

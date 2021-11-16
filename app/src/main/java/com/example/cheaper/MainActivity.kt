@@ -1,7 +1,7 @@
 package com.example.cheaper
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.cheaper.fragments.*
 import com.example.cheaper.repositorios.UsuarioRepositorio
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.ic_inicio -> makeCurrentFragment(inicioFragment)
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
-                R.id.ic_favoritos -> makeCurrentFragment(perfilProdutoFragment)
+                R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
                 R.id.ic_perfil -> {
                     if(UsuarioRepositorio.usuarioEstaLogueado())
                         makeCurrentFragment(perfilFragment)
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
+
 
 /*   private fun makeCurrentActivity(fragment: Activity) {
 
