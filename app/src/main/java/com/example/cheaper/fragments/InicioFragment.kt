@@ -115,6 +115,9 @@ class InicioFragment : Fragment() {
                     productArrayList.clear()
                     productArrayList.addAll(documents.toObjects(Product::class.java))
                     productRecyclerView.adapter = ProductoAdapter(productArrayList)
+                    if(productArrayList.size == 0){
+                        Log.w(TAG, "No se encontraron productos. ")
+                    }
                 }
                     .addOnFailureListener{ exception ->
                         Log.w(TAG, "Error getting products: ", exception)

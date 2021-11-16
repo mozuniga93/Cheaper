@@ -38,7 +38,7 @@ class CategoriaAdapter(private val categoriasList: ArrayList<Categoria>):
 
         val CatName = currentItem.nombre
 
-        holder.itemView.setOnClickListener(object : View.OnClickListener{
+        holder.fotoCategoria.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 val bundle = Bundle()
                 bundle.putString("categoria", CatName)
