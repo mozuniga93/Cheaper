@@ -13,6 +13,9 @@
         app:cardCornerRadius="15dp"
         android:layout_margin="15dp"
         android:clickable="true"
+        android:minWidth="160dp"
+        android:background="@color/secundario_gris"
+        android:focusable="true"
         app:cardElevation="7dp">
 
         <ImageView
@@ -25,6 +28,7 @@
             android:scaleType="fitXY"
             android:alpha="255"
             android:clickable="true"
+            android:background="@color/secundario_gris"
             />
 
         <ImageView
@@ -32,7 +36,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/shadoweffect"
             />
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,11 +47,11 @@
                 android:id="@+id/categoria_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_centerInParent="true"
                 android:gravity="center"
                 android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:layout_centerInParent="true"
                 android:textStyle="bold" />
 
         </LinearLayout>

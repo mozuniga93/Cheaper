@@ -17,8 +17,8 @@ import java.time.Period
 class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
     RecyclerView.Adapter<AdapterResennas.MyViewHolder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+
 
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.item,
@@ -71,7 +71,7 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
 
         if (diff == 0) {
             cuantoTiempo = "Hoy"
-        }else if (diff == 1) {
+        } else if (diff == 1) {
             cuantoTiempo = "Hace 1 día"
         } else if (diff > 1 && diff < 31) {
             cuantoTiempo = "Hace " + diff + " días"

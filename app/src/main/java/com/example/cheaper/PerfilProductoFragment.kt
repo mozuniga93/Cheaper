@@ -1,5 +1,6 @@
 package com.example.cheaper
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,16 +9,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.adapters.AdapterResennas
+import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
+import java.time.LocalDate
+import java.time.Period
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,7 +57,7 @@ class PerfilProductoFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -67,6 +72,13 @@ class PerfilProductoFragment : Fragment() {
         resennaArrayList = arrayListOf()
         myAdapter = AdapterResennas(resennaArrayList)
         resennaRecyclerView.adapter = myAdapter
+
+        // Para volver al inicio
+        viewOfLayout?.findViewById<TextView>(R.id.tvVolver)?.setOnClickListener {
+            val inicioFragment = InicioFragment()
+            (activity as MainActivity?)?.makeCurrentFragment(inicioFragment)
+        }
+
         irARegistrar(viewOfLayout)
         mostrarInfoProducto(viewOfLayout)
         return viewOfLayout
@@ -81,24 +93,104 @@ class PerfilProductoFragment : Fragment() {
         imagenProducto = args?.get("imagen")
     }
 
-//    private fun mostrarResennaDestacada() {
-//        val tag = "ResennaDestacada"
-//        var resennas : ArrayList<Resenna>
-//        resennas = arrayListOf()
-//        db = FirebaseFirestore.getInstance()
-//        val resennasRef = db.collection("resennas")
-//        val query = resennasRef.whereEqualTo("producto", "76XUiUeovNOXeZguXvpl")
-//        query.get().addOnSuccessListener { result ->
-//                for (document in result) {
-//                    resennas.add(document.toObject(Resenna::class.java))
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.d(tag, "Error getting documents: ", exception)
-//            }
-//
-//        Log.d(tag, resennas.toString())
-//    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun obtenerResennaDestacada(itemView: View, listaResennas: ArrayList<Resenna>) {
+        var resennaDestacada = Resenna()
+            for (resenna in listaResennas) {
+                if (resennaDestacada.producto == null) {
+                    resennaDestacada = resenna
+                } else {
+                    if (resennaDestacada.precio!! > resenna.precio!!) {
+                        resennaDestacada = resenna
+                    }
+                }
+            }
+        if(resennaDestacada.producto != null) {
+            mostrarResennaDestacada(resennaDestacada, itemView)
+        }
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun mostrarResennaDestacada(resennaDestacada: Resenna, itemView: View) {
+        val precioDestacado: TextView = itemView.findViewById(R.id.tvPrecio_Destacado)
+        precioDestacado.text = resennaDestacada.precio.toString()
+
+        val nombreDestacado: TextView = itemView.findViewById(R.id.lblNombreComercioDestacado)
+        nombreDestacado.text = resennaDestacada.tienda.toString()
+
+        val ubicacion = obtenerUbicacion(resennaDestacada.provincia, resennaDestacada.lugar, resennaDestacada.virtual)
+        val ubicacionDestacado: TextView = itemView.findViewById(R.id.lblUbicacionDestacado)
+        ubicacionDestacado.text = ubicacion
+
+        val fotoUsuarioDestacado: ImageView = itemView.findViewById(R.id.IvUsuarioDestacado)
+        Picasso.get().load(resennaDestacada.usuario).into(fotoUsuarioDestacado)
+
+        val tiempo = transformarFecha(resennaDestacada.fecha)
+        val tiempoDestacado: TextView = itemView.findViewById(R.id.tvTiempoDestacado)
+        tiempoDestacado.text = tiempo
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun transformarFecha(fecha: String?): String {
+        val fechaI = LocalDate.parse(fecha)
+        val fechaf = LocalDate.now()
+
+        val period: Period = Period.between(fechaI, fechaf)
+        val diff: Int = period.getDays()
+        validarDias(diff)
+
+        val cuantoTiempo = validarDias(diff)
+        return cuantoTiempo
+    }
+
+    private fun validarDias(diff: Int): String {
+        var cuantoTiempo = ""
+
+        if (diff == 0) {
+            cuantoTiempo = "Hoy"
+        } else if (diff == 1) {
+            cuantoTiempo = "Hace 1 día"
+        } else if (diff > 1 && diff < 31) {
+            cuantoTiempo = "Hace " + diff + " días"
+        } else if (diff > 30 && diff < 61) {
+            cuantoTiempo = "Hace 1 mes"
+        } else if (diff > 60 && diff < 91) {
+            cuantoTiempo = "Hace 2 mes"
+        } else if (diff > 90 && diff < 121) {
+            cuantoTiempo = "Hace 3 mes"
+        } else if (diff > 120 && diff < 151) {
+            cuantoTiempo = "Hace 4 mes"
+        } else if (diff > 150 && diff < 181) {
+            cuantoTiempo = "Hace 5 mes"
+        } else if (diff > 180 && diff < 211) {
+            cuantoTiempo = "Hace 6 mes"
+        } else if (diff > 210 && diff < 241) {
+            cuantoTiempo = "Hace 7 mes"
+        } else if (diff > 240 && diff < 271) {
+            cuantoTiempo = "Hace 8 mes"
+        } else if (diff > 270 && diff < 301) {
+            cuantoTiempo = "Hace 9 mes"
+        } else if (diff > 300 && diff < 331) {
+            cuantoTiempo = "Hace 10 mes"
+        } else if (diff > 330 && diff < 361) {
+            cuantoTiempo = "Hace 11 mes"
+        } else if (diff > 360) {
+            cuantoTiempo = "Hace 1 año"
+        }
+
+        return cuantoTiempo
+    }
+
+    private fun obtenerUbicacion(provincia: String?, lugar: String?, virtual: Boolean?): String {
+        var ubicacion = ""
+        if (virtual == true) {
+            ubicacion = "Tienda virtual"
+        } else {
+            ubicacion = provincia + ", " + lugar
+        }
+        return ubicacion
+    }
 
     private fun mostrarInfoProducto(vista: View) {
         val nombreProd: TextView = vista.findViewById(R.id.lblNombreProducto)
@@ -130,6 +222,7 @@ class PerfilProductoFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun obtenerFotoUsuario() {
         val tag = "[Manati] Usuario"
         db = FirebaseFirestore.getInstance()
@@ -167,6 +260,7 @@ class PerfilProductoFragment : Fragment() {
             }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun EventChangeListener() {
         if(resennaArrayList.size != 0){
             resennaArrayList.clear()
@@ -191,6 +285,7 @@ class PerfilProductoFragment : Fragment() {
                     }
                 }
                 myAdapter.notifyDataSetChanged()
+                obtenerResennaDestacada(viewOfLayout, resennaArrayList)
             }
         })
     }
