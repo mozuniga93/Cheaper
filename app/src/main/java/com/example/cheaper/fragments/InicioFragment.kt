@@ -102,7 +102,6 @@ class InicioFragment : Fragment() {
                     producto.id = document.id
                     productos.add(producto)
                 }
-                Log.d("Productos", productos.toString())
                 productArrayList.addAll(productos)
                 productRecyclerView.adapter = ProductoAdapter(productArrayList)
             }
@@ -128,7 +127,6 @@ class InicioFragment : Fragment() {
                     producto.id = document.id
                         productos.add(producto)
                 }
-                    Log.d("Productos", productos.toString())
                     productArrayList.addAll(productos)
                     productRecyclerView.adapter = ProductoAdapter(productArrayList)
                     if(productArrayList.size == 0){

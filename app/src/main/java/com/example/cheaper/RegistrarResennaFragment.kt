@@ -64,6 +64,13 @@ class ResennaFragment : Fragment() {
         obtenerIdProducto()
         verificarSiTiendaEsVirtual(vista)
         registrar(vista)
+
+//        // Para volver al perfil
+//        vista?.findViewById<TextView>(R.id.tv_volver)?.setOnClickListener {
+//            val perfilProdutoFragment = PerfilProductoFragment()
+//            (activity as MainActivity?)?.makeCurrentFragment(perfilProdutoFragment)
+//        }
+
         return vista
         // Inflate the layout for this fragment
     }
