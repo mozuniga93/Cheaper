@@ -115,6 +115,7 @@ class InicioFragment : Fragment() {
                 //whereEqualTo("nombre", sTextSearch).
                 //whereLessThan("nombre", sTextSearch).
                 orderBy("nombre").
+                orderBy("marca").
                 startAt(sTextSearch.uppercase()).
                 endAt(sTextSearch.lowercase() + "\uf8ff").
                 get().
@@ -130,6 +131,9 @@ class InicioFragment : Fragment() {
                     Log.d("Productos", productos.toString())
                     productArrayList.addAll(productos)
                     productRecyclerView.adapter = ProductoAdapter(productArrayList)
+                    if(productArrayList.size == 0){
+                        Log.w(TAG, "No se encontraron productos. ")
+                    }
                 }
                     .addOnFailureListener{ exception ->
                         Log.w(TAG, "Error getting products: ", exception)
