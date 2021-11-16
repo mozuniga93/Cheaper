@@ -1,7 +1,6 @@
 package com.example.cheaper.adapters
 
 import android.os.Build
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
-import com.example.cheaper.db
 import com.example.cheaper.model.Resenna
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.cheaper.utilidades.EliminarDialog
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
@@ -46,12 +45,9 @@ class AdapterResennasPerfil(private val listaResennas: ArrayList<Resenna>):
         Picasso.get().load(currentItem.usuario).into(holder.fotoResenna)
         holder.btnEliminarResenna.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                db = FirebaseFirestore.getInstance()
-                db.collection("resennas").document(currentItem.id!!)
-                    .delete()
-                    .addOnSuccessListener { Log.d("Eliminar resenna", "DocumentSnapshot successfully deleted!" +
-                    " Resenna eliminada: " + currentItem.toString()) }
-                    .addOnFailureListener { e -> Log.w("Eliminar resenna", "Error deleting document", e) }
+                val activity = v!!.context as AppCompatActivity
+                val dialogo = EliminarDialog(currentItem)
+                dialogo.show(activity.supportFragmentManager, "EliminarDialog")
                 actualizarLista(posicion)
             }
         })

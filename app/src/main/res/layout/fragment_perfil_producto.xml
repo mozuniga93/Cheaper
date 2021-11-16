@@ -52,10 +52,10 @@
 
         <LinearLayout
             android:id="@+id/linearLayout7"
-            android:layout_width="418dp"
-            android:layout_height="137dp"
+            android:layout_width="412dp"
+            android:layout_height="127dp"
             android:background="#DCFFAB40"
-            android:elevation="30dp"
+            android:elevation="50dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,66 +66,64 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/lblUbicacion"
+                    android:id="@+id/lblUbicacionDestacado"
                     android:layout_width="255dp"
 
                     android:layout_height="28dp"
                     android:layout_marginStart="8dp"
                     android:background="@null"
                     android:inputType="text"
-                    android:text="Ubicación del comercio"
+                    android:text="para este producto"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/IvUsuario"
-                    app:layout_constraintTop_toBottomOf="@+id/lblNombreComercio"
+                    app:layout_constraintStart_toEndOf="@+id/IvUsuarioDestacado"
+                    app:layout_constraintTop_toBottomOf="@+id/lblNombreComercioDestacado"
                     app:layout_constraintVertical_bias="0.0"
                     tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
-                    android:id="@+id/lblNombreComercio"
+                    android:id="@+id/lblNombreComercioDestacado"
                     android:layout_width="253dp"
 
                     android:layout_height="22dp"
                     android:layout_marginStart="8dp"
                     android:inputType="text"
-                    android:text="Nombre del comercio"
+                    android:text="No existen reseñas registradas"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:textIsSelectable="false"
                     android:textSize="16sp"
-                    app:layout_constraintStart_toEndOf="@+id/IvUsuario"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3"
+                    app:layout_constraintStart_toEndOf="@+id/IvUsuarioDestacado"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPrecio_Destacado"
                     tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/tvTiempoDestacado"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="18dp"
+                    android:layout_marginEnd="22dp"
                     android:inputType="text"
                     android:paddingLeft="28sp"
-                    android:text="Hace una semana"
+                    android:text="Hoy"
                     android:textAllCaps="true"
                     android:textColor="@color/secundario_gris"
                     android:textIsSelectable="false"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/lblResennaDestacada"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/tvPrecio_Destacado"
                     android:layout_width="wrap_content"
 
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:inputType="number"
-                    android:text="20000"
+                    android:text="0.00"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:textIsSelectable="false"
@@ -137,9 +135,9 @@
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="18dp"
+                    android:layout_width="13dp"
 
-                    android:layout_height="29dp"
+                    android:layout_height="24dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:inputType="text"
@@ -149,15 +147,15 @@
                     android:textIsSelectable="false"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@+id/IvUsuario"
+                    app:layout_constraintStart_toEndOf="@+id/IvUsuarioDestacado"
                     app:layout_constraintTop_toBottomOf="@+id/lblResennaDestacada"
                     tools:ignore="TouchTargetSizeCheck" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/IvUsuario"
-                    android:layout_width="94dp"
-                    android:layout_height="82dp"
-                    android:layout_marginStart="32dp"
+                    android:id="@+id/IvUsuarioDestacado"
+                    android:layout_width="90dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -199,7 +197,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/tvVolver"
                 tools:src="@android:drawable/sym_def_app_icon" />
 
             <Button
@@ -292,7 +290,7 @@
                 tools:elevation="50dp" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvVolver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
