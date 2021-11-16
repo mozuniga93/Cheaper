@@ -1,12 +1,12 @@
 package com.example.cheaper.fragments
 
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.ProductoAdapter
@@ -25,13 +25,14 @@ private lateinit var db : FirebaseFirestore
 private lateinit var viewOfLayout: View
 private lateinit var searchViewProduct : androidx.appcompat.widget.SearchView
 private var sTextSearch:String=""
+private var categoria: String? = ""
 
 /**
  * A simple [Fragment] subclass.
- * Use the [InicioFragment.newInstance] factory method to
+ * Use the [ProductoCategoriaFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class InicioFragment : Fragment() {
+class ProductoCategoriaFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -42,8 +43,6 @@ class InicioFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
     }
 
     override fun onCreateView(
@@ -52,6 +51,7 @@ class InicioFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         viewOfLayout = inflater.inflate(R.layout.fragment_inicio, container, false)
+        categoria = arguments?.getString("categoria")
         productRecyclerView = viewOfLayout.findViewById(R.id.productsListInicio)
         productRecyclerView.layoutManager = LinearLayoutManager(this.context)
         productArrayList = arrayListOf()
@@ -72,69 +72,48 @@ class InicioFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment InicioFragment.
+         * @return A new instance of fragment ProductoCategoriaFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            InicioFragment().apply {
+            ProductoCategoriaFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
-
             }
     }
 
 
     private fun getProductos(){
-        if(sTextSearch.isEmpty()){
+        if(categoria == ""){
             db = FirebaseFirestore.getInstance()
             db.collection("productos").
             orderBy("nombre").
             get().
             addOnSuccessListener { documents ->
                 productArrayList.clear()
-                var productos = ArrayList<Product>()
-                productos = arrayListOf()
-                for (document in documents) {
-                    var producto = document.toObject(Product::class.java)
-                    producto.id = document.id
-                    productos.add(producto)
-                }
-                Log.d("Productos", productos.toString())
-                productArrayList.addAll(productos)
+                productArrayList.addAll(documents.toObjects(Product::class.java))
                 productRecyclerView.adapter = ProductoAdapter(productArrayList)
             }
                 .addOnFailureListener{ exception ->
-                    Log.w(TAG, "Error getting products: ", exception)
+                    Log.w(ContentValues.TAG, "Error getting products: ", exception)
                 }
         } else {
             db = FirebaseFirestore.getInstance()
             db.collection("productos").
-                //whereEqualTo("nombre", sTextSearch).
-                //whereLessThan("nombre", sTextSearch).
-                orderBy("nombre").
-                startAt(sTextSearch.uppercase()).
-                endAt(sTextSearch.lowercase() + "\uf8ff").
+                whereEqualTo("categoria",categoria).
                 get().
                 addOnSuccessListener { documents ->
                     productArrayList.clear()
-                    var productos = ArrayList<Product>()
-                    productos = arrayListOf()
-                    for (document in documents) {
-                    var producto = document.toObject(Product::class.java)
-                    producto.id = document.id
-                        productos.add(producto)
-                }
-                    Log.d("Productos", productos.toString())
-                    productArrayList.addAll(productos)
+                    productArrayList.addAll(documents.toObjects(Product::class.java))
                     productRecyclerView.adapter = ProductoAdapter(productArrayList)
                 }
                     .addOnFailureListener{ exception ->
-                        Log.w(TAG, "Error getting products: ", exception)
+                        Log.w(ContentValues.TAG, "Error getting products: ", exception)
                     }
-        }
+            }
 
     }
 
@@ -156,9 +135,7 @@ class InicioFragment : Fragment() {
                 for (dc : DocumentChange in value?.documentChanges!!){
 
                     if (dc.type == DocumentChange.Type.ADDED){
-                        val producto = dc.document.toObject(Product::class.java)
-                        producto.id = dc.document.id
-                        productArrayList.add(producto)
+                        productArrayList.add(dc.document.toObject(Product::class.java))
                     }
                 }
                 myAdapter.notifyDataSetChanged()
@@ -179,6 +156,5 @@ class InicioFragment : Fragment() {
             }
         })
     }
-
 
 }

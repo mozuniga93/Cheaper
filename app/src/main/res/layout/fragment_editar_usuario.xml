@@ -30,7 +30,7 @@
         android:minHeight="48dp"
         android:text="Cerrar Sesión"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,7 +82,7 @@
             android:id="@+id/linearLayout3"
             android:layout_width="306dp"
             android:layout_height="50dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:elevation="40dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -103,12 +103,13 @@
         </LinearLayout>
 
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnActualizarImgUsuario"
-            android:layout_width="194dp"
-            android:layout_height="48dp"
+            android:layout_width="187dp"
+            android:layout_height="39dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
+            android:background="@android:drawable/toast_frame"
             android:backgroundTint="@color/secundario_amarillo"
             android:text="Cargar imagen"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,8 +120,9 @@
             android:id="@+id/btn_actualizar_usuario"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="30dp"
             android:text="Actualizar"
+            android:background="@android:drawable/toast_frame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
@@ -135,6 +137,6 @@
         android:fontFamily="@font/montserrat"
         android:text="Volver"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="16sp" />
 
 </FrameLayout>

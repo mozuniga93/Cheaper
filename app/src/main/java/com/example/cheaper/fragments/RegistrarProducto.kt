@@ -6,24 +6,23 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import com.example.cheaper.MainActivity
 import com.example.cheaper.R
 import com.example.cheaper.databinding.FragmentRegistrarProductoBinding
 import com.example.cheaper.model.Product
 import com.example.cheaper.repositorios.ProductoRepositorio
 import com.example.cheaper.repositorios.UsuarioRepositorio
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_registrar_usuario.*
 import kotlinx.android.synthetic.main.fragment_registrar_producto.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -82,6 +81,7 @@ class RegistrarProducto : Fragment() {
         val intent = Intent()
         intent.type= "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
+
         startActivityForResult(intent,100)
     }
 
@@ -148,5 +148,8 @@ class RegistrarProducto : Fragment() {
         Log.d("Nuevo producto", nuevoProducto.toString())
         ProductoRepositorio.crearNuevoProducto(nuevoProducto)
 
+        // Volver al perfil luego de registrar
+        val perfilFragment = PerfilFragment()
+        (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
     }
 }

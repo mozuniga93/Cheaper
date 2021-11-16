@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.InicioFragment"
+    tools:context=".fragments.ProductoCategoriaFragment"
     android:background="@color/white"
-    android:id="@+id/inicio">
+    android:id="@+id/producto_categoria"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
-       <androidx.appcompat.widget.SearchView
-           android:id="@+id/search_view_producto"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view_producto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/productsListInicio"
@@ -35,4 +32,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

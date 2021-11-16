@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:elevation="100dp">
+
+    <LinearLayout
+        android:layout_width="390dp"
+        android:layout_height="match_parent"
+        android:elevation="40dp"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="379dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp">
+
+            <TextView
+                android:id="@+id/tvUbicacion"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:inputType="text"
+                android:text="Ubicación del comercio"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textIsSelectable="false"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivFoto"
+                app:layout_constraintTop_toBottomOf="@+id/tvNombreComercio"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvNombreComercio"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:inputType="text"
+                android:text="Nombre del comercio"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textIsSelectable="false"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/ivFoto"
+                app:layout_constraintTop_toBottomOf="@+id/tvPrecio" />
+
+            <TextView
+                android:id="@+id/tvTiempo"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:inputType="text"
+                android:paddingLeft="28sp"
+                android:textAllCaps="true"
+                android:textIsSelectable="false"
+                android:text="Hace una semana"
+                android:textColor="#E9667C8A"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvPrecio"
+                android:layout_width="65dp"
+
+                android:layout_height="25dp"
+                android:layout_marginTop="24dp"
+                android:inputType="number"
+                android:textAllCaps="true"
+                android:textIsSelectable="false"
+                android:text="16500"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivFoto"
+                android:layout_width="87dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:inputType="text"
+                android:textAllCaps="true"
+                android:textIsSelectable="false"
+                android:text="₡"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/ivFoto"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
