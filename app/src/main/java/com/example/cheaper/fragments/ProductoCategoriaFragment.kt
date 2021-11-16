@@ -87,7 +87,7 @@ class ProductoCategoriaFragment : Fragment() {
 
 
     private fun getProductos(){
-        if(categoria == ""){
+        if(categoria == "" && sTextSearch.isEmpty()){
             db = FirebaseFirestore.getInstance()
             db.collection("productos").
             orderBy("nombre").
@@ -100,7 +100,7 @@ class ProductoCategoriaFragment : Fragment() {
                 .addOnFailureListener{ exception ->
                     Log.w(ContentValues.TAG, "Error getting products: ", exception)
                 }
-        } else {
+        } else if (categoria != "" && sTextSearch.isEmpty()) {
             db = FirebaseFirestore.getInstance()
             db.collection("productos").
                 whereEqualTo("categoria",categoria).
@@ -113,7 +113,26 @@ class ProductoCategoriaFragment : Fragment() {
                     .addOnFailureListener{ exception ->
                         Log.w(ContentValues.TAG, "Error getting products: ", exception)
                     }
+            } else if (categoria != "" && sTextSearch.isNotEmpty()) {
+            db = FirebaseFirestore.getInstance()
+            db.collection("productos").
+            whereEqualTo("categoria",categoria).
+            orderBy("nombre", Query.Direction.ASCENDING).
+            startAt(sTextSearch.uppercase()).
+            endAt(sTextSearch.lowercase() + "\uf8ff").
+            limit(10).
+            get().
+            addOnSuccessListener { documents ->
+                productArrayList.clear()
+                productArrayList.addAll(documents.toObjects(Product::class.java))
+                productRecyclerView.adapter = ProductoAdapter(productArrayList)
             }
+                .addOnFailureListener{ exception ->
+                    Log.w(ContentValues.TAG, "Error getting products: ", exception)
+                }
+
+        }
+
 
     }
 
