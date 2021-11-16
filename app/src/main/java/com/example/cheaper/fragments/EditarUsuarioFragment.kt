@@ -50,6 +50,9 @@ class editarUsuarioFragment : Fragment() {
         ImageUri = empty.toUri()
 
 
+        viewOfLayout?.findViewById<TextView>(R.id.txtCerrarSesion)?.setOnClickListener {
+            cerrarSesion()
+        }
         // Para volver al perfil
         viewOfLayout?.findViewById<TextView>(R.id.volverFromEditarUsuario)?.setOnClickListener {
             val perfilFragment = PerfilFragment()
@@ -143,6 +146,15 @@ class editarUsuarioFragment : Fragment() {
         val imageUri = usuario.foto.toString()
         val ivBasicImage = viewOfLayout.fotoUsuarioEditar
         Picasso.get().load(imageUri).into(ivBasicImage)
+    }
+
+
+    fun cerrarSesion(){
+        Log.d("[Manati] EditarUsua","Cerrando Sesion.")
+        UsuarioRepositorio.cerrarSesion(this?.requireActivity())
+        val intent = Intent(context, MainActivity::class.java)
+        startActivity(intent)
+        this?.requireActivity().finish()
     }
 
 } // FIN
