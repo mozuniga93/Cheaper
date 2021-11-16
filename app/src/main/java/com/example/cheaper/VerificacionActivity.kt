@@ -131,6 +131,7 @@ class VerificacionActivity : FragmentActivity() {
 
     private fun sendVerificationCode(number: String) {
         Log.d(tag , "Phone number $number")
+        auth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(false)
 
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(number) // Phone number to verify
