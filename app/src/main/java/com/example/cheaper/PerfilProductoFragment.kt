@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +40,7 @@ private var nombreProducto : Any? = ""
 private var marcaProducto : Any? = ""
 private var descripcionProducto : Any? = ""
 private var imagenProducto : Any? = ""
+private var esFavorito = false
 
 /**
  * A simple [Fragment] subclass.
@@ -79,9 +81,47 @@ class PerfilProductoFragment : Fragment() {
             (activity as MainActivity?)?.makeCurrentFragment(inicioFragment)
         }
 
+        cargarComoFavorito()
+        viewOfLayout?.findViewById<TextView>(R.id.btnAgregarFavoritos)?.setOnClickListener {
+            marcarComoFavorito()
+        }
+
+
+
         irARegistrar(viewOfLayout)
         mostrarInfoProducto(viewOfLayout)
         return viewOfLayout
+    }
+
+    private fun marcarComoFavorito() {
+        if(!esFavorito){
+            cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
+            //UsuarioRepositorio.registrarProductoFavoritoEnUsuario()
+        }else {
+            cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
+        }
+        esFavorito = !esFavorito
+    }
+
+    private fun cargarComoFavorito(){
+        if(esFavorito){
+            cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
+            //UsuarioRepositorio.registrarProductoFavoritoEnUsuario()
+        }else {
+            cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
+        }
+    }
+
+    private fun cambiarIconoFavorito(iconoId: Int){
+        val button = viewOfLayout?.findViewById<TextView>(R.id.btnAgregarFavoritos)
+        button.setCompoundDrawables(null,null,null,null)
+
+        var iconoDrawable = resources.getDrawable(iconoId,this.context?.theme)
+        iconoDrawable = DrawableCompat.wrap(iconoDrawable)
+        DrawableCompat.setTint(iconoDrawable,resources.getColor(R.color.white))
+        iconoDrawable.setBounds(0,0,iconoDrawable.intrinsicWidth, iconoDrawable.intrinsicHeight)
+
+        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,iconoDrawable,null)
     }
 
     private fun obtenerInfoProducto() {

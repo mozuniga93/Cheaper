@@ -22,8 +22,10 @@
         <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/shape.xml" value="0.25885416666666666" />
         <entry key="..\:/Users/jotorres/AppData/Local/Android/Sdk/platforms/android-31/data/res/drawable-watch/toast_frame.xml" value="0.4161458333333333" />
         <entry key="..\:/Users/jotorres/AppData/Local/Android/Sdk/platforms/android-31/data/res/drawable/toast_frame.xml" value="0.4161458333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/drawable-v24/ic_favoritos.xml" value="0.20185185185185187" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/drawable/back_with_border.xml" value="0.2841025641025641" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/drawable/button_add_product.xml" value="0.23072916666666668" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/drawable/ic_favorito_relleno.xml" value="0.17407407407407408" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/drawable/toast_frame_white.xml" value="0.4161458333333333" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_landing.xml" value="0.264" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_main.xml" value="0.22708333333333333" />
@@ -36,6 +38,7 @@
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_inicio.xml" value="0.15670289855072464" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_no_perfil.xml" value="0.24456521739130435" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_perfil.xml" value="0.4" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_perfil_producto.xml" value="0.2" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_registrar_producto.xml" value="0.20364583333333333" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_registrar_resenna.xml" value="0.19655521783181357" />
         <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/grid_layout_categoria.xml" value="0.15670289855072464" />
