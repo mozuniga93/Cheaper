@@ -93,7 +93,7 @@ class ResennaFragment : Fragment() {
             if (isChecked) {
                 with(vista) {
                     txt_provincia.setText("")
-                    txt_provincia.setText("")
+                    txt_canton.setText("")
                     txt_provincia.setEnabled(false)
                     txt_canton.setEnabled(false)
                     txt_provincia.setHintTextColor(Color.parseColor("#B7BABA"))
