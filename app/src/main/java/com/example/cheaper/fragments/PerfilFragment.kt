@@ -1,6 +1,5 @@
 package com.example.cheaper.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cheaper.MainActivity
 import com.example.cheaper.R
 import com.example.cheaper.adapters.AdapterProduct
 import com.example.cheaper.adapters.AdapterResennasPerfil
@@ -80,7 +78,7 @@ class PerfilFragment : Fragment() {
         resennaRecyclerView = viewOfLayout.findViewById(R.id.recyclerResennaPerfil)
         resennaRecyclerView.layoutManager = LinearLayoutManager(this.context)
         myResennaArrayList = arrayListOf()
-        myResennaAdapter = AdapterResennasPerfil(myResennaArrayList)
+        myResennaAdapter = AdapterResennasPerfil(myResennaArrayList, this)
         resennaRecyclerView.adapter = myResennaAdapter
         EventChangeResennasListener()
     }
