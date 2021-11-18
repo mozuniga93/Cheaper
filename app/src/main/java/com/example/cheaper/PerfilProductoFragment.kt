@@ -107,7 +107,17 @@ class PerfilProductoFragment : Fragment() {
             }
         if(resennaDestacada.producto != null) {
             mostrarResennaDestacada(resennaDestacada, itemView)
+        }else{
+            var imagenUrlFinal = "https://firebasestorage.googleapis.com/v0/b/cheaper-manati4.appspot.com/o/user.png?alt=media&token=98ae4512-acf3-4254-a780-e893db9b19b7"
+            val fotoUsuarioDestacado: ImageView = itemView.findViewById(R.id.IvUsuarioDestacado)
+            Picasso.get().load(imagenUrlFinal).into(fotoUsuarioDestacado)
+            val signoColones : TextView = itemView.findViewById(R.id.tvSignoColones)
+            signoColones.text = ""
+
+            val precioDestacado: TextView = itemView.findViewById(R.id.tvPrecio_Destacado)
+            precioDestacado.text = ""
         }
+
 
     }
 
@@ -129,6 +139,9 @@ class PerfilProductoFragment : Fragment() {
         val tiempo = transformarFecha(resennaDestacada.fecha)
         val tiempoDestacado: TextView = itemView.findViewById(R.id.tvTiempoDestacado)
         tiempoDestacado.text = tiempo
+
+        val signoColones : TextView = itemView.findViewById(R.id.tvSignoColones)
+        signoColones.text = "₡"
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

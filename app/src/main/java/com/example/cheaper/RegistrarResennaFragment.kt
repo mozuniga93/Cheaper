@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.repositorios.ResennaRepositorio
 import com.example.cheaper.utilidades.RegistrarDialog
@@ -65,11 +67,11 @@ class ResennaFragment : Fragment() {
         verificarSiTiendaEsVirtual(vista)
         registrar(vista)
 
-//        // Para volver al perfil
-//        vista?.findViewById<TextView>(R.id.tv_volver)?.setOnClickListener {
-//            val perfilProdutoFragment = PerfilProductoFragment()
-//            (activity as MainActivity?)?.makeCurrentFragment(perfilProdutoFragment)
-//        }
+        // Para volver al perfil
+        vista?.findViewById<TextView>(R.id.tv_volver)?.setOnClickListener {
+            val inicioFragment = InicioFragment()
+            (activity as MainActivity?)?.makeCurrentFragment(inicioFragment)
+        }
 
         return vista
         // Inflate the layout for this fragment
@@ -91,7 +93,7 @@ class ResennaFragment : Fragment() {
             if (isChecked) {
                 with(vista) {
                     txt_provincia.setText("")
-                    txt_provincia.setText("")
+                    txt_canton.setText("")
                     txt_provincia.setEnabled(false)
                     txt_canton.setEnabled(false)
                     txt_provincia.setHintTextColor(Color.parseColor("#B7BABA"))

@@ -11,18 +11,27 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
+import com.example.cheaper.fragments.PerfilFragment
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.utilidades.EliminarDialog
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
 
-class AdapterResennasPerfil(private val listaResennas: ArrayList<Resenna>):
-    RecyclerView.Adapter<AdapterResennasPerfil.MyViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterResennasPerfil.MyViewHolder {
+class AdapterResennasPerfil(
+    private val listaResennas: ArrayList<Resenna>, perfilFragment: PerfilFragment) :
+    RecyclerView.Adapter<AdapterResennasPerfil.MyViewHolder>(){
 
-        val itemView = LayoutInflater.from(parent.context).inflate(
+
+    private val perfilFragment: PerfilFragment = perfilFragment
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): AdapterResennasPerfil.MyViewHolder {
+
+        var itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.item_resenna_perfil,
             parent, false
         )
@@ -30,7 +39,7 @@ class AdapterResennasPerfil(private val listaResennas: ArrayList<Resenna>):
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onBindViewHolder(holder: AdapterResennasPerfil.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: AdapterResennasPerfil.MyViewHolder, position: Int){
 
         val posicion = position
         val currentItem: Resenna = listaResennas[position]
@@ -40,25 +49,24 @@ class AdapterResennasPerfil(private val listaResennas: ArrayList<Resenna>):
         val ubicacion =
             obtenerUbicacion(currentItem.provincia, currentItem.lugar, currentItem.virtual)
         holder.resennaDireccion.text = ubicacion
-       // val tiempo = transformarFecha(currentItem.fecha)
-       // holder.resennaTiempo.text = tiempo
+        // val tiempo = transformarFecha(currentItem.fecha)
+        // holder.resennaTiempo.text = tiempo
         Picasso.get().load(currentItem.usuario).into(holder.fotoResenna)
-        holder.btnEliminarResenna.setOnClickListener(object : View.OnClickListener{
+        holder.btnEliminarResenna.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val activity = v!!.context as AppCompatActivity
-                val dialogo = EliminarDialog(currentItem)
+                val dialogo = EliminarDialog(currentItem, posicion)
                 dialogo.show(activity.supportFragmentManager, "EliminarDialog")
                 actualizarLista(posicion)
             }
         })
-
-
     }
 
     private fun actualizarLista(position: Int){
         listaResennas.removeAt(position)
         notifyDataSetChanged()
     }
+
 
     private fun obtenerUbicacion(provincia: String?, lugar: String?, virtual: Boolean?): String {
         var ubicacion = ""
@@ -123,7 +131,7 @@ class AdapterResennasPerfil(private val listaResennas: ArrayList<Resenna>):
         return listaResennas.size
     }
 
-    public class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    public class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
         val resennaProducto: TextView = itemView.findViewById(R.id.txtNomreResenaPerfil)
         val resennaPrecio: TextView = itemView.findViewById(R.id.txtPrecioResenaPerfil)
