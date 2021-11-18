@@ -79,22 +79,6 @@
             app:layout_constraintTop_toBottomOf="@+id/txtMarcaProducto_perfil"
             tools:ignore="TouchTargetSizeCheck" />
 
-        <Button
-            android:id="@+id/buttonProduct_perfil"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="44dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/secundario_amarillo"
-            app:icon="@drawable/ic_show_product"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDescripcionProducto_perfil"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"

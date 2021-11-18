@@ -21,18 +21,17 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_perfil.view.*
 
 
-
-
-
 class PerfilFragment : Fragment() {
 
     private lateinit var productRecyclerView : RecyclerView
     private lateinit var myProductArrayList : ArrayList<Product>
+    private lateinit var myProductResennaList: ArrayList<Product>
     private lateinit var resennaRecyclerView : RecyclerView
     private lateinit var myResennaArrayList : ArrayList<Resenna>
     private lateinit var myAdapter : AdapterProduct
     private lateinit var myResennaAdapter: AdapterResennasPerfil
     private lateinit var db : FirebaseFirestore
+    private lateinit var db2 : FirebaseFirestore
     private lateinit var viewOfLayout: View
 
 
@@ -65,12 +64,16 @@ class PerfilFragment : Fragment() {
         return viewOfLayout
     }
 
+
+
     private fun mostrarListaMisProducos(){
         productRecyclerView = viewOfLayout.findViewById(R.id.recyclerProductPerfil)
         productRecyclerView.layoutManager = LinearLayoutManager(this.context)
         myProductArrayList = arrayListOf()
+        myProductResennaList = arrayListOf()
         myAdapter = AdapterProduct(myProductArrayList)
         productRecyclerView.adapter = myAdapter
+        eventChangeAllProducts()
         EventChangeProductosListener()
     }
 
@@ -83,7 +86,32 @@ class PerfilFragment : Fragment() {
         EventChangeResennasListener()
     }
 
+    private fun eventChangeAllProducts(){
+        db2 = FirebaseFirestore.getInstance()
+        db2.collection("productos").
+        addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?, error: FirebaseFirestoreException?
+            ) {
+
+                if (error != null){
+                    Log.e("Firestore Error", error.message.toString())
+                    return
+                }
+
+                for (dc : DocumentChange in value?.documentChanges!!){
+
+                    if (dc.type == DocumentChange.Type.ADDED){
+                        myProductResennaList.add(dc.document.toObject(Product::class.java))
+                    }
+                }
+            }
+        })
+    }
+
     private fun EventChangeProductosListener(){
+
+        myProductResennaList = arrayListOf()
 
         val usuario = UsuarioRepositorio.usuarioLogueado
         val myUserId = usuario.id.toString()
@@ -145,12 +173,28 @@ class PerfilFragment : Fragment() {
                     if (dc.type == DocumentChange.Type.ADDED){
                         var resenna = dc.document.toObject(Resenna::class.java)
                         resenna.id = dc.document.id
+                        var idProd = resenna.producto.toString()
+                        var nombreProducto = buscarNombreDelProducto(idProd)
+                        resenna.producto = nombreProducto
                         myResennaArrayList.add(resenna)
                     }
                 }
                 myResennaAdapter.notifyDataSetChanged()
             }
         })
+    }
+
+    fun buscarNombreDelProducto(idProducto: String) : String{
+
+        var nombreProductoResenna = ""
+
+        for (produ in myProductResennaList){
+            var miProducto = produ.id.toString()
+            if (miProducto == idProducto){
+                nombreProductoResenna = produ.nombre.toString()
+            }
+        }
+        return  nombreProductoResenna
     }
 
 

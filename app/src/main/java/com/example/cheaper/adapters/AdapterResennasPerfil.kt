@@ -51,7 +51,6 @@ class AdapterResennasPerfil(
         holder.resennaDireccion.text = ubicacion
         // val tiempo = transformarFecha(currentItem.fecha)
         // holder.resennaTiempo.text = tiempo
-        Picasso.get().load(currentItem.usuario).into(holder.fotoResenna)
         holder.btnEliminarResenna.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val activity = v!!.context as AppCompatActivity
@@ -137,7 +136,6 @@ class AdapterResennasPerfil(
         val resennaPrecio: TextView = itemView.findViewById(R.id.txtPrecioResenaPerfil)
         val resennaTienda: TextView = itemView.findViewById(R.id.txtTiendaResenaPerfil)
         val resennaDireccion: TextView = itemView.findViewById(R.id.txtLocalizacionResenaPerfil)
-        val fotoResenna: ImageView = itemView.findViewById(R.id.imageResenaPerfil)
         val btnEliminarResenna = itemView.findViewById<Button>(R.id.buttonEliminarResennaPerfil)
 
     }
