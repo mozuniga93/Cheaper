@@ -8,7 +8,7 @@
     android:elevation="100dp"
     tools:context=".RegistrarUsuarioActivity">
 
-    <ImageView
+    <LinearLayout
         android:id="@+id/imageView10"
         android:layout_width="match_parent"
         android:layout_height="249dp"
@@ -82,7 +82,7 @@
                         android:layout_height="99dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/usuarioImagen"
+                            android:id="@+id/editarUsuario_usuarioImagen"
                             android:layout_width="110dp"
                             android:layout_height="98dp"
                             app:civ_border_color="#FFFFFFFF"

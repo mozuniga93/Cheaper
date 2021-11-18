@@ -36,7 +36,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
         cargarImagenPorDefecto()
         Log.d(tag, "Mostrando registrar")
 
-        findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.usuarioImagen).setOnClickListener {
+        findViewById<de.hdodenhof.circleimageview.CircleImageView>(R.id.editarUsuario_usuarioImagen).setOnClickListener {
             selectImage()
         }
 
@@ -56,7 +56,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
     }
 
     fun cargarImagenPorDefecto(){
-        Picasso.get().load(imagenUrlFinal).into(this.usuarioImagen)
+        Picasso.get().load(imagenUrlFinal).into(this.editarUsuario_usuarioImagen)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -64,7 +64,7 @@ class RegistrarUsuarioActivity : AppCompatActivity() {
 
         if(requestCode==100 && resultCode == RESULT_OK){
             ImageUri = data?.data!!
-            Picasso.get().load(ImageUri).into(this.usuarioImagen)
+            Picasso.get().load(ImageUri).into(this.editarUsuario_usuarioImagen)
         }
     }
 

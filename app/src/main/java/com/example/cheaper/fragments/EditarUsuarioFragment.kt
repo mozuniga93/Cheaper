@@ -60,14 +60,14 @@ class editarUsuarioFragment : Fragment() {
         }
 
         //Funciones de botones
-        val btnActualizarImagen = viewOfLayout.btnActualizarImgUsuario
+        val btnActualizarImagen = viewOfLayout.editarUsuario_usuarioImagen
         btnActualizarImagen.setOnClickListener {
             fileManager()
         }
 
-        val btnActualizarUsuario = viewOfLayout.btn_actualizar_usuario
+        val btnActualizarUsuario = viewOfLayout.editarUsuario_btnActualizar
         btnActualizarUsuario.setOnClickListener {
-            val nombre = viewOfLayout.txtNombreUEditar
+            val nombre = viewOfLayout.editarUsuario_textNombre
             fileUpload(nombre)
         }
 
@@ -90,7 +90,7 @@ class editarUsuarioFragment : Fragment() {
 
         if(requestCode==100 && resultCode == Activity.RESULT_OK){
             ImageUri = data?.data!!
-            Picasso.get().load(ImageUri).into(this.fotoUsuarioEditar)
+            Picasso.get().load(ImageUri).into(this.editarUsuario_usuarioImagen)
         }
     }
 
@@ -139,12 +139,12 @@ class editarUsuarioFragment : Fragment() {
 
         val usuario = UsuarioRepositorio.usuarioLogueado
 
-        viewOfLayout.txtTelefonoUsuarioEditar.setText(usuario.telefono.toString())
-        viewOfLayout.txtTelefonoUsuarioEditar.isEnabled = false;
-        viewOfLayout.txtNombreUEditar.setText(usuario.nombre.toString())
+        viewOfLayout.editarUsuario_textTelefono.setText("Tel: ${usuario.telefono.toString()}")
+        viewOfLayout.editarUsuario_textNombre.setText(usuario.nombre.toString())
+        viewOfLayout.editarUsuario_textApellido.setText(usuario.apellido.toString())
 
         val imageUri = usuario.foto.toString()
-        val ivBasicImage = viewOfLayout.fotoUsuarioEditar
+        val ivBasicImage = viewOfLayout.editarUsuario_usuarioImagen
         Picasso.get().load(imageUri).into(ivBasicImage)
     }
 
