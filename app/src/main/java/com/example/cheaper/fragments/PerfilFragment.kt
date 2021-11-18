@@ -81,7 +81,7 @@ class PerfilFragment : Fragment() {
         resennaRecyclerView = viewOfLayout.findViewById(R.id.recyclerResennaPerfil)
         resennaRecyclerView.layoutManager = LinearLayoutManager(this.context)
         myResennaArrayList = arrayListOf()
-        myResennaAdapter = AdapterResennasPerfil(myResennaArrayList)
+        myResennaAdapter = AdapterResennasPerfil(myResennaArrayList, this)
         resennaRecyclerView.adapter = myResennaAdapter
         EventChangeResennasListener()
     }

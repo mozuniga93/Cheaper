@@ -10,8 +10,13 @@ import com.example.cheaper.db
 import com.example.cheaper.model.Resenna
 import com.google.firebase.firestore.FirebaseFirestore
 
-class EliminarDialog(currentItem: Resenna) : DialogFragment() {
-    private val currentItem = currentItem
+class EliminarDialog(currentItem: Resenna, posicion: Int) :
+    DialogFragment() {
+
+    private val posicion: Int = posicion
+    private val currentItem: Resenna = currentItem
+
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             // Use the Builder class for convenient dialog construction
@@ -22,30 +27,27 @@ class EliminarDialog(currentItem: Resenna) : DialogFragment() {
                         db = FirebaseFirestore.getInstance()
                         db.collection("resennas").document(currentItem.id!!)
                             .delete()
-                            .addOnSuccessListener { Log.d("Eliminar resenna", "DocumentSnapshot successfully deleted!" +
-                                    " Resenna eliminada: " + currentItem.toString())
+                            .addOnSuccessListener {
+                                Log.d(
+                                    "Eliminar resenna", "DocumentSnapshot successfully deleted!" +
+                                            " Resenna eliminada: " + currentItem.toString()
+                                )
                             }
-                            .addOnFailureListener { e -> Log.w("Eliminar resenna", "Error deleting document", e) }
+                            .addOnFailureListener { e ->
+                                Log.w(
+                                    "Eliminar resenna",
+                                    "Error deleting document",
+                                    e
+                                )
+                            }
                     })
                 .setNegativeButton("Cancelar",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // User cancelled the dialog
+                        dismiss()
                     })
             // Create the AlertDialog object and return it
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//        return activity?.let {
-//            // Use the Builder class for convenient dialog construction
-//            val builder = AlertDialog.Builder(it)
-//            builder.setMessage("Por favor rellene todos los campos requeridos")
-//                .setPositiveButton("Aceptar",
-//                    DialogInterface.OnClickListener { dialog, id ->
-//
-//                    })
-//            builder.create()
-//        } ?: throw IllegalStateException("Activity cannot be null")
-//    }
 }
