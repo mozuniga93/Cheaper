@@ -100,7 +100,7 @@ class PerfilProductoFragment : Fragment() {
     private fun cambiarEstadoFavorito() {
         if(!UsuarioRepositorio.usuarioEstaLogueado()){
             val dialogo = SesionDialog()
-            //dialogo.show(supportFragmentManager, "SesionDialog")
+            dialogo.show(childFragmentManager, "SesionDialog")
         }else {
             var product = Product(
                 idProducto?.toString(),
@@ -125,11 +125,14 @@ class PerfilProductoFragment : Fragment() {
     }
 
     private fun cargarEstadoFavorito(){
-        if(UsuarioRepositorio.usuarioEstaLogueado())
-            esFavorito = UsuarioRepositorio.usuarioLogueado.productosFavoritos!!.containsKey(
-                idProducto)
+        if(UsuarioRepositorio.usuarioEstaLogueado()){
+            val productoFavorito = UsuarioRepositorio.usuarioLogueado.productosFavoritos!!.
+                getOrDefault(idProducto, null)
+            esFavorito = productoFavorito != null && productoFavorito.habilitado!!
+        }
         else
             esFavorito = false
+
         if(esFavorito){
             cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
         }else {

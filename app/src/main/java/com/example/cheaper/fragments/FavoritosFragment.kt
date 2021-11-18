@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
 import com.example.cheaper.model.Product
+import com.example.cheaper.model.ProductoFavorito
 import com.example.cheaper.repositorios.RepositorioConstantes
+import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
@@ -63,6 +65,9 @@ class FavoritosFragment : Fragment() {
 
 
     private fun getProductos(){
+        var esFavorito: Boolean
+        var productoFavorito : ProductoFavorito?
+
         db = FirebaseFirestore.getInstance()
         db.collection(RepositorioConstantes.productosCollection).
         orderBy("nombre").
@@ -74,7 +79,13 @@ class FavoritosFragment : Fragment() {
             for (document in documents) {
                 var producto = document.toObject(Product::class.java)
                 producto.id = document.id
-                productos.add(producto)
+
+                productoFavorito =
+                    UsuarioRepositorio.usuarioLogueado.productosFavoritos!!
+                        .getOrDefault(producto.id, null)
+                esFavorito = productoFavorito != null && productoFavorito!!.habilitado!!
+                if(esFavorito)
+                    productos.add(producto)
             }
             productArrayList.addAll(productos)
             productRecyclerView.adapter = ProductoAdapter(productArrayList)

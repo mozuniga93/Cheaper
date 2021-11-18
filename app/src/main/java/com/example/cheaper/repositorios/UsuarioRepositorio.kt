@@ -91,6 +91,8 @@ object UsuarioRepositorio {
             product.nombre,
             false
         )
+        usuarioLogueado.productosFavoritos!!.put(nuevoProductoFavorito?.id!!,
+            nuevoProductoFavorito)
         db.collection(RepositorioConstantes.usuariosCollection).document(usuario?.id!!)
             .collection(RepositorioConstantes.usuariosCollectionProductosFavoritos)
             .document(product?.id!!)
