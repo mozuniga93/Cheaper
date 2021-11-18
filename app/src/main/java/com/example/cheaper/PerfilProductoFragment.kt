@@ -17,9 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.adapters.AdapterResennas
 import com.example.cheaper.fragments.InicioFragment
+import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.RepositorioConstantes
+import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.example.cheaper.utilidades.SesionDialog
+import com.example.cheaper.utilidades.TelefonoDialog
 import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
@@ -81,9 +85,9 @@ class PerfilProductoFragment : Fragment() {
             (activity as MainActivity?)?.makeCurrentFragment(inicioFragment)
         }
 
-        cargarComoFavorito()
+        cargarEstadoFavorito()
         viewOfLayout?.findViewById<TextView>(R.id.btnAgregarFavoritos)?.setOnClickListener {
-            marcarComoFavorito()
+            cambiarEstadoFavorito()
         }
 
 
@@ -93,20 +97,41 @@ class PerfilProductoFragment : Fragment() {
         return viewOfLayout
     }
 
-    private fun marcarComoFavorito() {
-        if(!esFavorito){
-            cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
-            //UsuarioRepositorio.registrarProductoFavoritoEnUsuario()
+    private fun cambiarEstadoFavorito() {
+        if(!UsuarioRepositorio.usuarioEstaLogueado()){
+            val dialogo = SesionDialog()
+            //dialogo.show(supportFragmentManager, "SesionDialog")
         }else {
-            cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
+            var product = Product(
+                idProducto?.toString(),
+                nombreProducto?.toString()
+            )
+
+            if (!esFavorito) {
+                cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
+                UsuarioRepositorio.registrarProductoFavorito(
+                    UsuarioRepositorio.usuarioLogueado,
+                    product
+                )
+            } else {
+                UsuarioRepositorio.removerProductoFavorito(
+                    UsuarioRepositorio.usuarioLogueado,
+                    product
+                )
+                cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
+            }
+            esFavorito = !esFavorito
         }
-        esFavorito = !esFavorito
     }
 
-    private fun cargarComoFavorito(){
+    private fun cargarEstadoFavorito(){
+        if(UsuarioRepositorio.usuarioEstaLogueado())
+            esFavorito = UsuarioRepositorio.usuarioLogueado.productosFavoritos!!.containsKey(
+                idProducto)
+        else
+            esFavorito = false
         if(esFavorito){
             cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
-            //UsuarioRepositorio.registrarProductoFavoritoEnUsuario()
         }else {
             cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
         }

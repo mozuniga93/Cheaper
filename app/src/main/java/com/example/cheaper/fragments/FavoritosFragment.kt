@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
 import com.example.cheaper.model.Product
+import com.example.cheaper.repositorios.RepositorioConstantes
 import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
@@ -63,7 +64,7 @@ class FavoritosFragment : Fragment() {
 
     private fun getProductos(){
         db = FirebaseFirestore.getInstance()
-        db.collection("productos").
+        db.collection(RepositorioConstantes.productosCollection).
         orderBy("nombre").
         get().
         addOnSuccessListener { documents ->
