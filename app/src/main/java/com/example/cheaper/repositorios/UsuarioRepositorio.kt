@@ -1,22 +1,15 @@
 package com.example.cheaper.repositorios
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
-import com.example.cheaper.R
-import com.example.cheaper.VerificacionActivity
 import com.example.cheaper.model.Product
+import com.example.cheaper.model.ProductoFavorito
 import com.example.cheaper.model.Usuario
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.tasks.await
 
 object UsuarioRepositorio {
 
@@ -49,9 +42,6 @@ object UsuarioRepositorio {
             }
     }
 
-   // mDatabase.child("UID2").child("KEY2").setValue(yourNewValueOrObject);
-   // mDatabase.child("UID2").child("KEY2").child("email").setValue(newEmail);
-    // database.child("users").child(userId).setValue(user)
     fun actualizarUsuario(usuario: Usuario){
 
        val db = Firebase.firestore
@@ -71,6 +61,49 @@ object UsuarioRepositorio {
         }
     }
 
+    fun registrarProductoFavorito(usuario: Usuario, product: Product){
+        val db = Firebase.firestore
+        var nuevoProductoFavorito = ProductoFavorito(
+            product.id,
+            product.nombre,
+            true
+        )
+        db.collection(RepositorioConstantes.usuariosCollection).document(usuario?.id!!)
+            .collection(RepositorioConstantes.usuariosCollectionProductosFavoritos)
+            .document(product?.id!!)
+            .set(nuevoProductoFavorito)
+            .addOnSuccessListener { documentReference ->
+                Log.d(tag, "Producto favorito agregado exitosamente.")
+            }
+            .addOnFailureListener { e ->
+                Log.w(tag, "Error al agregar producto favorito.", e)
+            }
+
+        usuarioLogueado.productosFavoritos!!.put(nuevoProductoFavorito?.id!!,
+            nuevoProductoFavorito)
+    }
+
+    fun removerProductoFavorito(usuario: Usuario, product: Product){
+        val db = Firebase.firestore
+        var nuevoProductoFavorito = ProductoFavorito(
+            product.id,
+            product.nombre,
+            false
+        )
+        usuarioLogueado.productosFavoritos!!.put(nuevoProductoFavorito?.id!!,
+            nuevoProductoFavorito)
+        db.collection(RepositorioConstantes.usuariosCollection).document(usuario?.id!!)
+            .collection(RepositorioConstantes.usuariosCollectionProductosFavoritos)
+            .document(product?.id!!)
+            .set(nuevoProductoFavorito)
+            .addOnSuccessListener { documentReference ->
+                Log.d(tag, "Producto favorito deshabilitado exitosamente.")
+            }
+            .addOnFailureListener { e ->
+                Log.w(tag, "Error al agregar producto favorito.", e)
+            }
+    }
+
     fun cargarSesion(context: Context) {
         Log.d(tag,"Cargando sesion...")
         val sharedPref = context.getSharedPreferences(RepositorioConstantes.sharedPreferenceFile,Context.MODE_PRIVATE) ?: return
@@ -87,6 +120,7 @@ object UsuarioRepositorio {
             )
             Log.d(tag, "Usuario logueado")
             Log.d(tag, usuarioLogueado.toString())
+            cargarProductosFavoritos()
         }
         else
             Log.d(tag,"No hay usuario logueado.")
@@ -117,6 +151,25 @@ object UsuarioRepositorio {
             putString(RepositorioConstantes.appName+"-login-telefono", usuarioLogueado.telefono)
             putString(RepositorioConstantes.appName+"-login-foto", usuarioLogueado.foto)
             apply()
+        }
+    }
+
+    fun cargarProductosFavoritos() {
+        usuarioLogueado.productosFavoritos = HashMap()
+        val db = Firebase.firestore
+        db.collection(RepositorioConstantes.usuariosCollection).document(usuarioLogueado?.id!!)
+        .collection(RepositorioConstantes.usuariosCollectionProductosFavoritos)
+        .get()
+        .addOnSuccessListener { documentReference ->
+            for (document in documentReference) {
+                usuarioLogueado.productosFavoritos!!.put(document.id,
+                    document.toObject<ProductoFavorito>()!!)
+                Log.d(tag, "${document.id} => ${document.data}")
+            }
+            Log.d(tag, "Productos favoritos cargados exitosamente: ${documentReference.size()}")
+        }
+        .addOnFailureListener { e ->
+            Log.w(tag, "Error al cargar productos favoritos.", e)
         }
     }
 

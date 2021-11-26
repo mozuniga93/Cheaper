@@ -24,4 +24,15 @@ object ProductoRepositorio {
             }
     }
 
+    fun registrarFavoritoUsuario(producto: Product, usuario:Usuario){
+        val db = Firebase.firestore
+        db.collection(RepositorioConstantes.productosCollection).document()
+            .set(producto)
+            .addOnSuccessListener { documentReference ->
+                Log.d(UsuarioRepositorio.tag, "Producto creado exitosamente.")
+            }
+            .addOnFailureListener { e ->
+                Log.w(UsuarioRepositorio.tag, "Error al crear el nuevo producto.", e)
+            }
+    }
 }

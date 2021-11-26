@@ -185,16 +185,25 @@ class VerificacionActivity : FragmentActivity() {
 
             val tag = "[Manati] Login"
             if (document?.getData() != null) {
-                Log.d(tag, "Documento $document")
-                UsuarioRepositorio.usuarioLogueado = document.toObject<Usuario>()!!
-                Log.d(tag, "Usuario logueado")
-                Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
-                guardarSesion(this)
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                var usuario = document.toObject<Usuario>()!!
+                if(usuario?.habilitado!!){
+                    UsuarioRepositorio.usuarioLogueado = usuario
+                    Log.d(tag, "Usuario logueado")
+                    Log.d(tag, UsuarioRepositorio.usuarioLogueado.toString())
+                    guardarSesion(this)
+                    UsuarioRepositorio.cargarProductosFavoritos()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }else{
+                    UsuarioRepositorio.cerrarSesion(this)
+                    Toast.makeText(this,"No se puedo iniciar sesión, el número telefónico ha sido desactivado.", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             } else {
-                Log.d(tag, "No usuario logueado")
+                Log.d(tag, "No existe usuario con este numero.")
                 val intent = Intent(this, RegistrarUsuarioActivity::class.java)
                 startActivity(intent)
                 finish()

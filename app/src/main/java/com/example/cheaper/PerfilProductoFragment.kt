@@ -10,15 +10,20 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.adapters.AdapterResennas
 import com.example.cheaper.fragments.InicioFragment
+import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.RepositorioConstantes
+import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.example.cheaper.utilidades.SesionDialog
+import com.example.cheaper.utilidades.TelefonoDialog
 import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
@@ -39,6 +44,7 @@ private var nombreProducto : Any? = ""
 private var marcaProducto : Any? = ""
 private var descripcionProducto : Any? = ""
 private var imagenProducto : Any? = ""
+private var esFavorito = false
 
 /**
  * A simple [Fragment] subclass.
@@ -79,9 +85,71 @@ class PerfilProductoFragment : Fragment() {
             (activity as MainActivity?)?.makeCurrentFragment(inicioFragment)
         }
 
+        cargarEstadoFavorito()
+        viewOfLayout?.findViewById<TextView>(R.id.btnAgregarFavoritos)?.setOnClickListener {
+            cambiarEstadoFavorito()
+        }
+
+
+
         irARegistrar(viewOfLayout)
         mostrarInfoProducto(viewOfLayout)
         return viewOfLayout
+    }
+
+    private fun cambiarEstadoFavorito() {
+        if(!UsuarioRepositorio.usuarioEstaLogueado()){
+            val dialogo = SesionDialog()
+            dialogo.show(childFragmentManager, "SesionDialog")
+        }else {
+            var product = Product(
+                idProducto?.toString(),
+                nombreProducto?.toString()
+            )
+
+            if (!esFavorito) {
+                cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
+                UsuarioRepositorio.registrarProductoFavorito(
+                    UsuarioRepositorio.usuarioLogueado,
+                    product
+                )
+            } else {
+                UsuarioRepositorio.removerProductoFavorito(
+                    UsuarioRepositorio.usuarioLogueado,
+                    product
+                )
+                cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
+            }
+            esFavorito = !esFavorito
+        }
+    }
+
+    private fun cargarEstadoFavorito(){
+        if(UsuarioRepositorio.usuarioEstaLogueado()){
+            val productoFavorito = UsuarioRepositorio.usuarioLogueado.productosFavoritos!!.
+                getOrDefault(idProducto, null)
+            esFavorito = productoFavorito != null && productoFavorito.habilitado!!
+        }
+        else
+            esFavorito = false
+
+        if(esFavorito){
+            cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
+        }else {
+            cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
+        }
+    }
+
+    private fun cambiarIconoFavorito(iconoId: Int){
+        val button = viewOfLayout?.findViewById<TextView>(R.id.btnAgregarFavoritos)
+        button.setCompoundDrawables(null,null,null,null)
+
+        var iconoDrawable = resources.getDrawable(iconoId,this.context?.theme)
+        iconoDrawable = DrawableCompat.wrap(iconoDrawable)
+        DrawableCompat.setTint(iconoDrawable,resources.getColor(R.color.white))
+        iconoDrawable.setBounds(0,0,iconoDrawable.intrinsicWidth, iconoDrawable.intrinsicHeight)
+
+        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,iconoDrawable,null)
     }
 
     private fun obtenerInfoProducto() {
