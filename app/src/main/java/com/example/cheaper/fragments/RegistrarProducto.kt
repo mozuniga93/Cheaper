@@ -16,23 +16,32 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.cheaper.MainActivity
+import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
+import com.example.cheaper.adapters.CategoriaAdapter
 import com.example.cheaper.databinding.FragmentRegistrarProductoBinding
+import com.example.cheaper.model.Categoria
 import com.example.cheaper.model.Product
 import com.example.cheaper.repositorios.ProductoRepositorio
 import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_registrar_producto.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class RegistrarProducto : Fragment() {
 
     lateinit var ImageUri : Uri
     var imagenUrlFinal = "https://firebasestorage.googleapis.com/v0/b/cheaper-manati4.appspot.com/o/user.png?alt=media&token=98ae4512-acf3-4254-a780-e893db9b19b7"
-
+    private lateinit var categoriaArrayList : ArrayList<Categoria>
+    private lateinit var myCategoryAdapter : CategoriaAdapter
+    private lateinit var lstAdapter: ArrayList<String>
+    private lateinit var db : FirebaseFirestore
 
     private var _binding: FragmentRegistrarProductoBinding? = null
     private val binding get() = _binding!!
@@ -40,9 +49,6 @@ class RegistrarProducto : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val categorias = resources.getStringArray(R.array.categotias)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, categorias)
-        binding.autoCompleteTextView.setAdapter(arrayAdapter)
     }
 
 
@@ -60,7 +66,7 @@ class RegistrarProducto : Fragment() {
             (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
         }
 
-        val btnRegistrarProducto = _binding!!.root.findViewById<Button>(R.id.btn_actualizar_usuario)
+        val btnRegistrarProducto = _binding!!.root.findViewById<Button>(R.id.btn_registrarProducto)
         btnRegistrarProducto.setOnClickListener {
             val nombre = binding.txtNombreProducto
             val marca = binding.txtMarcaProducto
@@ -74,7 +80,44 @@ class RegistrarProducto : Fragment() {
             fileManager()
         }
 
+        dropCategorias()
+
         return binding.root
+    }
+
+    private fun dropCategorias(){
+        categoriaArrayList = arrayListOf()
+        lstAdapter = arrayListOf()
+        myCategoryAdapter = CategoriaAdapter(categoriaArrayList)
+        EventCategoryChangeListener()
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, lstAdapter)
+        binding.autoCompleteTextView.setAdapter(arrayAdapter)
+    }
+
+    private fun EventCategoryChangeListener(){
+
+        db = FirebaseFirestore.getInstance()
+        db.collection("categorias").
+        addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?, error: FirebaseFirestoreException?
+            ) {
+
+                if (error != null){
+                    Log.e("Firestore Error", error.message.toString())
+                    return
+                }
+
+                for (dc : DocumentChange in value?.documentChanges!!){
+
+                    if (dc.type == DocumentChange.Type.ADDED){
+                        categoriaArrayList.add(dc.document.toObject(Categoria::class.java))
+                        lstAdapter.add(dc.document.toObject(Categoria::class.java).nombre.toString())
+                    }
+                }
+                myCategoryAdapter.notifyDataSetChanged()
+            }
+        })
     }
 
     private fun fileManager(){

@@ -49,9 +49,6 @@ object UsuarioRepositorio {
             }
     }
 
-   // mDatabase.child("UID2").child("KEY2").setValue(yourNewValueOrObject);
-   // mDatabase.child("UID2").child("KEY2").child("email").setValue(newEmail);
-    // database.child("users").child(userId).setValue(user)
     fun actualizarUsuario(usuario: Usuario){
 
        val db = Firebase.firestore
