@@ -6,5 +6,6 @@ data class Usuario (
     var apellido: String? = null,
     var telefono: String? = null,
     var foto: String? = null,
-    var habilitado: Boolean? = null
+    var habilitado: Boolean? = null,
+    var productosFavoritos: HashMap<String,ProductoFavorito>? = null
 )

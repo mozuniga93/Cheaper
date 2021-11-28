@@ -1,16 +1,33 @@
 package com.example.cheaper.fragments
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
+import com.example.cheaper.model.Product
+import com.example.cheaper.model.ProductoFavorito
+import com.example.cheaper.repositorios.RepositorioConstantes
+import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+
+private lateinit var productRecyclerView : RecyclerView
+private lateinit var productArrayList : ArrayList<Product>
+private lateinit var myAdapter : ProductoAdapter
+private lateinit var db : FirebaseFirestore
+private lateinit var viewOfLayout: View
 
 /**
  * A simple [Fragment] subclass.
@@ -35,8 +52,49 @@ class FavoritosFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos, container, false)
+        viewOfLayout = inflater.inflate(R.layout.fragment_favoritos, container, false)
+        productRecyclerView = viewOfLayout.findViewById(R.id.productsListFavoritos)
+        productRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        productArrayList = arrayListOf()
+        myAdapter = ProductoAdapter(productArrayList)
+        productRecyclerView.adapter = myAdapter
+        myAdapter.notifyDataSetChanged()
+        getProductos()
+        return viewOfLayout
     }
+
+
+    private fun getProductos(){
+        var esFavorito: Boolean
+        var productoFavorito : ProductoFavorito?
+
+        db = FirebaseFirestore.getInstance()
+        db.collection(RepositorioConstantes.productosCollection).
+        orderBy("nombre").
+        get().
+        addOnSuccessListener { documents ->
+            productArrayList.clear()
+            var productos = ArrayList<Product>()
+            productos = arrayListOf()
+            for (document in documents) {
+                var producto = document.toObject(Product::class.java)
+                producto.id = document.id
+
+                productoFavorito =
+                    UsuarioRepositorio.usuarioLogueado.productosFavoritos!!
+                        .getOrDefault(producto.id, null)
+                esFavorito = productoFavorito != null && productoFavorito!!.habilitado!!
+                if(esFavorito)
+                    productos.add(producto)
+            }
+            productArrayList.addAll(productos)
+            productRecyclerView.adapter = ProductoAdapter(productArrayList)
+        }
+        .addOnFailureListener{ exception ->
+            Log.w(ContentValues.TAG, "Error getting products: ", exception)
+        }
+    }
+
 
     companion object {
         /**
