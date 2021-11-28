@@ -218,7 +218,6 @@ class EditarProductoFragment : Fragment() {
         }
     }
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarProducto(productoActualizar: Product) {
 
