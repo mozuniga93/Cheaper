@@ -195,11 +195,28 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
-            android:layout_width="413dp"
-            android:layout_height="212dp"
+            android:layout_width="415dp"
+            android:layout_height="206dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnNuevaResenna"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="48dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/primario"
+                android:textAlignment="center"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:iconSize="26dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnAgregarFavoritos"
+                app:layout_constraintTop_toTopOf="@+id/btnAgregarFavoritos"
+                tools:elevation="60dp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/IvProducto"
@@ -216,13 +233,12 @@
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/secundario_amarillo"
                 android:elevation="60dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btnNuevaResenna"
                 app:layout_constraintTop_toBottomOf="@+id/lblDescripcionProducto"
                 app:layout_constraintVertical_bias="0.0"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -284,21 +300,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/lblMarcaProducto"
                 tools:flow_wrapMode="aligned" />
 
-            <Button
-                android:id="@+id/btnNuevaResenna"
-                android:layout_width="189dp"
-                android:layout_height="43dp"
-                android:layout_marginStart="-8dp"
-                android:layout_marginTop="16dp"
-                android:background="@android:drawable/toast_frame"
-                android:text="Nueva reseña"
-                app:icon="@drawable/ic_baseline_add_circle_outline_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/IvProducto"
-                app:layout_constraintTop_toBottomOf="@+id/lblDescripcionProducto"
-                app:layout_constraintVertical_bias="0.0"
-                tools:elevation="50dp" />
-
             <TextView
                 android:id="@+id/tvVolver"
                 android:layout_width="wrap_content"
@@ -310,6 +311,7 @@
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView

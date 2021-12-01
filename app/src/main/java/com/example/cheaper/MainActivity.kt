@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity(){
 
     }
 
+
+
       fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fl_wrapper, fragment)
@@ -48,9 +50,8 @@ class MainActivity : AppCompatActivity(){
         }
 
 
-/*   private fun makeCurrentActivity(fragment: Activity) {
-
-        val intent = Intent(this, ProductsListActivity::class.java)
-        startActivity(intent)
-    }*/
+//   private fun makeCurrentActivity() {
+//
+//
+//    }
 }
