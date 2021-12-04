@@ -104,7 +104,6 @@ class RegistrarProducto : Fragment() {
         integrator.setTorchEnabled(true)
         integrator.setBeepEnabled(true)
         integrator.initiateScan()
-
     }
 
     private fun EventCategoryChangeListener(){
