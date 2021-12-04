@@ -100,7 +100,7 @@ class RegistrarProducto : Fragment() {
     private fun initScanner(){
         val integrator = IntentIntegrator(this.activity)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
-        integrator.setPrompt("Escanea un código de producto")
+        integrator.setPrompt("Escanea el código de un producto")
         integrator.setTorchEnabled(true)
         integrator.setBeepEnabled(true)
         integrator.initiateScan()
