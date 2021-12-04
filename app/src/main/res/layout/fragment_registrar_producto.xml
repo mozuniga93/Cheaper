@@ -18,6 +18,16 @@
         android:backgroundTint="@color/primario"
         android:src="@android:drawable/divider_horizontal_dark" />
 
+    <TextView
+        android:id="@+id/volverFromRegistrarProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:text="Volver"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layourFormRegProd"
         android:layout_width="344dp"
@@ -198,12 +208,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/volverFromRegistrarProducto"
-        android:layout_width="wrap_content"
+        android:id="@+id/escanearQR"
+        android:layout_width="112dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="270dp"
         android:layout_marginTop="15dp"
-        android:text="Volver"
+        android:text="Escanear QR"
         android:textColor="@color/white"
         android:textSize="16sp" />
 

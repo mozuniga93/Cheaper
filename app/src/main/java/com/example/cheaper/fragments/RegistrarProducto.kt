@@ -9,14 +9,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.example.cheaper.MainActivity
-import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
 import com.example.cheaper.adapters.CategoriaAdapter
 import com.example.cheaper.databinding.FragmentRegistrarProductoBinding
@@ -27,6 +23,8 @@ import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.storage.FirebaseStorage
+import com.google.zxing.integration.android.IntentIntegrator
+import com.google.zxing.integration.android.IntentResult
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_registrar_producto.*
 import java.text.SimpleDateFormat
@@ -66,6 +64,11 @@ class RegistrarProducto : Fragment() {
             (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
         }
 
+        // Me lleva al lector de códigos
+        _binding!!.root.findViewById<TextView>(R.id.escanearQR).setOnClickListener {
+            initScanner()
+        }
+
         val btnRegistrarProducto = _binding!!.root.findViewById<Button>(R.id.btn_registrarProducto)
         btnRegistrarProducto.setOnClickListener {
             val nombre = binding.txtNombreProducto
@@ -92,6 +95,15 @@ class RegistrarProducto : Fragment() {
         EventCategoryChangeListener()
         val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_item, lstAdapter)
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
+    }
+
+    private fun initScanner(){
+        val integrator = IntentIntegrator(this.activity)
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
+        integrator.setPrompt("Escanea un código de producto")
+        integrator.setTorchEnabled(true)
+        integrator.setBeepEnabled(true)
+        integrator.initiateScan()
     }
 
     private fun EventCategoryChangeListener(){
@@ -130,6 +142,17 @@ class RegistrarProducto : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        val intentResultCode : IntentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+
+        if (intentResultCode != null){
+            if (intentResultCode.contents == null){
+               // Toast.makeText(this, "", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.requireContext(), "Cancelado", Toast.LENGTH_SHORT).show()
+            }
+        }else{
+            Toast.makeText(this.requireContext(), "El valor escaneado es: ${intentResultCode.contents}", Toast.LENGTH_SHORT).show()
+        }
 
         if(requestCode==100 && resultCode == RESULT_OK){
             ImageUri = data?.data!!
