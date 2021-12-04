@@ -1,12 +1,19 @@
 package com.example.cheaper.adapters
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cheaper.PerfilProductoFragment
 import com.example.cheaper.R
+import com.example.cheaper.fragments.EditarProductoFragment
 import com.example.cheaper.model.Product
 import com.squareup.picasso.Picasso
 
@@ -33,6 +40,27 @@ class AdapterProduct(private val productsList: ArrayList<Product>) :
         holder.productDescription.text = currentItem.descripcion
         Picasso.get().load(currentItem.foto).into(holder.productImage)
 
+        holder.btnIrAEditarProducto.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                val activity = v!!.context as AppCompatActivity
+                // I AM HERE
+                val editarProductoFragment = EditarProductoFragment()
+                var bundle = Bundle()
+                bundle.putString("id", currentItem.id.toString())
+                bundle.putString("nombre", currentItem.nombre.toString())
+                bundle.putString("marca", currentItem.marca.toString())
+                bundle.putString("categoria", currentItem.categoria.toString())
+                bundle.putString("descripcion", currentItem.descripcion.toString())
+                bundle.putString("imagen", currentItem.foto.toString())
+                bundle.putString("usuario", currentItem.usuario.toString())
+                editarProductoFragment.arguments = bundle
+                Log.e("bundle", bundle.toString())
+                val transaction: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.perfil_container, editarProductoFragment).addToBackStack(null)
+                transaction.commit()
+            }
+        })
+
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +73,7 @@ class AdapterProduct(private val productsList: ArrayList<Product>) :
         val productBrand : TextView = itemView.findViewById(R.id.txtMarcaProducto_perfil)
         val productDescription : TextView = itemView.findViewById(R.id.txtDescripcionProducto_perfil)
         val productImage : ImageView = itemView.findViewById(R.id.imageViewProductoPerfil)
+        val btnIrAEditarProducto = itemView.findViewById<Button>(R.id.buttonEditarProductoPerfil)
     }
 
 

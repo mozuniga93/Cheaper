@@ -35,4 +35,15 @@ object ProductoRepositorio {
                 Log.w(UsuarioRepositorio.tag, "Error al crear el nuevo producto.", e)
             }
     }
+    fun actualizarProcuto(producto: Product){
+
+        val db = Firebase.firestore
+        val docRef = db.collection(RepositorioConstantes.productosCollection).
+        document(producto.id.toString()).set(producto).addOnSuccessListener {
+            Log.d(UsuarioRepositorio.tag, "Producto actualizado exitosamente.")
+        }.addOnFailureListener {e ->
+            Log.w(UsuarioRepositorio.tag, "Error al actualizar el producto.", e)
+        }
+    }
+
 }

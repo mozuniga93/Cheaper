@@ -7,7 +7,7 @@ android:layout_height="match_parent"
 tools:context=".fragments.NoPerfilFragment">
 
 <LinearLayout
-    android:id="@+id/imageView10"
+    android:id="@+id/imageViewEditarProducto"
     android:layout_width="match_parent"
     android:layout_height="766dp"
     android:layout_marginTop="-20dp"
