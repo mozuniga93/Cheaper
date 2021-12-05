@@ -44,6 +44,9 @@ class DashboardFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewOfLayout =  inflater.inflate(R.layout.fragment_dashboard, container, false)
+        cantUsuarios = 0
+        cantProductos = 0
+        cantResennas = 0
         productRecyclerView = viewOfLayout.findViewById(R.id.productosListDashboard)
         productRecyclerView.layoutManager = LinearLayoutManager(this.context)
         productArrayList = arrayListOf()
