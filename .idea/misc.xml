@@ -6,12 +6,74 @@
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/drawable-v24/ic_buscar.xml" value="0.3567708333333333" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/drawable-v24/ic_perfil.xml" value="0.3567708333333333" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/drawable/selector.xml" value="0.21354166666666666" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/drawable/shadoweffect.xml" value="0.23125" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/activity_main.xml" value="0.232016210739615" />
-        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_buscar.xml" value="0.2708333333333333" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/dashboard_item.xml" value="0.264" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_buscar.xml" value="0.18493150684931506" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_categoria.xml" value="0.1" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_dashboard.xml" value="0.264" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_editar_producto.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_favoritos.xml" value="0.2708333333333333" />
-        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_inicio.xml" value="0.2708333333333333" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_inicio.xml" value="0.1" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_no_perfil.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_perfil.xml" value="0.2708333333333333" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_perfil_producto.xml" value="0.1" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_producto_categoria.xml" value="0.1" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/fragment_productos.xml" value="0.228125" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/grid_layout_categoria.xml" value="0.35135135135135137" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/item.xml" value="0.1" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/item_product.xml" value="0.1" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/item_producto_buscar.xml" value="0.228125" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/layout/producto_search_item.xml" value="0.1" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/menu/activity_menu.xml" value="0.13802083333333334" />
         <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/menu/nav_menu.xml" value="0.340625" />
+        <entry key="..\:/Users/MonicaZA/AndroidStudioProjects/Cheaper/app/src/main/res/menu/top_option_menu.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/drawable/selector.xml" value="0.1" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/drawable/shape.xml" value="0.1" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/activity_landing.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/activity_products_list.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/activity_registrar_usuario.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/activity_verficacion.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/fragment_buscar.xml" value="0.1390625" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/fragment_favoritos.xml" value="0.14270833333333333" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/fragment_inicio.xml" value="0.27239583333333334" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/fragment_perfil.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/fragment_perfil_producto.xml" value="0.25885416666666666" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/fragment_registrar_producto.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/fragment_registrar_resenna.xml" value="0.25" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/item.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/item_product.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/item_producto_buscar.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/item_resenna_perfil.xml" value="0.33" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/layout/shape.xml" value="0.25885416666666666" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/menu/nav_menu.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/hp/StudioProjects/Cheaper/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="..\:/Users/jotorres/AppData/Local/Android/Sdk/platforms/android-31/data/res/drawable-watch/toast_frame.xml" value="0.4161458333333333" />
+        <entry key="..\:/Users/jotorres/AppData/Local/Android/Sdk/platforms/android-31/data/res/drawable/toast_frame.xml" value="0.4161458333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/drawable/back_with_border.xml" value="0.2841025641025641" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/drawable/button_add_product.xml" value="0.23072916666666668" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/drawable/toast_frame_white.xml" value="0.4161458333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_landing.xml" value="0.264" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_main.xml" value="0.22708333333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_products_list.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_registrar_usuario.xml" value="0.2578947368421053" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/activity_verficacion.xml" value="0.4" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_buscar.xml" value="0.10277777777777777" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_editar_usuario.xml" value="0.1984375" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_favoritos.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_inicio.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_no_perfil.xml" value="0.24456521739130435" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_perfil.xml" value="0.4" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_registrar_producto.xml" value="0.20364583333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/fragment_registrar_resenna.xml" value="0.19655521783181357" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/grid_layout_categoria.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/item.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/item_product.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/layout/item_producto_buscar.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.4161458333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.4161458333333333" />
+        <entry key="..\:/Users/jotorres/Documents/U/proyecto4/proyectos/Cheaper/app/src/main/res/xml/network_security_config.xml" value="0.129981884057971" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/drawable-v24/ic_buscar.xml" value="0.1" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/drawable-v24/ic_perfil.xml" value="0.13645833333333332" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/drawable/back_with_border.xml" value="0.14010416666666667" />
@@ -24,7 +86,6 @@
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/drawable/ic_edit_icon.xml" value="0.1" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/drawable/ic_garbage.xml" value="0.14583333333333334" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/drawable/ic_show_product.xml" value="0.14583333333333334" />
-        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/activity_landing.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/activity_main.xml" value="0.152" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/activity_product_register.xml" value="0.2" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/activity_products_list.xml" value="0.264" />
@@ -32,19 +93,17 @@
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/activity_verficacion.xml" value="0.1296875" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/dropdown_item.xml" value="0.1" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_buscar.xml" value="0.13020833333333334" />
-        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_editar_producto.xml" value="0.264" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_editar_usuario.xml" value="0.264" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_favoritos.xml" value="0.14221014492753623" />
-        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_inicio.xml" value="0.4" />
-        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_no_perfil.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_inicio.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_perfil.xml" value="0.264" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_registrar_producto.xml" value="0.264" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/fragment_registrar_resenna.xml" value="0.2" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/item.xml" value="0.4" />
-        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/item_product.xml" value="0.4" />
-        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/item_producto_buscar.xml" value="0.264" />
+        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/item_product.xml" value="0.1" />
+        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/item_producto_buscar.xml" value="0.14221014492753623" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/item_producto_perfil.xml" value="0.4" />
-        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/item_resenna_perfil.xml" value="0.4" />
+        <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/item_resenna_perfil.xml" value="0.264" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/layout/itemproduct.xml" value="0.264" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/menu/nav_menu.xml" value="0.136" />
         <entry key="..\:/Users/rocha/Desktop/Cheaper/Cheaper/app/src/main/res/menu/search_products_item.xml" value="0.144" />
