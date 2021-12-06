@@ -60,10 +60,10 @@
                 android:layout_marginEnd="16dp"
                 android:inputType="text"
                 android:paddingLeft="28sp"
-                android:textAllCaps="true"
-                android:textIsSelectable="false"
                 android:text="Hace una semana"
+                android:textAllCaps="true"
                 android:textColor="#E9667C8A"
+                android:textIsSelectable="false"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -75,10 +75,10 @@
                 android:layout_height="25dp"
                 android:layout_marginTop="24dp"
                 android:inputType="number"
-                android:textAllCaps="true"
-                android:textIsSelectable="false"
                 android:text="16500"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
+                android:textIsSelectable="false"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/textView6"
@@ -105,14 +105,35 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:inputType="text"
-                android:textAllCaps="true"
-                android:textIsSelectable="false"
                 android:text="₡"
+                android:textAllCaps="true"
                 android:textColor="@color/black"
+                android:textIsSelectable="false"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/ivFoto"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/ic_baseline_thumb_up_alt_24_gris"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvUbicacion" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="20dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="-2dp"
+                android:text="0"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                app:layout_constraintTop_toTopOf="@+id/imageButton" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
