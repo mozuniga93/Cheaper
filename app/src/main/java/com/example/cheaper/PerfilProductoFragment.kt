@@ -303,6 +303,25 @@ class PerfilProductoFragment : Fragment() {
 
     }
 
+    private fun irAEditar(vista: View) {
+        val btnAgregarResenna = vista.findViewById<Button>(R.id.btnNuevaResenna)
+
+        btnAgregarResenna.setOnClickListener {
+            val resennaFragment = ResennaFragment()
+            var bundle = Bundle()
+            bundle.putString("productoId", idProducto.toString())
+            bundle.putString("productoNombre", nombreProducto.toString())
+            bundle.putString("productoMarca", marcaProducto.toString())
+            bundle.putString("productoDescripcion", descripcionProducto.toString())
+            bundle.putString("productoImagen", imagenProducto.toString())
+            resennaFragment.arguments = bundle
+            val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
+            transaction.replace(R.id.fl_perfil_producto, resennaFragment)
+            transaction.commit()
+        }
+
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun obtenerFotoUsuario() {
         val tag = "[Manati] Usuario"
