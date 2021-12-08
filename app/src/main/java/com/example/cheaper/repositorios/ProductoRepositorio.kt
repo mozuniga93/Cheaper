@@ -25,22 +25,11 @@ object ProductoRepositorio {
             }
     }
 
-    fun registrarFavoritoUsuario(producto: Product, usuario:Usuario){
-        val db = Firebase.firestore
-        db.collection(RepositorioConstantes.productosCollection).document()
-            .set(producto)
-            .addOnSuccessListener { documentReference ->
-                Log.d(UsuarioRepositorio.tag, "Producto creado exitosamente.")
-            }
-            .addOnFailureListener { e ->
-                Log.w(UsuarioRepositorio.tag, "Error al crear el nuevo producto.", e)
-            }
-    }
     @RequiresApi(Build.VERSION_CODES.O)
     fun actualizarProcuto(producto: Product, usuario: Usuario){
 
         val db = Firebase.firestore
-        val docRef = db.collection(RepositorioConstantes.productosCollection).
+        db.collection(RepositorioConstantes.productosCollection).
         document(producto.id.toString()).set(producto).addOnSuccessListener {
             Log.d(UsuarioRepositorio.tag, "Producto actualizado exitosamente.")
             registrarActualizacionProducto(usuario, producto)
@@ -52,9 +41,9 @@ object ProductoRepositorio {
     @RequiresApi(Build.VERSION_CODES.O)
     fun registrarActualizacionProducto(usuario: Usuario, product: Product){
         val db = Firebase.firestore
-        var nuevaActualizacionProducto = Actualizacion(
+
+        val nuevaActualizacionProducto = Actualizacion(
             "",
-            usuario.toString(),
             usuario.nombre.toString(),
             usuario.apellido.toString(),
             product.nombre,
@@ -64,9 +53,10 @@ object ProductoRepositorio {
             product.foto,
             LocalDate.now().toString()
         )
-        db.collection(RepositorioConstantes.productosCollection).document(product?.id!!)
+
+        db.collection(RepositorioConstantes.productosCollection).document(product.id!!)
             .collection(RepositorioConstantes.productosCollectionActualizacionProductos)
-            .document(product?.id!!)
+            .document()
             .set(nuevaActualizacionProducto)
             .addOnSuccessListener { documentReference ->
                 Log.d(tag, "Atualización agregada exitosamente.")
