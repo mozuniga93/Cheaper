@@ -33,9 +33,8 @@ import kotlin.collections.ArrayList
 import androidx.core.app.ActivityCompat.startActivityForResult
 
 import com.example.cheaper.MainActivity
-
-
-
+import com.example.cheaper.utilidades.QRDialog
+import com.example.cheaper.utilidades.TelefonoDialog
 
 
 class RegistrarProducto : Fragment() {
@@ -132,6 +131,8 @@ class RegistrarProducto : Fragment() {
             else{
                 Log.d("PRODUCTO ESCANEADO", "Producto escaneado exitosamente:  ${intentResultCode.contents}")
                 codigoDeBarras = intentResultCode.contents
+                val dialogo = QRDialog()
+               // dialogo.show(supportFragmentManager, "TelefonoDialog")
             }
         }
     }
