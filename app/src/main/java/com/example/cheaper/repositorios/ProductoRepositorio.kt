@@ -1,6 +1,8 @@
 package com.example.cheaper.repositorios
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.example.cheaper.model.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -34,6 +36,7 @@ object ProductoRepositorio {
                 Log.w(UsuarioRepositorio.tag, "Error al crear el nuevo producto.", e)
             }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     fun actualizarProcuto(producto: Product, usuario: Usuario){
 
         val db = Firebase.firestore
@@ -46,6 +49,7 @@ object ProductoRepositorio {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun registrarActualizacionProducto(usuario: Usuario, product: Product){
         val db = Firebase.firestore
         var nuevaActualizacionProducto = Actualizacion(
