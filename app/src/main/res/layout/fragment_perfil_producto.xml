@@ -202,6 +202,23 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
+                android:id="@+id/btnEditarProducto"
+                android:layout_width="48dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/secundario_amarillo"
+                android:elevation="60dp"
+                android:paddingLeft="7dp"
+                android:textAlignment="center"
+                app:icon="@android:drawable/ic_menu_edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnNuevaResenna"
+                app:layout_constraintTop_toBottomOf="@+id/lblDescripcionProducto"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <Button
                 android:id="@+id/btnNuevaResenna"
                 style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="48dp"

@@ -6,6 +6,7 @@ object RepositorioConstantes {
     const val resennasCollection = "resennas"
     const val votoResennaCollection = "votosResenna"
     const val productosCollection = "productos"
+    const val productosCollectionActualizacionProductos = "actualizacionesProducto"
     const val appName = "Cheaper"
     const val sharedPreferenceFile = "com.example.cheaper.key"
 }

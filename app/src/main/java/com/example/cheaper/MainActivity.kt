@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity(){
         setContentView(R.layout.activity_main)
 
         val inicioFragment = InicioFragment()
+        val dashboardFragment = DashboardFragment()
         val buscarFragment = BuscarFragment()
         val favoritosFragment = FavoritosFragment()
         val perfilFragment = PerfilFragment()
@@ -22,11 +23,11 @@ class MainActivity : AppCompatActivity(){
         val perfilProdutoFragment = PerfilProductoFragment()
         val noPerfilFragment = NoPerfilFragment()
 
-        makeCurrentFragment(inicioFragment)
+        makeCurrentFragment(dashboardFragment)
 
         bottom_navigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.ic_inicio -> makeCurrentFragment(inicioFragment)
+                R.id.ic_inicio -> makeCurrentFragment(dashboardFragment)
                 R.id.ic_buscar -> makeCurrentFragment(buscarFragment)
                 R.id.ic_favoritos -> makeCurrentFragment(favoritosFragment)
                 R.id.ic_perfil -> {

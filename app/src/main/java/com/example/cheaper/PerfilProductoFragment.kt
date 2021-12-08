@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.adapters.AdapterResennas
+import com.example.cheaper.fragments.EditarProductoFragment
 import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
@@ -43,8 +44,10 @@ private lateinit var viewOfLayout: View
 private var idProducto : Any? = ""
 private var nombreProducto : Any? = ""
 private var marcaProducto : Any? = ""
+private var categoriaProducto : Any? = ""
 private var descripcionProducto : Any? = ""
 private var imagenProducto : Any? = ""
+private var usuarioProducto : Any? = ""
 private var esFavorito = false
 
 /**
@@ -95,6 +98,7 @@ class PerfilProductoFragment : Fragment() {
 
 
         irARegistrar(viewOfLayout)
+        irAEditar(viewOfLayout)
         mostrarInfoProducto(viewOfLayout)
         return viewOfLayout
     }
@@ -159,8 +163,10 @@ class PerfilProductoFragment : Fragment() {
         idProducto = args?.get("id")
         nombreProducto = args?.get("nombre")
         marcaProducto = args?.get("marca")
+        categoriaProducto = args?.get("categoria")
         descripcionProducto = args?.get("descripcion")
         imagenProducto = args?.get("imagen")
+        usuarioProducto = args?.get("usuario")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -295,11 +301,33 @@ class PerfilProductoFragment : Fragment() {
             bundle.putString("productoId", idProducto.toString())
             bundle.putString("productoNombre", nombreProducto.toString())
             bundle.putString("productoMarca", marcaProducto.toString())
+            bundle.putString("productoCategoria", categoriaProducto.toString())
             bundle.putString("productoDescripcion", descripcionProducto.toString())
             bundle.putString("productoImagen", imagenProducto.toString())
             resennaFragment.arguments = bundle
             val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
             transaction.replace(R.id.fl_perfil_producto, resennaFragment)
+            transaction.commit()
+        }
+
+    }
+
+    private fun irAEditar(vista: View) {
+        val btnEditarPoducto = vista.findViewById<Button>(R.id.btnEditarProducto)
+
+        btnEditarPoducto.setOnClickListener {
+            val editarProductoFragment = EditarProductoFragment()
+            var bundle = Bundle()
+            bundle.putString("id", idProducto.toString())
+            bundle.putString("nombre", nombreProducto.toString())
+            bundle.putString("marca", marcaProducto.toString())
+            bundle.putString("categoria", categoriaProducto.toString())
+            bundle.putString("descripcion", descripcionProducto.toString())
+            bundle.putString("imagen", imagenProducto.toString())
+            bundle.putString("usuario", usuarioProducto.toString())
+            editarProductoFragment.arguments = bundle
+            val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
+            transaction.replace(R.id.fl_perfil_producto, editarProductoFragment)
             transaction.commit()
         }
 

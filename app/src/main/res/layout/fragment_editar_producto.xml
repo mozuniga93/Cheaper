@@ -18,18 +18,8 @@
         android:backgroundTint="@color/primario"
         android:src="@android:drawable/divider_horizontal_dark" />
 
-    <TextView
-        android:id="@+id/volverFromRegistrarProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:text="Volver"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layourFormRegProd"
+        android:id="@+id/layourFormEditProd"
         android:layout_width="344dp"
         android:layout_height="540dp"
         android:layout_gravity="center_horizontal"
@@ -40,12 +30,12 @@
         tools:backgroundTint="@color/white">
 
         <TextView
-            android:id="@+id/lbl_editperfil"
+            android:id="@+id/lbl_editproduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="Registro de producto"
+            android:text="Editar producto"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -54,7 +44,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
+            android:id="@+id/linearLayoutEP01"
             android:layout_width="306dp"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"
@@ -62,10 +52,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lbl_editperfil">
+            app:layout_constraintTop_toBottomOf="@+id/lbl_editproduct">
 
             <EditText
-                android:id="@+id/txtNombreProducto"
+                android:id="@+id/txtNombreProductoEditar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -78,7 +68,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout3"
+            android:id="@+id/linearLayoutEP02"
             android:layout_width="306dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
@@ -86,10 +76,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEP01">
 
             <EditText
-                android:id="@+id/txtMarcaProducto"
+                android:id="@+id/txtMarcaProductoEditar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -102,7 +92,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout4"
+            android:id="@+id/linearLayoutEP03"
             android:layout_width="306dp"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
@@ -111,10 +101,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.421"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEP02">
 
             <EditText
-                android:id="@+id/txtDescripcionProducto"
+                android:id="@+id/txtDescripcionProductoEditar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -128,7 +118,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout5"
+            android:id="@+id/linearLayoutEP04"
             android:layout_width="312dp"
             android:layout_height="65dp"
             android:layout_marginTop="10dp"
@@ -137,10 +127,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.421"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEP03">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/dropCategoriaProducto"
+                android:id="@+id/dropCategoriaProductoEditar"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,7 +139,7 @@
                 android:layout_weight="1">
 
                 <AutoCompleteTextView
-                    android:id="@+id/autoCompleteTextView"
+                    android:id="@+id/autoCompleteTextViewEditarCat"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center"
@@ -160,7 +150,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/ll_productos"
+            android:id="@+id/ll_productosEditar"
             android:layout_width="308dp"
             android:layout_height="84dp"
             android:layout_marginTop="10dp"
@@ -169,10 +159,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.421"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEP04">
 
             <ImageView
-                android:id="@+id/imagenIdProducto"
+                android:id="@+id/imagenIdProductoEditar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -183,8 +173,8 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCargarImgProducto"
-            android:layout_width="174dp"
+            android:id="@+id/btnCargarImgProductoEditar"
+            android:layout_width="280dp"
             android:layout_height="37dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="13dp"
@@ -193,27 +183,27 @@
             android:text="Cargar imagen"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_productos" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_productosEditar" />
 
         <Button
-            android:id="@+id/btn_registrarProducto"
+            android:id="@+id/btn_actualizar_producto"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:background="@android:drawable/toast_frame"
-            android:text="Registrar"
+            android:text="Actualizar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCargarImgProducto" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCargarImgProductoEditar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/escanearQR"
-        android:layout_width="112dp"
+        android:id="@+id/volverFromEditarProducto"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="270dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
-        android:text="Escanear QR"
+        android:text="Volver"
         android:textColor="@color/white"
         android:textSize="16sp" />
 
