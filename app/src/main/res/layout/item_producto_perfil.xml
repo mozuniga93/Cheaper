@@ -13,23 +13,6 @@
         android:layout_height="match_parent">
 
 
-        <Button
-            android:id="@+id/buttonEditarProductoPerfil"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="44dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="48dp"
-            android:backgroundTint="@color/secundario_amarillo"
-            android:paddingLeft="7dp"
-            android:textAlignment="center"
-            app:icon="@android:drawable/ic_menu_preferences"
-            app:iconTint="#FFFFFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.961"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
         <ImageView
             android:id="@+id/imageViewProductoPerfil"
             android:layout_width="100dp"

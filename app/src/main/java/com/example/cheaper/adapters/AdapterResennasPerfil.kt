@@ -24,6 +24,8 @@ class AdapterResennasPerfil(
     RecyclerView.Adapter<AdapterResennasPerfil.MyViewHolder>(){
 
 
+
+
     private val perfilFragment: PerfilFragment = perfilFragment
 
     override fun onCreateViewHolder(
