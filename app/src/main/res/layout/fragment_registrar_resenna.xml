@@ -189,7 +189,7 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_agregar_resenna"
-                        android:layout_width="288dp"
+                        android:layout_width="306dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="@android:drawable/toast_frame"

@@ -45,8 +45,10 @@ class ProductoAdapter(private val productsList: ArrayList<Product>) :
                 bundle.putString("id", currentItem.id.toString())
                 bundle.putString("nombre", currentItem.nombre.toString())
                 bundle.putString("marca", currentItem.marca.toString())
+                bundle.putString("categoria", currentItem.categoria.toString())
                 bundle.putString("descripcion", currentItem.descripcion.toString())
                 bundle.putString("imagen", currentItem.foto.toString())
+                bundle.putString("usuario", currentItem.usuario.toString())
                 perfilProductoFragment.arguments = bundle
                 Log.e("bundle", bundle.toString())
                 val transaction: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
