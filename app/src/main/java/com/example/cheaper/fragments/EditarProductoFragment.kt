@@ -219,8 +219,8 @@ class EditarProductoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun actualizarProducto(productoActualizar: Product) {
 
-
-        ProductoRepositorio.actualizarProcuto(productoActualizar)
+        val usuarioEditor = UsuarioRepositorio.usuarioLogueado
+        ProductoRepositorio.actualizarProcuto(productoActualizar, usuarioEditor)
 
         // Volver al perfil luego de actualizar
         val perfilFragment = PerfilFragment()
