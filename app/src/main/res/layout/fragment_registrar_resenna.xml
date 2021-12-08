@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_registrar_resenna"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:elevation="10dp"
+    tools:context=".ResennaFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/registro_resenna"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fl_regis_resenna"
+            android:layout_width="411dp"
+            android:layout_height="643dp"
+            android:elevation="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageViewEditarProducto"
+            tools:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tv_volver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
+                android:text="Volver"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/ll_productos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/ll_productos"
+                android:layout_width="343dp"
+                android:layout_height="462dp"
+                android:layout_marginEnd="12dp"
+                android:background="@android:drawable/toast_frame"
+                android:backgroundTint="@color/white"
+                android:elevation="40dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/fr_registrar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/white">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout5"
+                        android:layout_width="306dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
+                        android:elevation="40dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                        <EditText
+                            android:id="@+id/txt_canton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:drawable/toast_frame"
+                            android:backgroundTint="#D6DCDC"
+                            android:ems="10"
+                            android:gravity="center|start"
+                            android:hint="Lugar"
+                            android:inputType="textMultiLine"
+                            android:paddingStart="20dp"
+                            android:textColorHint="#4B5963" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout4"
+                        android:layout_width="306dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
+                        android:elevation="40dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/switchEsVirtual">
+
+                        <EditText
+                            android:id="@+id/txt_provincia"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:drawable/toast_frame"
+                            android:backgroundTint="#D6DCDC"
+                            android:ems="10"
+                            android:gravity="center|start"
+                            android:hint="Provincia"
+                            android:inputType="textMultiLine"
+                            android:paddingStart="20dp"
+                            android:textColorHint="#4B5963" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout3"
+                        android:layout_width="306dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
+                        android:elevation="40dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                        <EditText
+                            android:id="@+id/txt_tienda"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:drawable/toast_frame"
+                            android:backgroundTint="#D6DCDC"
+                            android:gravity="center|start"
+                            android:hint="Tienda"
+                            android:inputType="textMultiLine"
+                            android:paddingStart="20dp"
+                            android:textColorHint="#4B5963" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/lbl_producto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:text="Producto"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="306dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="24dp"
+                        android:elevation="40dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lbl_producto">
+
+                        <EditText
+                            android:id="@+id/txt_precio"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@android:drawable/toast_frame"
+                            android:backgroundTint="#D6DCDC"
+                            android:hint="Precio"
+                            android:inputType="numberDecimal"
+                            android:paddingStart="20dp"
+                            android:textColorHint="#4B5963" />
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/switchEsVirtual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="12dp"
+                        android:text="Es virtual"
+                        android:textColor="#4B5963"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_agregar_resenna"
+                        android:layout_width="306dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@android:drawable/toast_frame"
+                        android:backgroundTint="@color/secundario_amarillo"
+                        android:fontFamily="@font/montserrat"
+                        android:text="Agregar reseña"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|bold"
+                        app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageViewEditarProducto"
+            android:layout_width="match_parent"
+            android:layout_height="406dp"
+            android:layout_marginTop="-18dp"
+            android:background="@android:drawable/toast_frame"
+            android:backgroundTint="@color/primario"
+            android:src="@android:drawable/divider_horizontal_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

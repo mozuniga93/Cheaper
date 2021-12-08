@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="10dp"
+    android:background="@color/white"
+    android:id="@+id/container_registrar_producto"
+    >
+
+    <ImageView
+        android:id="@+id/imageViewEditarProducto"
+        android:layout_width="match_parent"
+        android:layout_height="406dp"
+        android:layout_marginTop="-25dp"
+        android:background="@android:drawable/toast_frame"
+        android:backgroundTint="@color/primario"
+        android:src="@android:drawable/divider_horizontal_dark" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layourFormEditProd"
+        android:layout_width="344dp"
+        android:layout_height="540dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/toast_frame_white"
+        android:elevation="40dp"
+        tools:background="@android:drawable/toast_frame"
+        tools:backgroundTint="@color/white">
+
+        <TextView
+            android:id="@+id/lbl_editproduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Editar producto"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutEP01"
+            android:layout_width="306dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lbl_editproduct">
+
+            <EditText
+                android:id="@+id/txtNombreProductoEditar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:drawable/toast_frame"
+                android:backgroundTint="#D6DCDC"
+                android:hint="Nombre del producto"
+                android:inputType="text"
+                android:paddingStart="20sp"
+                android:textAlignment="viewStart" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutEP02"
+            android:layout_width="306dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEP01">
+
+            <EditText
+                android:id="@+id/txtMarcaProductoEditar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:drawable/toast_frame"
+                android:backgroundTint="#D6DCDC"
+                android:gravity="center|start"
+                android:hint="Marca"
+                android:inputType="textMultiLine"
+                android:paddingStart="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutEP03"
+            android:layout_width="306dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.421"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEP02">
+
+            <EditText
+                android:id="@+id/txtDescripcionProductoEditar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:drawable/toast_frame"
+                android:backgroundTint="#D6DCDC"
+                android:ems="10"
+                android:gravity="center|start"
+                android:hint="Descripción"
+                android:inputType="textMultiLine"
+                android:paddingStart="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayoutEP04"
+            android:layout_width="312dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="10dp"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.421"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEP03">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dropCategoriaProductoEditar"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:layout_marginTop="2dp"
+                android:layout_weight="1">
+
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextViewEditarCat"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:inputType="none"
+                    android:text="Categoría" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_productosEditar"
+            android:layout_width="308dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="10dp"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.421"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEP04">
+
+            <ImageView
+                android:id="@+id/imagenIdProductoEditar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@android:drawable/ic_menu_gallery" />
+
+
+        </LinearLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCargarImgProductoEditar"
+            android:layout_width="280dp"
+            android:layout_height="37dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="13dp"
+            android:background="@android:drawable/toast_frame"
+            android:backgroundTint="@color/secundario_amarillo"
+            android:text="Cargar imagen"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_productosEditar" />
+
+        <Button
+            android:id="@+id/btn_actualizar_producto"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@android:drawable/toast_frame"
+            android:text="Actualizar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCargarImgProductoEditar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/volverFromEditarProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"
+        android:text="Volver"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+</FrameLayout>

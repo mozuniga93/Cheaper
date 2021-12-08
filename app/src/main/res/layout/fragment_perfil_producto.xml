@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fl_perfil_producto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
+    tools:context=".PerfilProductoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/perfil_producto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btnFiltrar"
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="46dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/secundario_amarillo"
+            android:elevation="50dp"
+            app:icon="@drawable/ic_baseline_filter_alt_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/lblResennaDestacada2"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/lblResennaDestacada2"
+            android:layout_width="224dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:inputType="text"
+            android:text="Reseñas"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.018"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="412dp"
+            android:layout_height="127dp"
+            android:background="#DCFFAB40"
+            android:elevation="25dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?android:attr/listDivider"
+                    android:elevation="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:background="@color/secundario_gris"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <TextView
+                    android:id="@+id/lblUbicacionDestacado"
+                    android:layout_width="255dp"
+
+                    android:layout_height="28dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:text="para este producto"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/IvUsuarioDestacado"
+                    app:layout_constraintTop_toBottomOf="@+id/lblNombreComercioDestacado"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/lblNombreComercioDestacado"
+                    android:layout_width="253dp"
+
+                    android:layout_height="22dp"
+                    android:layout_marginStart="8dp"
+                    android:inputType="text"
+                    android:text="No existen reseñas registradas"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="false"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/IvUsuarioDestacado"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPrecio_Destacado"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/tvTiempoDestacado"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="22dp"
+                    android:inputType="text"
+                    android:paddingLeft="28sp"
+                    android:text="Hoy"
+                    android:textAllCaps="true"
+                    android:textColor="@color/secundario_gris"
+                    android:textIsSelectable="false"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/tvPrecio_Destacado"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:inputType="number"
+                    android:text="0.00"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="false"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/tvSignoColones"
+                    app:layout_constraintTop_toBottomOf="@+id/lblResennaDestacada"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/tvSignoColones"
+                    android:layout_width="13dp"
+
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="text"
+                    android:text="₡"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="false"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/IvUsuarioDestacado"
+                    app:layout_constraintTop_toBottomOf="@+id/lblResennaDestacada"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/IvUsuarioDestacado"
+                    android:layout_width="90dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="45dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lblResennaDestacada"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/lblResennaDestacada"
+                    android:layout_width="207dp"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:inputType="text"
+                    android:text="Reseña destacada"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="false"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="415dp"
+            android:layout_height="206dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/btnEditarProducto"
+                android:layout_width="48dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/secundario_amarillo"
+                android:elevation="60dp"
+                android:paddingLeft="7dp"
+                android:textAlignment="center"
+                app:icon="@android:drawable/ic_menu_edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btnNuevaResenna"
+                app:layout_constraintTop_toBottomOf="@+id/lblDescripcionProducto"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <Button
+                android:id="@+id/btnNuevaResenna"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="48dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/primario"
+                android:textAlignment="center"
+                app:icon="@drawable/ic_baseline_add_24"
+                app:iconSize="26dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnAgregarFavoritos"
+                app:layout_constraintTop_toTopOf="@+id/btnAgregarFavoritos"
+                tools:elevation="60dp"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <ImageView
+                android:id="@+id/IvProducto"
+                android:layout_width="110dp"
+                android:layout_height="92dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVolver"
+                tools:src="@android:drawable/sym_def_app_icon" />
+
+            <Button
+                android:id="@+id/btnAgregarFavoritos"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="48dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/secundario_amarillo"
+                android:elevation="60dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblDescripcionProducto"
+                app:layout_constraintVertical_bias="0.0"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/lblMarcaProducto"
+                android:layout_width="215dp"
+
+                android:layout_height="22dp"
+                android:layout_marginStart="-8dp"
+                android:layout_marginEnd="68dp"
+                android:background="@null"
+                android:inputType="text"
+                android:text="Marca del producto"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/IvProducto"
+                app:layout_constraintTop_toBottomOf="@+id/lblNombreProducto"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/lblNombreProducto"
+                android:layout_width="209dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="-8dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="52dp"
+                android:background="@null"
+                android:inputType="text"
+                android:text="Nombre del producto"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/IvProducto"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/lblDescripcionProducto"
+                android:layout_width="271dp"
+
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-8dp"
+                android:background="@null"
+                android:inputType="textMultiLine|text"
+                android:text="Descripcion del producto, beneficios del producto"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/IvProducto"
+                app:layout_constraintTop_toBottomOf="@+id/lblMarcaProducto"
+                tools:flow_wrapMode="aligned" />
+
+            <TextView
+                android:id="@+id/tvVolver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Volver"
+                android:textColor="@color/secundario_gris"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listaResennas"
+            android:layout_width="400dp"
+            android:layout_height="228dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblResennaDestacada2"
+            tools:listitem="@layout/item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

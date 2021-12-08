@@ -1,60 +1,74 @@
 package com.example.cheaper.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
+import com.example.cheaper.adapters.CategoriaAdapter
+import com.example.cheaper.model.Categoria
+import com.example.cheaper.utilidades.Communicator
+import com.google.firebase.firestore.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class BuscarFragment : Fragment(),Communicator {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BuscarFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class BuscarFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var categoriaRecyclerView : RecyclerView
+    private lateinit var categoriaArrayList : ArrayList<Categoria>
+    private lateinit var myAdapter : CategoriaAdapter
+    private lateinit var cardCategoria : CardView
+    private lateinit var db : FirebaseFirestore
+    private lateinit var viewOfLayout: View
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buscar, container, false)
+        viewOfLayout =  inflater.inflate(R.layout.fragment_buscar, container, false)
+        categoriaRecyclerView = viewOfLayout.findViewById(R.id.categoriasListBuscar)
+        categoriaRecyclerView.layoutManager = GridLayoutManager(this.context, 2)
+        categoriaArrayList = arrayListOf()
+        myAdapter = CategoriaAdapter(categoriaArrayList)
+        categoriaRecyclerView.adapter = myAdapter
+        EventChangeListener()
+
+        return viewOfLayout
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BuscarFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BuscarFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun EventChangeListener(){
+
+        db = FirebaseFirestore.getInstance()
+        db.collection("categorias").
+        addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?, error: FirebaseFirestoreException?
+            ) {
+
+                if (error != null){
+                    Log.e("Firestore Error", error.message.toString())
+                    return
                 }
+
+                for (dc : DocumentChange in value?.documentChanges!!){
+
+                    if (dc.type == DocumentChange.Type.ADDED){
+                        categoriaArrayList.add(dc.document.toObject(Categoria::class.java))
+                    }
+                }
+                myAdapter.notifyDataSetChanged()
             }
+        })
     }
+
+    override fun passDataCom(pCategoria: String) {
+       val bundle = Bundle()
+        bundle.putString("categoria",pCategoria)
+    }
+
+
 }

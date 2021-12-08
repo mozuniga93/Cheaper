@@ -1,20 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/perfil_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".fragments.PerfilFragment">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="210dp"
+        android:layout_marginTop="-20dp"
+        android:background="@android:drawable/toast_frame"
+        android:backgroundTint="@color/primario"
+        android:src="@android:drawable/divider_horizontal_dark" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
         <TextView
+            android:id="@+id/txtNombre"
+            android:layout_width="195dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="56dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Nombre"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@+id/imageViewPerfil"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtApellido"
+            android:layout_width="195dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Apellido"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp"
+            app:layout_constraintStart_toEndOf="@+id/imageViewPerfil"
+            app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageViewPerfil"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:civ_border_color="#FFFFFFFF"
+            app:civ_border_width="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textViewMisProductos"
+            android:layout_width="145dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/montserrat"
+            android:paddingTop="10dp"
+            android:text="Mis productos"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.09"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_crear_prod" />
+
+        <Button
+            android:id="@+id/button_crear_prod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:layout_centerInParent="true"
-            android:text="Perfil" />
-    </RelativeLayout>
+
+            android:backgroundTint="@color/secundario_amarillo"
+            android:fontFamily="@font/montserrat"
+            android:text="Crear nuevo producto"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.294" />
+
+        <ScrollView
+            android:id="@+id/scrollViewProduct"
+            android:layout_width="match_parent"
+            android:layout_height="161dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMisProductos">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerProductPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/scrollViewResena"
+            android:layout_width="match_parent"
+            android:layout_height="161dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idTextViewMisResenas"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="1dp">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerResennaPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/idTextViewMisResenas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="448dp"
+            android:fontFamily="@font/montserrat"
+            android:text="Mis reseñas"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/textViewMisProductos"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewEditarPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-30dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/montserrat"
+            android:text="..."
+            android:textColor="@color/white"
+            android:textSize="60sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
