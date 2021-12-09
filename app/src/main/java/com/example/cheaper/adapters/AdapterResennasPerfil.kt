@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +13,6 @@ import com.example.cheaper.R
 import com.example.cheaper.fragments.PerfilFragment
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.utilidades.EliminarDialog
-import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
 
@@ -22,6 +20,8 @@ import java.time.Period
 class AdapterResennasPerfil(
     private val listaResennas: ArrayList<Resenna>, perfilFragment: PerfilFragment) :
     RecyclerView.Adapter<AdapterResennasPerfil.MyViewHolder>(){
+
+
 
 
     private val perfilFragment: PerfilFragment = perfilFragment

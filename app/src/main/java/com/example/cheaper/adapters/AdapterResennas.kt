@@ -1,24 +1,36 @@
 package com.example.cheaper.adapters
 
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
+import com.example.cheaper.db
 import com.example.cheaper.model.Resenna
+import com.example.cheaper.model.ResennaVotada
+import com.example.cheaper.repositorios.RepositorioConstantes
+import com.example.cheaper.repositorios.ResennaRepositorio
+import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
 
-class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
+class AdapterResennas(
+    private val listaResennas: ArrayList<Resenna>) :
     RecyclerView.Adapter<AdapterResennas.MyViewHolder>() {
+
+    private lateinit var votosResennausuarioArrayList: ArrayList<ResennaVotada>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
+        votosResennausuarioArrayList = arrayListOf()
+        obtenerColeccionDeVotos()
 
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.item,
@@ -31,6 +43,7 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         val currentItem: Resenna = listaResennas[position]
+        ajustarBotonLike(currentItem, holder)
         holder.resennaPrecio.text = currentItem.precio.toString()
         holder.resennaTienda.text = currentItem.tienda
         val ubicacion =
@@ -39,8 +52,67 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
         val tiempo = transformarFecha(currentItem.fecha)
         holder.resennaTiempo.text = tiempo
         Picasso.get().load(currentItem.usuario).into(holder.fotoUsuario)
+        holder.cantVotos.text = currentItem.votos.toString()
+        holder.likeResenna.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                actualizarCantidadVotos(currentItem)
 
+                ResennaRepositorio.registrarVotoResenna(
+                    UsuarioRepositorio.usuarioLogueado,
+                    currentItem
+                )
+                cambiarIconoLike(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
+            }
+        })
+    }
 
+    private fun obtenerColeccionDeVotos() {
+        for (resenna in listaResennas) {
+            db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
+                .collection(RepositorioConstantes.votoResennaCollection)
+                .get()
+                .addOnSuccessListener { documentReference ->
+                    for (document in documentReference) {
+                        var resennaVotos = document.toObject(ResennaVotada::class.java)
+                        votosResennausuarioArrayList.add(resennaVotos)
+                        Log.d("Colleccion de votos", votosResennausuarioArrayList.toString())
+                    }
+
+                }
+                .addOnFailureListener { e ->
+                    Log.w(UsuarioRepositorio.tag, "Error al cargar los votos de resenna.", e)
+                }
+        }
+    }
+
+    private fun ajustarBotonLike(currentItem: Resenna, holder: MyViewHolder) {
+        for (voto in votosResennausuarioArrayList) {
+            if(voto.idUsuario.equals(UsuarioRepositorio.usuarioLogueado.id) && voto.id.equals(currentItem.id)){
+                cambiarIconoLike(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
+                holder.cantVotos.setEnabled(false)
+            }
+        }
+    }
+
+        private fun actualizarCantidadVotos(item : Resenna){
+        Log.d("Votos", item.votos.toString())
+        item.votos = item.votos?.plus(1)
+
+        Log.d("Votos actualizado", item.votos.toString())
+
+        db.collection(RepositorioConstantes.resennasCollection).
+        document(item.id!!).
+        set(item).
+        addOnSuccessListener { documentReference ->
+            Log.d(UsuarioRepositorio.tag, "Voto en resenna actualizado exitosamente.")
+        }
+            .addOnFailureListener { e ->
+                Log.w(UsuarioRepositorio.tag, "Error al actualizar voto resenna.", e)
+            }
+    }
+
+    private fun cambiarIconoLike(holder: ImageButton, iconoLikeNegro: Int) {
+        holder.setBackgroundResource(iconoLikeNegro)
     }
 
     private fun obtenerUbicacion(provincia: String?, lugar: String?, virtual: Boolean?): String {
@@ -115,6 +187,7 @@ class AdapterResennas(private val listaResennas: ArrayList<Resenna>) :
         val resennaDireccion: TextView = itemView.findViewById(R.id.tvUbicacion)
         val resennaTiempo: TextView = itemView.findViewById(R.id.tvTiempo)
         val fotoUsuario: ImageView = itemView.findViewById(R.id.ivFoto)
-
+        val likeResenna = itemView.findViewById<ImageButton>(R.id.btnLike)
+        val cantVotos: TextView = itemView.findViewById(R.id.tvCantVotos)
     }
 }

@@ -16,15 +16,16 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.adapters.AdapterResennas
+import com.example.cheaper.fragments.EditarProductoFragment
 import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
+import com.example.cheaper.model.ResennaVotada
 import com.example.cheaper.model.Usuario
 import com.example.cheaper.repositorios.ProductoRepositorio
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.example.cheaper.utilidades.SesionDialog
-import com.example.cheaper.utilidades.TelefonoDialog
 import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
@@ -37,14 +38,17 @@ private const val ARG_PARAM2 = "param2"
 private lateinit var resennaRecyclerView: RecyclerView
 private lateinit var resennaArrayList: ArrayList<Resenna>
 private lateinit var usuarioArrayList:  ArrayList<Usuario>
+private lateinit var votosResennausuarioArrayList: ArrayList<ResennaVotada>
 private lateinit var myAdapter: AdapterResennas
 lateinit var db: FirebaseFirestore
 private lateinit var viewOfLayout: View
 private var idProducto : Any? = ""
 private var nombreProducto : Any? = ""
 private var marcaProducto : Any? = ""
+private var categoriaProducto : Any? = ""
 private var descripcionProducto : Any? = ""
 private var imagenProducto : Any? = ""
+private var usuarioProducto : Any? = ""
 private var esFavorito = false
 
 /**
@@ -77,6 +81,7 @@ class PerfilProductoFragment : Fragment() {
         resennaRecyclerView = viewOfLayout.findViewById(R.id.listaResennas)
         resennaRecyclerView.layoutManager = LinearLayoutManager(this.context)
         resennaArrayList = arrayListOf()
+        votosResennausuarioArrayList = arrayListOf()
         myAdapter = AdapterResennas(resennaArrayList)
         resennaRecyclerView.adapter = myAdapter
 
@@ -94,6 +99,7 @@ class PerfilProductoFragment : Fragment() {
 
 
         irARegistrar(viewOfLayout)
+        irAEditar(viewOfLayout)
         mostrarInfoProducto(viewOfLayout)
         return viewOfLayout
     }
@@ -160,8 +166,10 @@ class PerfilProductoFragment : Fragment() {
         idProducto = args?.get("id")
         nombreProducto = args?.get("nombre")
         marcaProducto = args?.get("marca")
+        categoriaProducto = args?.get("categoria")
         descripcionProducto = args?.get("descripcion")
         imagenProducto = args?.get("imagen")
+        usuarioProducto = args?.get("usuario")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -296,11 +304,33 @@ class PerfilProductoFragment : Fragment() {
             bundle.putString("productoId", idProducto.toString())
             bundle.putString("productoNombre", nombreProducto.toString())
             bundle.putString("productoMarca", marcaProducto.toString())
+            bundle.putString("productoCategoria", categoriaProducto.toString())
             bundle.putString("productoDescripcion", descripcionProducto.toString())
             bundle.putString("productoImagen", imagenProducto.toString())
             resennaFragment.arguments = bundle
             val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
             transaction.replace(R.id.fl_perfil_producto, resennaFragment)
+            transaction.commit()
+        }
+
+    }
+
+    private fun irAEditar(vista: View) {
+        val btnEditarPoducto = vista.findViewById<Button>(R.id.btnEditarProducto)
+
+        btnEditarPoducto.setOnClickListener {
+            val editarProductoFragment = EditarProductoFragment()
+            var bundle = Bundle()
+            bundle.putString("id", idProducto.toString())
+            bundle.putString("nombre", nombreProducto.toString())
+            bundle.putString("marca", marcaProducto.toString())
+            bundle.putString("categoria", categoriaProducto.toString())
+            bundle.putString("descripcion", descripcionProducto.toString())
+            bundle.putString("imagen", imagenProducto.toString())
+            bundle.putString("usuario", usuarioProducto.toString())
+            editarProductoFragment.arguments = bundle
+            val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
+            transaction.replace(R.id.fl_perfil_producto, editarProductoFragment)
             transaction.commit()
         }
 
@@ -362,17 +392,39 @@ class PerfilProductoFragment : Fragment() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         var resenna = dc.document.toObject(Resenna::class.java)
                         resenna.id = dc.document.id
+/*
+                        obtenerColeccionDeVotos(resenna)
+*/
                         val resennaFoto = cambiarIdPorFoto(resenna)
                         if(resennaFoto.producto.equals(idProducto.toString())) {
                             resennaArrayList.add(resennaFoto)
+
                         }
                     }
                 }
                 myAdapter.notifyDataSetChanged()
                 obtenerResennaDestacada(viewOfLayout, resennaArrayList)
+
             }
         })
     }
+
+   /* private fun obtenerColeccionDeVotos(resenna: Resenna) {
+        db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
+            .collection(RepositorioConstantes.votoResennaCollection)
+            .get()
+            .addOnSuccessListener { documentReference->
+                for (document in documentReference) {
+                    var resennaVotos = document.toObject(ResennaVotada::class.java)
+                    votosResennausuarioArrayList.add(resennaVotos)
+                    *//*Log.d("Colleccion de votos", resennaVotos.toString())*//*
+                }
+
+            }
+            .addOnFailureListener { e ->
+                Log.w(UsuarioRepositorio.tag, "Error al cargar los votos de resenna.", e)
+            }
+    }*/
 
     private fun cambiarIdPorFoto(resennaFoto: Resenna) : Resenna{
         for (document in usuarioArrayList) {
