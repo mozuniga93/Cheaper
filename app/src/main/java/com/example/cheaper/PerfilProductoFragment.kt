@@ -20,6 +20,7 @@ import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.model.Usuario
+import com.example.cheaper.repositorios.ProductoRepositorio
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.example.cheaper.utilidades.SesionDialog
@@ -99,7 +100,7 @@ class PerfilProductoFragment : Fragment() {
 
     private fun cambiarEstadoFavorito() {
         if(!UsuarioRepositorio.usuarioEstaLogueado()){
-            val dialogo = SesionDialog()
+            val dialogo = SesionDialog("Es necesario iniciar sesión para realizar esta acción.")
             dialogo.show(childFragmentManager, "SesionDialog")
         }else {
             var product = Product(
@@ -113,11 +114,13 @@ class PerfilProductoFragment : Fragment() {
                     UsuarioRepositorio.usuarioLogueado,
                     product
                 )
+                ProductoRepositorio.registrarTopic(product)
             } else {
                 UsuarioRepositorio.removerProductoFavorito(
                     UsuarioRepositorio.usuarioLogueado,
                     product
                 )
+                ProductoRepositorio.removerTopic(product)
                 cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
             }
             esFavorito = !esFavorito

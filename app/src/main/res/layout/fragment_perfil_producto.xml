@@ -217,6 +217,7 @@
                 android:layout_width="48dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="30dp"
+                android:paddingLeft="100dp"
                 android:layout_marginTop="12dp"
                 android:backgroundTint="@color/secundario_amarillo"
                 android:elevation="60dp"
