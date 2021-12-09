@@ -2,11 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="10dp"
     android:background="@color/white"
-    android:id="@+id/container_registrar_producto"
+    android:id="@+id/container_editar_producto"
     >
 
     <ImageView
@@ -17,6 +18,26 @@
         android:background="@android:drawable/toast_frame"
         android:backgroundTint="@color/primario"
         android:src="@android:drawable/divider_horizontal_dark" />
+
+    <Button
+        android:id="@+id/volverFromEditarProducto"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="41dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="25dp"
+        android:backgroundTint="@color/primario"
+        android:outlineProvider="none"
+        android:rotationX="-4"
+        android:rotationY="193"
+        app:icon="@drawable/ic_ir"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layourFormEditProd"
@@ -196,15 +217,5 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnCargarImgProductoEditar" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/volverFromEditarProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:text="Volver"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
 
 </FrameLayout>
