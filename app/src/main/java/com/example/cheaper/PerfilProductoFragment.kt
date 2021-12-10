@@ -150,15 +150,15 @@ class PerfilProductoFragment : Fragment() {
     }
 
     private fun cambiarIconoFavorito(iconoId: Int){
-        val button = viewOfLayout?.findViewById<TextView>(R.id.btnAgregarFavoritos)
+        val button = viewOfLayout?.findViewById<Button>(R.id.btnAgregarFavoritos)
         button.setCompoundDrawables(null,null,null,null)
 
         var iconoDrawable = resources.getDrawable(iconoId,this.context?.theme)
         iconoDrawable = DrawableCompat.wrap(iconoDrawable)
         DrawableCompat.setTint(iconoDrawable,resources.getColor(R.color.white))
-        iconoDrawable.setBounds(0,0,iconoDrawable.intrinsicWidth, iconoDrawable.intrinsicHeight)
+        iconoDrawable.setBounds(0,10,0, 0)
 
-        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,iconoDrawable,null)
+        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,iconoDrawable,null,null)
     }
 
     private fun obtenerInfoProducto() {
