@@ -22,6 +22,7 @@ import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.model.ResennaVotada
 import com.example.cheaper.model.Usuario
+import com.example.cheaper.repositorios.ProductoRepositorio
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.example.cheaper.utilidades.SesionDialog
@@ -105,7 +106,7 @@ class PerfilProductoFragment : Fragment() {
 
     private fun cambiarEstadoFavorito() {
         if(!UsuarioRepositorio.usuarioEstaLogueado()){
-            val dialogo = SesionDialog()
+            val dialogo = SesionDialog("Es necesario iniciar sesión para realizar esta acción.")
             dialogo.show(childFragmentManager, "SesionDialog")
         }else {
             var product = Product(
@@ -119,11 +120,13 @@ class PerfilProductoFragment : Fragment() {
                     UsuarioRepositorio.usuarioLogueado,
                     product
                 )
+                ProductoRepositorio.registrarTopic(product)
             } else {
                 UsuarioRepositorio.removerProductoFavorito(
                     UsuarioRepositorio.usuarioLogueado,
                     product
                 )
+                ProductoRepositorio.removerTopic(product)
                 cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
             }
             esFavorito = !esFavorito
@@ -147,15 +150,15 @@ class PerfilProductoFragment : Fragment() {
     }
 
     private fun cambiarIconoFavorito(iconoId: Int){
-        val button = viewOfLayout?.findViewById<TextView>(R.id.btnAgregarFavoritos)
+        val button = viewOfLayout?.findViewById<Button>(R.id.btnAgregarFavoritos)
         button.setCompoundDrawables(null,null,null,null)
 
         var iconoDrawable = resources.getDrawable(iconoId,this.context?.theme)
         iconoDrawable = DrawableCompat.wrap(iconoDrawable)
         DrawableCompat.setTint(iconoDrawable,resources.getColor(R.color.white))
-        iconoDrawable.setBounds(0,0,iconoDrawable.intrinsicWidth, iconoDrawable.intrinsicHeight)
+        iconoDrawable.setBounds(0,10,0, 0)
 
-        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,iconoDrawable,null)
+        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,iconoDrawable,null,null)
     }
 
     private fun obtenerInfoProducto() {

@@ -31,10 +31,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.fragment.app.FragmentManager
 
 import com.example.cheaper.MainActivity
 import com.example.cheaper.utilidades.QRDialog
 import com.example.cheaper.utilidades.TelefonoDialog
+import androidx.fragment.app.FragmentActivity
+
+
+
 
 
 class RegistrarProducto : Fragment() {
@@ -47,6 +52,7 @@ class RegistrarProducto : Fragment() {
     private lateinit var lstAdapter: ArrayList<String>
     private lateinit var db : FirebaseFirestore
     private var codigoDeBarras = ""
+
 
     private var _binding: FragmentRegistrarProductoBinding? = null
     private val binding get() = _binding!!
@@ -132,7 +138,8 @@ class RegistrarProducto : Fragment() {
                 Log.d("PRODUCTO ESCANEADO", "Producto escaneado exitosamente:  ${intentResultCode.contents}")
                 codigoDeBarras = intentResultCode.contents
                 val dialogo = QRDialog()
-               // dialogo.show(supportFragmentManager, "TelefonoDialog")
+                dialogo.show(childFragmentManager, "QRDialog")
+              // dialogo.show(supportFragmentManager, "TelefonoDialog")
             }
         }
     }

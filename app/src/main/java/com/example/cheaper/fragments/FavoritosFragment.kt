@@ -9,12 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cheaper.ProductoAdapter
+import com.example.cheaper.ProductoFavoritoAdapter
 import com.example.cheaper.R
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.ProductoFavorito
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.example.cheaper.utilidades.SesionDialog
 import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
 
 private lateinit var productRecyclerView : RecyclerView
 private lateinit var productArrayList : ArrayList<Product>
-private lateinit var myAdapter : ProductoAdapter
+private lateinit var myAdapter : ProductoFavoritoAdapter
 private lateinit var db : FirebaseFirestore
 private lateinit var viewOfLayout: View
 
@@ -56,11 +57,20 @@ class FavoritosFragment : Fragment() {
         productRecyclerView = viewOfLayout.findViewById(R.id.productsListFavoritos)
         productRecyclerView.layoutManager = LinearLayoutManager(this.context)
         productArrayList = arrayListOf()
-        myAdapter = ProductoAdapter(productArrayList)
+        myAdapter = ProductoFavoritoAdapter(productArrayList)
         productRecyclerView.adapter = myAdapter
         myAdapter.notifyDataSetChanged()
-        getProductos()
+        if(UsuarioRepositorio.usuarioEstaLogueado())
+            getProductos()
+        else
+            usuarioNoLogueado()
         return viewOfLayout
+    }
+
+    private fun usuarioNoLogueado() {
+
+        val dialogo = SesionDialog("No hay productos favoritos registrados.")
+        dialogo.show(childFragmentManager, "SesionDialog")
     }
 
 
@@ -88,7 +98,7 @@ class FavoritosFragment : Fragment() {
                     productos.add(producto)
             }
             productArrayList.addAll(productos)
-            productRecyclerView.adapter = ProductoAdapter(productArrayList)
+            productRecyclerView.adapter = ProductoFavoritoAdapter(productArrayList)
         }
         .addOnFailureListener{ exception ->
             Log.w(ContentValues.TAG, "Error getting products: ", exception)

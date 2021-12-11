@@ -75,7 +75,7 @@ tools:context=".fragments.NoPerfilFragment">
                     android:text="el mejor precio."
                     android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="44sp" />
+                    android:textSize="38sp" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
