@@ -8,6 +8,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
+import com.google.firebase.messaging.ktx.messaging
 
 object ProductoRepositorio {
 
@@ -24,6 +25,29 @@ object ProductoRepositorio {
                 Log.w(tag, "Error al crear el nuevo producto.", e)
             }
     }
+
+    fun registrarTopic(producto: Product){
+        Firebase.messaging.subscribeToTopic(producto?.id!!)
+            .addOnCompleteListener { task ->
+                var msg = "Subscripción exitosa"
+                if (!task.isSuccessful) {
+                    msg = "Subscripción no exitosa"
+                }
+                Log.d(tag, msg)
+            }
+    }
+
+    fun removerTopic(producto: Product){
+        Firebase.messaging.unsubscribeFromTopic(producto?.id!!)
+            .addOnCompleteListener { task ->
+                var msg = "Desinscripción exitosa"
+                if (!task.isSuccessful) {
+                    msg = "Desinscripción no exitosa"
+                }
+                Log.d(tag, msg)
+            }
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun actualizarProcuto(producto: Product, usuario: Usuario){

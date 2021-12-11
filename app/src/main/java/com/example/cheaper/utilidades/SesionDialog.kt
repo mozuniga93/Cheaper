@@ -6,12 +6,12 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 
-class SesionDialog: DialogFragment() {
+class SesionDialog(var texto:String): DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Es necesario iniciar sesión para realizar esta acción.")
+            builder.setMessage(texto)
                 .setPositiveButton("OK",
                     DialogInterface.OnClickListener { dialog, id ->
 
