@@ -15,7 +15,7 @@
 
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imagedProducto"
+            android:id="@+id/avatarUsuario"
             android:layout_width="87dp"
             android:layout_height="65dp"
             android:layout_marginStart="4dp"
@@ -29,34 +29,34 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/txtdProducto"
+            android:id="@+id/txtUsuario"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
-            android:text="Nombre del producto"
+            android:text="Nombre del usuario"
             android:textColor="@color/secundario_gris"
             android:textSize="@dimen/_10ssp"
             android:textStyle="bold"
             android:paddingLeft="@dimen/_4sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/imagedProducto"
+            app:layout_constraintStart_toEndOf="@+id/avatarUsuario"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
-            android:id="@+id/textdNegocio"
+            android:id="@+id/txtFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
-            android:text="Negocio"
+            android:text="Fecha"
             android:paddingLeft="@dimen/_4sdp"
             android:textColor="@color/secundario_gris"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/txtdProducto"
-            app:layout_constraintTop_toBottomOf="@id/txtdProducto"
+            app:layout_constraintStart_toStartOf="@id/txtUsuario"
+            app:layout_constraintTop_toBottomOf="@id/txtUsuario"
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

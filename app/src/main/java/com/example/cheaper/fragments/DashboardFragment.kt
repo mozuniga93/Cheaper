@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
 import com.example.cheaper.adapters.AdapterProductoDashboard
+import com.example.cheaper.adapters.BusquedaAdapter
 import com.example.cheaper.adapters.CategoriaAdapter
+import com.example.cheaper.model.Busqueda
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.ProductoDashboard
 import com.example.cheaper.model.Resenna
@@ -26,11 +28,14 @@ import kotlinx.android.synthetic.main.fragment_perfil.view.txtNombre
 class DashboardFragment: Fragment() {
 
     private lateinit var productRecyclerView : RecyclerView
+    private lateinit var busquedaRecyclerView: RecyclerView
     private lateinit var productArrayList : ArrayList<ProductoDashboard>
     private lateinit var resennasArrayList : ArrayList<Resenna>
     private lateinit var myAdapter : AdapterProductoDashboard
+    private lateinit var busquedaAdapter : BusquedaAdapter
     private lateinit var db : FirebaseFirestore
     private lateinit var viewOfLayout: View
+    private lateinit var data: ArrayList<Busqueda>
     private var sTextSearch:String=""
     private var cantUsuarios : Int = 0
     private var cantProductos : Int = 0
@@ -57,6 +62,14 @@ class DashboardFragment: Fragment() {
         resennasArrayList = getResennas()
         getProductos(resennasArrayList)
         getUsuarios()
+        data = arrayListOf()
+        data.add(Busqueda("Codigo"))
+        data.add(Busqueda("Categorias"))
+        data.add(Busqueda("Otros"))
+        busquedaRecyclerView = viewOfLayout.findViewById(R.id.listaBusquedas)
+        busquedaRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        busquedaAdapter = BusquedaAdapter(data)
+        busquedaRecyclerView.adapter = busquedaAdapter
         return viewOfLayout
     }
 

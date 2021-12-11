@@ -1,12 +1,17 @@
 package com.example.cheaper.adapters
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
+import com.example.cheaper.PerfilProductoFragment
 import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
 import com.example.cheaper.model.ProductoDashboard
@@ -31,6 +36,23 @@ class AdapterProductoDashboard(private val productosList: ArrayList<ProductoDash
         holder.productoUbicacion.text = currentItem.lugar
         holder.productoNegocio.text = currentItem.tienda
         Picasso.get().load(currentItem.foto).into(holder.productImage)
+
+        holder.productImage.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                val activity = v!!.context as AppCompatActivity
+
+                val perfilProductoFragment = PerfilProductoFragment()
+                var bundle = Bundle()
+                bundle.putString("id", currentItem.id.toString())
+                bundle.putString("nombre", currentItem.nombre.toString())
+                bundle.putString("imagen", currentItem.foto.toString())
+                perfilProductoFragment.arguments = bundle
+                Log.e("bundle", bundle.toString())
+                val transaction: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
+                transaction.replace(R.id.dashboard, perfilProductoFragment).addToBackStack(null)
+                transaction.commit()
+            }
+        })
 
     }
 
