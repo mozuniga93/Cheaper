@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
 import com.example.cheaper.fragments.BuscarFragment
+import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.fragments.ProductoCategoriaFragment
 import com.example.cheaper.model.Actualizacion
 import com.example.cheaper.model.Busqueda
@@ -51,6 +52,11 @@ class BusquedaAdapter(private val busquedasList: List<Busqueda>):
                     val activity=v!!.context as AppCompatActivity
                     val buscarFragment = BuscarFragment()
                     activity.supportFragmentManager.beginTransaction().replace(R.id.dashboard, buscarFragment).addToBackStack(null).commit()
+
+                }else if(CatName=="Nombre"){
+                    val activity=v!!.context as AppCompatActivity
+                    val inicioFragment = InicioFragment()
+                    activity.supportFragmentManager.beginTransaction().replace(R.id.dashboard, inicioFragment).addToBackStack(null).commit()
 
                 }
 

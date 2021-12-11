@@ -22,17 +22,6 @@
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"/>
 
-        <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="7dp"
-            android:layout_marginRight="-23dp"
-            android:layout_marginBottom="3dp"
-            android:layout_toEndOf="@+id/txtNombre"
-            android:src="@drawable/img" />
-
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

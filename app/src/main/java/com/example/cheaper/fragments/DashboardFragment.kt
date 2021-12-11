@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,6 +37,7 @@ class DashboardFragment: Fragment() {
     private lateinit var db : FirebaseFirestore
     private lateinit var viewOfLayout: View
     private lateinit var data: ArrayList<Busqueda>
+    private lateinit var cardView : CardView
     private var sTextSearch:String=""
     private var cantUsuarios : Int = 0
     private var cantProductos : Int = 0
@@ -52,6 +54,8 @@ class DashboardFragment: Fragment() {
         cantUsuarios = 0
         cantProductos = 0
         cantResennas = 0
+        cardView = viewOfLayout.findViewById(R.id.cardHeader)
+        cardView.setVisibility(View.VISIBLE)
         productRecyclerView = viewOfLayout.findViewById(R.id.productosListDashboard)
         productRecyclerView.layoutManager = LinearLayoutManager(this.context)
         productArrayList = arrayListOf()
@@ -63,9 +67,9 @@ class DashboardFragment: Fragment() {
         getProductos(resennasArrayList)
         getUsuarios()
         data = arrayListOf()
-        data.add(Busqueda("Codigo"))
+        data.add(Busqueda("Código de barras"))
         data.add(Busqueda("Categorias"))
-        data.add(Busqueda("Otros"))
+        data.add(Busqueda("Nombre"))
         busquedaRecyclerView = viewOfLayout.findViewById(R.id.listaBusquedas)
         busquedaRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         busquedaAdapter = BusquedaAdapter(data)
@@ -100,6 +104,10 @@ class DashboardFragment: Fragment() {
                         productodashboard.id = producto.id
                         productodashboard.nombre = producto.nombre
                         productodashboard.foto = producto.foto
+                        productodashboard.marca = producto.marca
+                        productodashboard.descripcion = producto.descripcion
+                        productodashboard.categoria = producto.categoria
+                        productodashboard.usuario = producto.usuario
                         productos.add(productodashboard)
                     }
                    productoEncontrado = false

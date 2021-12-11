@@ -30,9 +30,12 @@ class AdapterProductoDashboard(private val productosList: ArrayList<ProductoDash
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem : ProductoDashboard = productosList[position]
+        val precio = currentItem.precio.toString()
+        val precioSigno = "₡" + precio
+
 
         holder.productoNombre.text = currentItem.nombre
-        holder.productoPrecio.text = currentItem.precio.toString()
+        holder.productoPrecio.text = precioSigno
         holder.productoUbicacion.text = currentItem.lugar
         holder.productoNegocio.text = currentItem.tienda
         Picasso.get().load(currentItem.foto).into(holder.productImage)
@@ -45,7 +48,11 @@ class AdapterProductoDashboard(private val productosList: ArrayList<ProductoDash
                 var bundle = Bundle()
                 bundle.putString("id", currentItem.id.toString())
                 bundle.putString("nombre", currentItem.nombre.toString())
+                bundle.putString("marca", currentItem.marca.toString())
+                bundle.putString("categoria", currentItem.categoria.toString())
+                bundle.putString("descripcion", currentItem.descripcion.toString())
                 bundle.putString("imagen", currentItem.foto.toString())
+                bundle.putString("usuario", currentItem.usuario.toString())
                 perfilProductoFragment.arguments = bundle
                 Log.e("bundle", bundle.toString())
                 val transaction: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
