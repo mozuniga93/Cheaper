@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.ProductoAdapter
 import com.example.cheaper.R
 import com.example.cheaper.adapters.AdapterProductoDashboard
+import com.example.cheaper.adapters.BusquedaAdapter
 import com.example.cheaper.adapters.CategoriaAdapter
+import com.example.cheaper.model.Busqueda
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.ProductoDashboard
 import com.example.cheaper.model.Resenna
@@ -22,15 +25,21 @@ import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import kotlinx.android.synthetic.main.fragment_perfil.view.*
 import kotlinx.android.synthetic.main.fragment_perfil.view.txtNombre
+import com.google.zxing.integration.android.IntentIntegrator
+import com.google.zxing.integration.android.IntentResult
 
 class DashboardFragment: Fragment() {
 
     private lateinit var productRecyclerView : RecyclerView
+    private lateinit var busquedaRecyclerView: RecyclerView
     private lateinit var productArrayList : ArrayList<ProductoDashboard>
     private lateinit var resennasArrayList : ArrayList<Resenna>
     private lateinit var myAdapter : AdapterProductoDashboard
+    private lateinit var busquedaAdapter : BusquedaAdapter
     private lateinit var db : FirebaseFirestore
     private lateinit var viewOfLayout: View
+    private lateinit var data: ArrayList<Busqueda>
+    private lateinit var cardView : CardView
     private var sTextSearch:String=""
     private var cantUsuarios : Int = 0
     private var cantProductos : Int = 0
@@ -47,6 +56,8 @@ class DashboardFragment: Fragment() {
         cantUsuarios = 0
         cantProductos = 0
         cantResennas = 0
+        cardView = viewOfLayout.findViewById(R.id.cardHeader)
+        cardView.setVisibility(View.VISIBLE)
         productRecyclerView = viewOfLayout.findViewById(R.id.productosListDashboard)
         productRecyclerView.layoutManager = LinearLayoutManager(this.context)
         productArrayList = arrayListOf()
@@ -57,6 +68,14 @@ class DashboardFragment: Fragment() {
         resennasArrayList = getResennas()
         getProductos(resennasArrayList)
         getUsuarios()
+        data = arrayListOf()
+        data.add(Busqueda("CB","Código de barras"))
+        data.add(Busqueda("CA","Categorias"))
+        data.add(Busqueda("NB","Nombre"))
+        busquedaRecyclerView = viewOfLayout.findViewById(R.id.listaBusquedas)
+        busquedaRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        busquedaAdapter = BusquedaAdapter(data)
+        busquedaRecyclerView.adapter = busquedaAdapter
         return viewOfLayout
     }
 
@@ -87,6 +106,10 @@ class DashboardFragment: Fragment() {
                         productodashboard.id = producto.id
                         productodashboard.nombre = producto.nombre
                         productodashboard.foto = producto.foto
+                        productodashboard.marca = producto.marca
+                        productodashboard.descripcion = producto.descripcion
+                        productodashboard.categoria = producto.categoria
+                        productodashboard.usuario = producto.usuario
                         productos.add(productodashboard)
                     }
                    productoEncontrado = false

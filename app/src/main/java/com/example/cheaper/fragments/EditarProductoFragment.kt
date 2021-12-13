@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
@@ -79,12 +82,27 @@ class EditarProductoFragment : Fragment() {
         ImageUri = empty.toUri()
 
 
-        // PARA VOLVER ATRÁS - CANCELAR
-        viewOfLayout?.findViewById<Button>(R.id.volverFromEditarProducto)?.setOnClickListener {
-            val prodCatFragment = BuscarFragment()
-            (activity as MainActivity?)?.makeCurrentFragment(prodCatFragment)
+        // Para volver al perfil
+        viewOfLayout?.findViewById<TextView>(R.id.volverFromEditarProducto)?.setOnClickListener {
+            val perfilFragment = PerfilFragment()
+            (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
         }
 
+
+        // Para ir a Logs
+        viewOfLayout?.findViewById<TextView>(R.id.buttonLogs)?.setOnClickListener {
+            val actualizacionesFragment = ActualizacionesFragment()
+            var bundle = Bundle()
+            bundle.putString("productoId", idProducto.toString())
+            bundle.putString("nombre", nombreProducto.toString())
+            bundle.putString("marca", marcaProducto.toString())
+            bundle.putString("categoria", categoria.toString())
+            bundle.putString("descripcion", descripcionProducto.toString())
+            bundle.putString("imagen", imagenProducto.toString())
+            bundle.putString("usuario", usuarioProducto.toString())
+            actualizacionesFragment.arguments = bundle
+            (activity as MainActivity?)?.makeCurrentFragment(actualizacionesFragment)
+        }
 
         //Relleno de información
         mostrarInfoProducto(viewOfLayout)

@@ -264,10 +264,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvVolverFromPerfilProducto"
                 tools:src="@android:drawable/sym_def_app_icon" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAgregarFavoritos"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="48dp"
+                android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
