@@ -79,9 +79,10 @@ class EditarProductoFragment : Fragment() {
         ImageUri = empty.toUri()
 
 
-        // PARA VOLVER A LA PÁGINA ANTERIOR
+        // PARA VOLVER ATRÁS - CANCELAR
         viewOfLayout?.findViewById<Button>(R.id.volverFromEditarProducto)?.setOnClickListener {
-            volverAtras()
+            val prodCatFragment = BuscarFragment()
+            (activity as MainActivity?)?.makeCurrentFragment(prodCatFragment)
         }
 
 
@@ -106,24 +107,6 @@ class EditarProductoFragment : Fragment() {
         }
 
         return viewOfLayout
-    }
-
-    private fun volverAtras(){
-
-       val perfilProductoFragment = PerfilProductoFragment()
-        var bundle = Bundle()
-        bundle.putString("id", idProducto.toString())
-        bundle.putString("nombre", nombreProducto.toString())
-        bundle.putString("marca", marcaProducto.toString())
-        bundle.putString("descripcion", descripcionProducto.toString())
-        bundle.putString("categoria", categoria.toString())
-        bundle.putString("imagen", imagenProducto.toString())
-        bundle.putString("usuario", usuarioProducto.toString())
-        perfilProductoFragment.arguments = bundle
-
-        val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
-        transaction.replace(R.id.container_editar_producto, perfilProductoFragment)
-        transaction.commit()
     }
 
     private fun dropCategorias(vista: View){
