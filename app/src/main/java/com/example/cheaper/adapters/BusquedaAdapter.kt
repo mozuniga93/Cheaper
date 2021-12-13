@@ -12,12 +12,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
 import com.example.cheaper.fragments.BuscarFragment
+import com.example.cheaper.fragments.EscanearFragment
 import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.fragments.ProductoCategoriaFragment
 import com.example.cheaper.model.Actualizacion
 import com.example.cheaper.model.Busqueda
 import com.example.cheaper.model.Categoria
 import com.google.firebase.firestore.core.View
+import com.google.zxing.integration.android.IntentIntegrator
 
 class BusquedaAdapter(private val busquedasList: List<Busqueda>):
  RecyclerView.Adapter<BusquedaAdapter.ViewHolder>(){
@@ -41,19 +43,21 @@ class BusquedaAdapter(private val busquedasList: List<Busqueda>):
 
         items.add(holder.card)
 
-        val CatName = currentItem.nombre
+        val CatCodigo = currentItem.codigo
 
         holder.card.setOnClickListener(object : android.view.View.OnClickListener{
             override fun onClick(v: android.view.View?) {
                 val bundle = Bundle()
-                if(CatName=="Codigo"){
-
-                }else if(CatName=="Categorias"){
+                if(CatCodigo=="CB"){
+                    val activity=v!!.context as AppCompatActivity
+                    val escanearFragment = EscanearFragment()
+                    activity.supportFragmentManager.beginTransaction().replace(R.id.dashboard, escanearFragment).addToBackStack(null).commit()
+                }else if(CatCodigo=="CA"){
                     val activity=v!!.context as AppCompatActivity
                     val buscarFragment = BuscarFragment()
                     activity.supportFragmentManager.beginTransaction().replace(R.id.dashboard, buscarFragment).addToBackStack(null).commit()
 
-                }else if(CatName=="Nombre"){
+                }else if(CatCodigo=="NB"){
                     val activity=v!!.context as AppCompatActivity
                     val inicioFragment = InicioFragment()
                     activity.supportFragmentManager.beginTransaction().replace(R.id.dashboard, inicioFragment).addToBackStack(null).commit()
@@ -74,4 +78,6 @@ class BusquedaAdapter(private val busquedasList: List<Busqueda>):
         val card: CardView = itemView.findViewById(R.id.card)
 
     }
+
+
 }

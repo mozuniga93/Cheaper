@@ -25,6 +25,8 @@ import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import kotlinx.android.synthetic.main.fragment_perfil.view.*
 import kotlinx.android.synthetic.main.fragment_perfil.view.txtNombre
+import com.google.zxing.integration.android.IntentIntegrator
+import com.google.zxing.integration.android.IntentResult
 
 class DashboardFragment: Fragment() {
 
@@ -67,9 +69,9 @@ class DashboardFragment: Fragment() {
         getProductos(resennasArrayList)
         getUsuarios()
         data = arrayListOf()
-        data.add(Busqueda("Código de barras"))
-        data.add(Busqueda("Categorias"))
-        data.add(Busqueda("Nombre"))
+        data.add(Busqueda("CB","Código de barras"))
+        data.add(Busqueda("CA","Categorias"))
+        data.add(Busqueda("NB","Nombre"))
         busquedaRecyclerView = viewOfLayout.findViewById(R.id.listaBusquedas)
         busquedaRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         busquedaAdapter = BusquedaAdapter(data)

@@ -89,6 +89,12 @@ class EditarProductoFragment : Fragment() {
             val actualizacionesFragment = ActualizacionesFragment()
             var bundle = Bundle()
             bundle.putString("productoId", idProducto.toString())
+            bundle.putString("nombre", nombreProducto.toString())
+            bundle.putString("marca", marcaProducto.toString())
+            bundle.putString("categoria", categoria.toString())
+            bundle.putString("descripcion", descripcionProducto.toString())
+            bundle.putString("imagen", imagenProducto.toString())
+            bundle.putString("usuario", usuarioProducto.toString())
             actualizacionesFragment.arguments = bundle
             (activity as MainActivity?)?.makeCurrentFragment(actualizacionesFragment)
         }
