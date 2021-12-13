@@ -47,7 +47,6 @@ class AdapterProduct(private val productsList: ArrayList<Product>) :
     }
 
     public class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-
         val productName : TextView = itemView.findViewById(R.id.txtNombreProducto_perfil)
         val productBrand : TextView = itemView.findViewById(R.id.txtMarcaProducto_perfil)
         val productDescription : TextView = itemView.findViewById(R.id.txtDescripcionProducto_perfil)
