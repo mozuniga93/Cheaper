@@ -74,7 +74,7 @@ object ProductoRepositorio {
             product.marca,
             product.descripcion,
             product.categoria,
-            product.foto,
+            usuario.foto.toString(),
             LocalDate.now().toString()
         )
 

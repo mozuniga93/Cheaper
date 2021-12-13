@@ -84,6 +84,21 @@ class EditarProductoFragment : Fragment() {
             (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
         }
 
+        // Para ir a Logs
+        viewOfLayout?.findViewById<TextView>(R.id.buttonLogs)?.setOnClickListener {
+            val actualizacionesFragment = ActualizacionesFragment()
+            var bundle = Bundle()
+            bundle.putString("productoId", idProducto.toString())
+            bundle.putString("nombre", nombreProducto.toString())
+            bundle.putString("marca", marcaProducto.toString())
+            bundle.putString("categoria", categoria.toString())
+            bundle.putString("descripcion", descripcionProducto.toString())
+            bundle.putString("imagen", imagenProducto.toString())
+            bundle.putString("usuario", usuarioProducto.toString())
+            actualizacionesFragment.arguments = bundle
+            (activity as MainActivity?)?.makeCurrentFragment(actualizacionesFragment)
+        }
+
         //Relleno de información
         mostrarInfoProducto(viewOfLayout)
         dropCategorias(viewOfLayout)
