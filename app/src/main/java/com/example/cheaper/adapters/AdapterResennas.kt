@@ -48,7 +48,6 @@ public class AdapterResennas(
 
         val posicion = position
         val currentItem: Resenna = listaResennas[position]
-        Log.d("Resenna current item", currentItem.toString())
         holder.resennaPrecio.text = currentItem.precio.toString()
         holder.resennaTienda.text = currentItem.tienda
         val ubicacion =
@@ -94,10 +93,8 @@ public class AdapterResennas(
             .addOnSuccessListener { result ->
                 for (document in result) {
                     var votoResenna = document.toObject(ResennaVotada::class.java)
-                    Log.d("Votos resenna", votoResenna.toString())
                     if (votoResenna.idUsuario!!.equals(UsuarioRepositorio.usuarioLogueado.id)){
                         ajustarBotonLike(holder)
-                        Log.d("Votos resenna", "Entre a cambiar el boton :)")
                     }
                 }
             }
@@ -116,10 +113,8 @@ public class AdapterResennas(
     }
 
     private fun actualizarCantidadVotos(item : Resenna){
-        Log.d("Votos", item.votos.toString())
+        item.orden = null
         item.votos = item.votos?.plus(1)
-
-        Log.d("Votos actualizado", item.votos.toString())
 
         db.collection(RepositorioConstantes.resennasCollection).
         document(item.id!!).
@@ -140,10 +135,8 @@ public class AdapterResennas(
             .addOnSuccessListener { result ->
                 for (document in result) {
                     var reporteResenna = document.toObject(ReporteResenna::class.java)
-                    Log.d("Reporte resenna", reporteResenna.toString())
                     if (reporteResenna.idUsuario!!.equals(UsuarioRepositorio.usuarioLogueado.id)){
                         ajustarBotonReporte(holder)
-                        Log.d("Reporte resenna", "Entre a cambiar el boton :)")
                     }
                 }
             }

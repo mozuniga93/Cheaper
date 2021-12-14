@@ -80,6 +80,7 @@ object ResennaRepositorio {
         votosResennausuarioArrayList: ArrayList<ResennaVotada>,
         btnReportar: ImageButton
     ){
+        item.orden = null
         val adResenna = AdapterResennas(listaResennas, votosResennausuarioArrayList)
         Log.d("Votos", item.votos.toString())
         if(item.cantReportes?.plus(1) == 5){
