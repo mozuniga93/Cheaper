@@ -202,6 +202,25 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
+                android:id="@+id/tvVolverFromPerfilProducto"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="41dp"
+                android:layout_height="43dp"
+                android:backgroundTint="@color/white"
+                android:outlineProvider="none"
+                android:rotationX="-4"
+                android:rotationY="193"
+                app:icon="@drawable/ic_ir"
+                app:iconTint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.066"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.042"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <Button
                 android:id="@+id/btnEditarProducto"
                 android:layout_width="48dp"
                 android:layout_height="50dp"
@@ -209,9 +228,9 @@
                 android:layout_marginEnd="8dp"
                 android:backgroundTint="@color/secundario_amarillo"
                 android:elevation="60dp"
-                android:paddingLeft="7dp"
+                android:paddingLeft="8dp"
                 android:textAlignment="center"
-                app:icon="@android:drawable/ic_menu_edit"
+                app:icon="@drawable/ic_edit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnNuevaResenna"
                 app:layout_constraintTop_toBottomOf="@+id/lblDescripcionProducto"
@@ -240,9 +259,9 @@
                 android:layout_width="110dp"
                 android:layout_height="92dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="9dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvVolver"
+                app:layout_constraintTop_toBottomOf="@+id/tvVolverFromPerfilProducto"
                 tools:src="@android:drawable/sym_def_app_icon" />
 
             <com.google.android.material.button.MaterialButton
@@ -315,18 +334,6 @@
                 app:layout_constraintStart_toEndOf="@+id/IvProducto"
                 app:layout_constraintTop_toBottomOf="@+id/lblMarcaProducto"
                 tools:flow_wrapMode="aligned" />
-
-            <TextView
-                android:id="@+id/tvVolver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Volver"
-                android:textColor="@color/secundario_gris"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

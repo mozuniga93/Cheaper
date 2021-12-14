@@ -86,7 +86,7 @@ class PerfilProductoFragment : Fragment() {
         resennaRecyclerView.adapter = myAdapter
 
         // Para volver al inicio
-        viewOfLayout?.findViewById<TextView>(R.id.tvVolver)?.setOnClickListener {
+        viewOfLayout?.findViewById<Button>(R.id.tvVolverFromPerfilProducto)?.setOnClickListener {
             val inicioFragment = InicioFragment()
             (activity as MainActivity?)?.makeCurrentFragment(inicioFragment)
         }

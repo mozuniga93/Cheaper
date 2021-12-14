@@ -1,5 +1,6 @@
 package com.example.cheaper.fragments
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -15,7 +16,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cheaper.*
 import com.example.cheaper.R
@@ -36,6 +39,7 @@ import kotlinx.android.synthetic.main.fragment_editar_producto.*
 import kotlinx.android.synthetic.main.fragment_editar_producto.view.*
 import kotlinx.android.synthetic.main.fragment_editar_usuario.*
 import kotlinx.android.synthetic.main.fragment_editar_usuario.view.*
+import kotlinx.android.synthetic.main.fragment_perfil.*
 import kotlinx.android.synthetic.main.fragment_registrar_producto.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -83,6 +87,7 @@ class EditarProductoFragment : Fragment() {
             val perfilFragment = PerfilFragment()
             (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
         }
+
 
         // Para ir a Logs
         viewOfLayout?.findViewById<TextView>(R.id.buttonLogs)?.setOnClickListener {
