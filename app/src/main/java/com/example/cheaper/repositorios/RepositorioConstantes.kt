@@ -5,6 +5,7 @@ object RepositorioConstantes {
     const val usuariosCollectionProductosFavoritos = "productosFavoritos"
     const val resennasCollection = "resennas"
     const val votoResennaCollection = "votosResenna"
+    const val reporteResennaCollection = "reporteResenna"
     const val productosCollection = "productos"
     const val productosCollectionActualizacionProductos = "actualizacionesProducto"
     const val appName = "Cheaper"

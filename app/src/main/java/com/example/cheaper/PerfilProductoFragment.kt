@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
 
+
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
@@ -72,6 +73,7 @@ class PerfilProductoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        votosResennausuarioArrayList = arrayListOf()
         obtenerInfoProducto()
         obtenerFotoUsuario()
         usuarioArrayList = arrayListOf()
@@ -80,8 +82,7 @@ class PerfilProductoFragment : Fragment() {
         resennaRecyclerView = viewOfLayout.findViewById(R.id.listaResennas)
         resennaRecyclerView.layoutManager = LinearLayoutManager(this.context)
         resennaArrayList = arrayListOf()
-        votosResennausuarioArrayList = arrayListOf()
-        myAdapter = AdapterResennas(resennaArrayList)
+        myAdapter = AdapterResennas(resennaArrayList, votosResennausuarioArrayList)
         resennaRecyclerView.adapter = myAdapter
 
         // Para volver al inicio
@@ -148,14 +149,14 @@ class PerfilProductoFragment : Fragment() {
 
     private fun cambiarIconoFavorito(iconoId: Int){
         val button = viewOfLayout?.findViewById<TextView>(R.id.btnAgregarFavoritos)
-        button.setCompoundDrawables(null,null,null,null)
+        button?.setCompoundDrawables(null,null,null,null)
 
         var iconoDrawable = resources.getDrawable(iconoId,this.context?.theme)
         iconoDrawable = DrawableCompat.wrap(iconoDrawable)
         DrawableCompat.setTint(iconoDrawable,resources.getColor(R.color.white))
         iconoDrawable.setBounds(0,0,iconoDrawable.intrinsicWidth, iconoDrawable.intrinsicHeight)
 
-        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,iconoDrawable,null)
+        button?.setCompoundDrawablesRelativeWithIntrinsicBounds(null,null,iconoDrawable,null)
     }
 
     private fun obtenerInfoProducto() {
@@ -389,13 +390,11 @@ class PerfilProductoFragment : Fragment() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         var resenna = dc.document.toObject(Resenna::class.java)
                         resenna.id = dc.document.id
-/*
-                        obtenerColeccionDeVotos(resenna)
-*/
-                        val resennaFoto = cambiarIdPorFoto(resenna)
-                        if(resennaFoto.producto.equals(idProducto.toString())) {
-                            resennaArrayList.add(resennaFoto)
 
+                        var resennaFoto = cambiarIdPorFoto(resenna)
+                        if(resennaFoto.producto.equals(idProducto.toString())) {
+                            Log.d("Resenna a guardar", resennaFoto.toString())
+                            resennaArrayList.add(resennaFoto)
                         }
                     }
                 }
@@ -405,23 +404,6 @@ class PerfilProductoFragment : Fragment() {
             }
         })
     }
-
-   /* private fun obtenerColeccionDeVotos(resenna: Resenna) {
-        db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
-            .collection(RepositorioConstantes.votoResennaCollection)
-            .get()
-            .addOnSuccessListener { documentReference->
-                for (document in documentReference) {
-                    var resennaVotos = document.toObject(ResennaVotada::class.java)
-                    votosResennausuarioArrayList.add(resennaVotos)
-                    *//*Log.d("Colleccion de votos", resennaVotos.toString())*//*
-                }
-
-            }
-            .addOnFailureListener { e ->
-                Log.w(UsuarioRepositorio.tag, "Error al cargar los votos de resenna.", e)
-            }
-    }*/
 
     private fun cambiarIdPorFoto(resennaFoto: Resenna) : Resenna{
         for (document in usuarioArrayList) {
