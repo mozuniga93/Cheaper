@@ -95,7 +95,6 @@ class RegistrarProducto : Fragment() {
         btnCargarImagen.setOnClickListener {
             fileManager()
         }
-
         dropCategorias()
 
         return binding.root
