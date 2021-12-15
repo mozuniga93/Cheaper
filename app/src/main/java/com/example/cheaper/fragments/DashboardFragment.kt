@@ -115,10 +115,11 @@ class DashboardFragment: Fragment() {
     private fun getResennas(): ArrayList<Resenna> {
         var duplicateResenna: Boolean = false
         db = FirebaseFirestore.getInstance()
-        db.collection("resennas").
-        orderBy("precio").
-        get().
-        addOnSuccessListener { documents ->
+        db.collection("resennas")
+        .orderBy("precio")
+        .limit(7)
+        .get()
+        .addOnSuccessListener { documents ->
             resennasArrayList.clear()
             var resennas = ArrayList<Resenna>()
             resennas = arrayListOf()
@@ -200,29 +201,36 @@ class DashboardFragment: Fragment() {
         whereEqualTo("codigoBarras",codigoDeBarras).
         get().
         addOnSuccessListener { documents ->
-            for (document in documents) {
-                var producto = document.toObject(Product::class.java)
-                producto.id = document.id
-                if(producto.id != null) {
-                    val perfilProductoFragment = PerfilProductoFragment()
-                    var bundle = Bundle()
-                    bundle.putString("id", producto.id.toString())
-                    bundle.putString("nombre", producto.nombre.toString())
-                    bundle.putString("marca", producto.marca.toString())
-                    bundle.putString("categoria", producto.categoria.toString())
-                    bundle.putString("descripcion", producto.descripcion.toString())
-                    bundle.putString("imagen", producto.foto.toString())
-                    bundle.putString("usuario", producto.usuario.toString())
-                    perfilProductoFragment.arguments = bundle
-                    var fr = getFragmentManager()?.beginTransaction()
-                    fr?.replace(R.id.dashboard, perfilProductoFragment)?.addToBackStack(null)
-                    fr?.commit()
+
+            if(!documents.isEmpty){
+                Log.d("PRODUCTO ESCANEADO", "Producto encontrado")
+                for (document in documents) {
+                    var producto = document.toObject(Product::class.java)
+                    producto.id = document.id
+                    if(producto.id != null) {
+                        val perfilProductoFragment = PerfilProductoFragment()
+                        var bundle = Bundle()
+                        bundle.putString("id", producto.id.toString())
+                        bundle.putString("nombre", producto.nombre.toString())
+                        bundle.putString("marca", producto.marca.toString())
+                        bundle.putString("categoria", producto.categoria.toString())
+                        bundle.putString("descripcion", producto.descripcion.toString())
+                        bundle.putString("imagen", producto.foto.toString())
+                        bundle.putString("usuario", producto.usuario.toString())
+                        perfilProductoFragment.arguments = bundle
+                        var fr = getFragmentManager()?.beginTransaction()
+                        fr?.replace(R.id.dashboard, perfilProductoFragment)?.addToBackStack(null)
+                        fr?.commit()
+                    }
                 }
+            }else{
+                Log.d("PRODUCTO ESCANEADO", "Producto no encontrado")
+                val dialogo = CodigoBarrasDialog()
+                dialogo.show(childFragmentManager, "CodigoBarrasDialog")
             }
         }
             .addOnFailureListener{ exception ->
-                val dialogo = CodigoBarrasDialog()
-                dialogo.show(childFragmentManager, "CodigoBarrasDialog")
+
             }
     }
 
