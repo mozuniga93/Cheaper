@@ -23,7 +23,7 @@ import com.example.cheaper.utilidades.ReportarResennaDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
-import java.time.Period
+import java.time.temporal.ChronoUnit
 
 public class AdapterResennas(
     private val listaResennas: ArrayList<Resenna>,
@@ -165,12 +165,16 @@ public class AdapterResennas(
         val fechaI = LocalDate.parse(fecha)
         val fechaf = LocalDate.now()
 
-        val period: Period = Period.between(fechaI, fechaf)
-        val diff: Int = period.getDays()
+        val diffLong: Long = ChronoUnit.DAYS.between(fechaI, fechaf);
+        val diff : Int = diffLong.toInt()
         validarDias(diff)
+        Log.d("Fecha", fechaI.toString())
+        Log.d("Fecha de hoy", fechaf.toString())
+        Log.d("Diferencia", diff.toString())
+
 
         val cuantoTiempo = validarDias(diff)
-        return cuantoTiempo
+       return cuantoTiempo
     }
 
     private fun validarDias(diff: Int): String {

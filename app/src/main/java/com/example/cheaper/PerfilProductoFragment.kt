@@ -30,6 +30,7 @@ import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
+import java.time.temporal.ChronoUnit
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -165,14 +166,14 @@ class PerfilProductoFragment : Fragment() {
 
     private fun cambiarIconoFavorito(iconoId: Int){
         val button = viewOfLayout?.findViewById<Button>(R.id.btnAgregarFavoritos)
-        button.setCompoundDrawables(null,null,null,null)
+        button?.setCompoundDrawables(null,null,null,null)
 
         var iconoDrawable = resources.getDrawable(iconoId,this.context?.theme)
         iconoDrawable = DrawableCompat.wrap(iconoDrawable)
         DrawableCompat.setTint(iconoDrawable,resources.getColor(R.color.white))
         iconoDrawable.setBounds(0,10,0, 0)
 
-        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,iconoDrawable,null,null)
+        button?.setCompoundDrawablesRelativeWithIntrinsicBounds(null,iconoDrawable,null,null)
     }
 
     private fun obtenerInfoProducto() {
@@ -396,10 +397,10 @@ class PerfilProductoFragment : Fragment() {
         }
         if(contFiltro == 0) {
             obtenerResennasSinFiltro()
-        }else if (contFiltro == 1){
+        }else if(contFiltro == 1){
             obtenerResennasOrdenadasPorPrecio()
-        }else if (contFiltro == 2){
-            obtenerResennasMasRecientes()
+        }else if(contFiltro == 2){
+            obtenerResennasSinFiltro()
         }
     }
 
@@ -491,8 +492,7 @@ class PerfilProductoFragment : Fragment() {
                         }
                     }
                 }
-                Log.d("Todas las resennas", resennaArrayList.toString())
-                resennaArrayList = ArrayList(resennaArrayList.sortedBy { it.orden })
+
                 Log.d("Todas las resennas", "ordenadas " + resennaArrayList.toString())
                 myAdapter.notifyDataSetChanged()
                 obtenerResennaDestacada(viewOfLayout, resennaArrayList)
@@ -506,8 +506,8 @@ class PerfilProductoFragment : Fragment() {
         val fechaI = LocalDate.parse(fecha)
         val fechaf = LocalDate.now()
 
-        val period: Period = Period.between(fechaI, fechaf)
-        val diff: Int = period.getDays()
+        val diffLong: Long = ChronoUnit.DAYS.between(fechaI, fechaf);
+        val diff : Int = diffLong.toInt()
 
         return diff
     }
