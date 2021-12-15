@@ -54,7 +54,7 @@ class editarUsuarioFragment : Fragment() {
             cerrarSesion()
         }
         // Para volver al perfil
-        viewOfLayout?.findViewById<TextView>(R.id.volverFromEditarUsuario)?.setOnClickListener {
+        viewOfLayout?.findViewById<Button>(R.id.volverFromEditarUsuario)?.setOnClickListener {
             val perfilFragment = PerfilFragment()
             (activity as MainActivity?)?.makeCurrentFragment(perfilFragment)
         }
