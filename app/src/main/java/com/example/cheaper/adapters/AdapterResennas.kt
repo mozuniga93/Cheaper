@@ -9,28 +9,32 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.R
 import com.example.cheaper.db
+import com.example.cheaper.model.ReporteResenna
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.model.ResennaVotada
 import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.ResennaRepositorio
 import com.example.cheaper.repositorios.UsuarioRepositorio
+import com.example.cheaper.utilidades.ReportarResennaDialog
+import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
-import java.time.Period
+import java.time.temporal.ChronoUnit
 
-class AdapterResennas(
-    private val listaResennas: ArrayList<Resenna>) :
+public class AdapterResennas(
+    private val listaResennas: ArrayList<Resenna>,
+    val votosResennausuarioArrayList: ArrayList<ResennaVotada>
+) :
     RecyclerView.Adapter<AdapterResennas.MyViewHolder>() {
 
-    private lateinit var votosResennausuarioArrayList: ArrayList<ResennaVotada>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
 
-        votosResennausuarioArrayList = arrayListOf()
-        obtenerColeccionDeVotos()
+
 
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.item,
@@ -42,8 +46,8 @@ class AdapterResennas(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
+        val posicion = position
         val currentItem: Resenna = listaResennas[position]
-        ajustarBotonLike(currentItem, holder)
         holder.resennaPrecio.text = currentItem.precio.toString()
         holder.resennaTienda.text = currentItem.tienda
         val ubicacion =
@@ -53,6 +57,7 @@ class AdapterResennas(
         holder.resennaTiempo.text = tiempo
         Picasso.get().load(currentItem.usuario).into(holder.fotoUsuario)
         holder.cantVotos.text = currentItem.votos.toString()
+        obtenerColeccionDeVotos(currentItem, holder)
         holder.likeResenna.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 actualizarCantidadVotos(currentItem)
@@ -61,44 +66,55 @@ class AdapterResennas(
                     UsuarioRepositorio.usuarioLogueado,
                     currentItem
                 )
-                cambiarIconoLike(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
+                cambiarIcono(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
+            }
+        })
+        obtenerColeccionDeReportes(currentItem, holder)
+        holder.btnReportar.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val activity = v!!.context as AppCompatActivity
+                val dialogo = ReportarResennaDialog(currentItem, holder.btnReportar, listaResennas, posicion, votosResennausuarioArrayList)
+                dialogo.show(activity.supportFragmentManager, "ReportarResennaDialog")
             }
         })
     }
 
-    private fun obtenerColeccionDeVotos() {
-        for (resenna in listaResennas) {
-            db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
-                .collection(RepositorioConstantes.votoResennaCollection)
-                .get()
-                .addOnSuccessListener { documentReference ->
-                    for (document in documentReference) {
-                        var resennaVotos = document.toObject(ResennaVotada::class.java)
-                        votosResennausuarioArrayList.add(resennaVotos)
-                        Log.d("Colleccion de votos", votosResennausuarioArrayList.toString())
+    fun actualizarLista(position: Int){
+        listaResennas.removeAt(position)
+        notifyDataSetChanged()
+        Log.d("Eliminar poscision", true.toString())
+    }
+
+    private fun obtenerColeccionDeVotos(resenna: Resenna, holder: MyViewHolder) {
+        db = FirebaseFirestore.getInstance()
+        db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
+            .collection(RepositorioConstantes.votoResennaCollection)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    var votoResenna = document.toObject(ResennaVotada::class.java)
+                    if (votoResenna.idUsuario!!.equals(UsuarioRepositorio.usuarioLogueado.id)){
+                        ajustarBotonLike(holder)
                     }
-
                 }
-                .addOnFailureListener { e ->
-                    Log.w(UsuarioRepositorio.tag, "Error al cargar los votos de resenna.", e)
-                }
-        }
-    }
-
-    private fun ajustarBotonLike(currentItem: Resenna, holder: MyViewHolder) {
-        for (voto in votosResennausuarioArrayList) {
-            if(voto.idUsuario.equals(UsuarioRepositorio.usuarioLogueado.id) && voto.id.equals(currentItem.id)){
-                cambiarIconoLike(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
-                holder.cantVotos.setEnabled(false)
             }
-        }
+            .addOnFailureListener { e ->
+                Log.w(UsuarioRepositorio.tag, "Error al cargar los votos de resenna.", e)
+            }
     }
 
-        private fun actualizarCantidadVotos(item : Resenna){
-        Log.d("Votos", item.votos.toString())
-        item.votos = item.votos?.plus(1)
+    private fun ajustarBotonLike(holder: MyViewHolder) {
+                cambiarIcono(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
+                holder.likeResenna.setEnabled(false)
+    }
 
-        Log.d("Votos actualizado", item.votos.toString())
+    fun cambiarIcono(holder: ImageButton, icono: Int) {
+        holder.setBackgroundResource(icono)
+    }
+
+    private fun actualizarCantidadVotos(item : Resenna){
+        item.orden = null
+        item.votos = item.votos?.plus(1)
 
         db.collection(RepositorioConstantes.resennasCollection).
         document(item.id!!).
@@ -111,8 +127,27 @@ class AdapterResennas(
             }
     }
 
-    private fun cambiarIconoLike(holder: ImageButton, iconoLikeNegro: Int) {
-        holder.setBackgroundResource(iconoLikeNegro)
+    private fun obtenerColeccionDeReportes(resenna: Resenna, holder: MyViewHolder) {
+        db = FirebaseFirestore.getInstance()
+        db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
+            .collection(RepositorioConstantes.reporteResennaCollection)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    var reporteResenna = document.toObject(ReporteResenna::class.java)
+                    if (reporteResenna.idUsuario!!.equals(UsuarioRepositorio.usuarioLogueado.id)){
+                        ajustarBotonReporte(holder)
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w(UsuarioRepositorio.tag, "Error al cargar los votos de resenna.", e)
+            }
+    }
+
+    private fun ajustarBotonReporte(holder: MyViewHolder) {
+        cambiarIcono(holder.btnReportar, R.drawable.ic_baseline_flag_24)
+        holder.btnReportar.setEnabled(false)
     }
 
     private fun obtenerUbicacion(provincia: String?, lugar: String?, virtual: Boolean?): String {
@@ -130,12 +165,16 @@ class AdapterResennas(
         val fechaI = LocalDate.parse(fecha)
         val fechaf = LocalDate.now()
 
-        val period: Period = Period.between(fechaI, fechaf)
-        val diff: Int = period.getDays()
+        val diffLong: Long = ChronoUnit.DAYS.between(fechaI, fechaf);
+        val diff : Int = diffLong.toInt()
         validarDias(diff)
+        Log.d("Fecha", fechaI.toString())
+        Log.d("Fecha de hoy", fechaf.toString())
+        Log.d("Diferencia", diff.toString())
+
 
         val cuantoTiempo = validarDias(diff)
-        return cuantoTiempo
+       return cuantoTiempo
     }
 
     private fun validarDias(diff: Int): String {
@@ -189,5 +228,6 @@ class AdapterResennas(
         val fotoUsuario: ImageView = itemView.findViewById(R.id.ivFoto)
         val likeResenna = itemView.findViewById<ImageButton>(R.id.btnLike)
         val cantVotos: TextView = itemView.findViewById(R.id.tvCantVotos)
+        val btnReportar = itemView.findViewById<ImageButton>(R.id.ibFlagReporte)
     }
 }

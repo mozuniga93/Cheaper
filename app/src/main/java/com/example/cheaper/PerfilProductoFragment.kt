@@ -30,6 +30,8 @@ import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
+import java.time.temporal.ChronoUnit
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,6 +52,7 @@ private var descripcionProducto : Any? = ""
 private var imagenProducto : Any? = ""
 private var usuarioProducto : Any? = ""
 private var esFavorito = false
+private var contFiltro = 0
 
 /**
  * A simple [Fragment] subclass.
@@ -73,6 +76,8 @@ class PerfilProductoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        votosResennausuarioArrayList = arrayListOf()
+        contFiltro = 0
         obtenerInfoProducto()
         obtenerFotoUsuario()
         usuarioArrayList = arrayListOf()
@@ -81,9 +86,19 @@ class PerfilProductoFragment : Fragment() {
         resennaRecyclerView = viewOfLayout.findViewById(R.id.listaResennas)
         resennaRecyclerView.layoutManager = LinearLayoutManager(this.context)
         resennaArrayList = arrayListOf()
-        votosResennausuarioArrayList = arrayListOf()
-        myAdapter = AdapterResennas(resennaArrayList)
+        myAdapter = AdapterResennas(resennaArrayList, votosResennausuarioArrayList)
         resennaRecyclerView.adapter = myAdapter
+
+        viewOfLayout?.findViewById<Button>(R.id.btnFiltrar)?.setOnClickListener {
+            if (contFiltro < 2){
+                contFiltro = contFiltro.plus(1)
+                obtenerFotoUsuario()
+            }else{
+                contFiltro = 0
+                obtenerFotoUsuario()
+            }
+
+        }
 
         // Para volver al inicio
         viewOfLayout?.findViewById<Button>(R.id.tvVolverFromPerfilProducto)?.setOnClickListener {
@@ -151,14 +166,14 @@ class PerfilProductoFragment : Fragment() {
 
     private fun cambiarIconoFavorito(iconoId: Int){
         val button = viewOfLayout?.findViewById<Button>(R.id.btnAgregarFavoritos)
-        button.setCompoundDrawables(null,null,null,null)
+        button?.setCompoundDrawables(null,null,null,null)
 
         var iconoDrawable = resources.getDrawable(iconoId,this.context?.theme)
         iconoDrawable = DrawableCompat.wrap(iconoDrawable)
         DrawableCompat.setTint(iconoDrawable,resources.getColor(R.color.white))
         iconoDrawable.setBounds(0,10,0, 0)
 
-        button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,iconoDrawable,null,null)
+        button?.setCompoundDrawablesRelativeWithIntrinsicBounds(null,iconoDrawable,null,null)
     }
 
     private fun obtenerInfoProducto() {
@@ -376,9 +391,21 @@ class PerfilProductoFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun EventChangeListener() {
+        Log.d("Contador: ", contFiltro.toString())
         if(resennaArrayList.size != 0){
             resennaArrayList.clear()
         }
+        if(contFiltro == 0) {
+            obtenerResennasSinFiltro()
+        }else if(contFiltro == 1){
+            obtenerResennasOrdenadasPorPrecio()
+        }else if(contFiltro == 2){
+            obtenerResennasSinFiltro()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun obtenerResennasSinFiltro(){
         db = FirebaseFirestore.getInstance()
         db.collection("resennas").addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(
@@ -392,13 +419,11 @@ class PerfilProductoFragment : Fragment() {
                     if (dc.type == DocumentChange.Type.ADDED) {
                         var resenna = dc.document.toObject(Resenna::class.java)
                         resenna.id = dc.document.id
-/*
-                        obtenerColeccionDeVotos(resenna)
-*/
-                        val resennaFoto = cambiarIdPorFoto(resenna)
-                        if(resennaFoto.producto.equals(idProducto.toString())) {
-                            resennaArrayList.add(resennaFoto)
 
+                        var resennaFoto = cambiarIdPorFoto(resenna)
+                        if (resennaFoto.producto.equals(idProducto.toString())) {
+                            Log.d("Resenna a guardar", resennaFoto.toString())
+                            resennaArrayList.add(resennaFoto)
                         }
                     }
                 }
@@ -409,22 +434,83 @@ class PerfilProductoFragment : Fragment() {
         })
     }
 
-   /* private fun obtenerColeccionDeVotos(resenna: Resenna) {
-        db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
-            .collection(RepositorioConstantes.votoResennaCollection)
-            .get()
-            .addOnSuccessListener { documentReference->
-                for (document in documentReference) {
-                    var resennaVotos = document.toObject(ResennaVotada::class.java)
-                    votosResennausuarioArrayList.add(resennaVotos)
-                    *//*Log.d("Colleccion de votos", resennaVotos.toString())*//*
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun obtenerResennasOrdenadasPorPrecio(){
+        db = FirebaseFirestore.getInstance()
+        val docRef =  db.collection("resennas").orderBy("precio" , Query.Direction.ASCENDING)
+
+        docRef.addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?, error: FirebaseFirestoreException?
+            ) {
+                if (error != null) {
+                    Log.e("Firestore Error", error.message.toString())
+                    return
                 }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        var resenna = dc.document.toObject(Resenna::class.java)
+                        resenna.id = dc.document.id
+
+                        var resennaFoto = cambiarIdPorFoto(resenna)
+                        if (resennaFoto.producto.equals(idProducto.toString())) {
+                            Log.d("Resenna a guardar", resennaFoto.toString())
+                            resennaArrayList.add(resennaFoto)
+                        }
+                    }
+                }
+                myAdapter.notifyDataSetChanged()
+                obtenerResennaDestacada(viewOfLayout, resennaArrayList)
 
             }
-            .addOnFailureListener { e ->
-                Log.w(UsuarioRepositorio.tag, "Error al cargar los votos de resenna.", e)
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun obtenerResennasMasRecientes(){
+        db = FirebaseFirestore.getInstance()
+        val docRef =  db.collection("resennas")
+
+        docRef.addSnapshotListener(object : EventListener<QuerySnapshot> {
+            override fun onEvent(
+                value: QuerySnapshot?, error: FirebaseFirestoreException?
+            ) {
+                if (error != null) {
+                    Log.e("Firestore Error", error.message.toString())
+                    return
+                }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+                    if (dc.type == DocumentChange.Type.ADDED) {
+                        var resenna = dc.document.toObject(Resenna::class.java)
+                        resenna.id = dc.document.id
+
+                        val diffDias = transformarFechaParaFiltrar(resenna.fecha)
+                        resenna.orden = diffDias
+                        var resennaFoto = cambiarIdPorFoto(resenna)
+                        if (resennaFoto.producto.equals(idProducto.toString())) {
+                            resennaArrayList.add(resennaFoto)
+                        }
+                    }
+                }
+
+                Log.d("Todas las resennas", "ordenadas " + resennaArrayList.toString())
+                myAdapter.notifyDataSetChanged()
+                obtenerResennaDestacada(viewOfLayout, resennaArrayList)
+
             }
-    }*/
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun transformarFechaParaFiltrar(fecha: String?): Int {
+        val fechaI = LocalDate.parse(fecha)
+        val fechaf = LocalDate.now()
+
+        val diffLong: Long = ChronoUnit.DAYS.between(fechaI, fechaf);
+        val diff : Int = diffLong.toInt()
+
+        return diff
+    }
 
     private fun cambiarIdPorFoto(resennaFoto: Resenna) : Resenna{
         for (document in usuarioArrayList) {
