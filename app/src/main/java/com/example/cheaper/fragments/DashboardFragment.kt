@@ -1,6 +1,7 @@
 package com.example.cheaper.fragments
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -60,7 +61,6 @@ class DashboardFragment: Fragment() {
         productRecyclerView.adapter = myAdapter
         myAdapter.notifyDataSetChanged()
         resennasArrayList = getResennas()
-        getProductos(resennasArrayList)
         getUsuarios()
 
 
@@ -143,6 +143,7 @@ class DashboardFragment: Fragment() {
             }
             resennasArrayList.addAll(resennas)
             viewOfLayout.textCantResennas.setText(cantResennas.toString())
+            getProductos(resennasArrayList)
         }
             .addOnFailureListener{ exception ->
                 Log.w(ContentValues.TAG, "Error getting products: ", exception)
