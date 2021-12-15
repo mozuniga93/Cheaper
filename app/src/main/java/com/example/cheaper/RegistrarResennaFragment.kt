@@ -161,7 +161,8 @@ class ResennaFragment : Fragment() {
             cantontxt,
             esVirtual.isChecked,
             0,
-            LocalDate.now().toString()
+            LocalDate.now().toString(),
+            null
         )
         ResennaRepositorio.crearNuevaResenna(nuevaResenna)
         limpiartxt(precio, tienda, provincia, canton, esVirtual)
