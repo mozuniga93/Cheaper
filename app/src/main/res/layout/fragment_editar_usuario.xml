@@ -205,15 +205,24 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
+    <Button
         android:id="@+id/volverFromEditarUsuario"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/montserrat"
-        android:text="Volver"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:layout_marginLeft="25dp"
+        android:backgroundTint="@color/primario"
+        android:outlineProvider="none"
+        android:rotationX="-4"
+        android:rotationY="193"
+        app:icon="@drawable/ic_ir"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </FrameLayout>
