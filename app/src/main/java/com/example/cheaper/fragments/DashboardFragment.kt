@@ -1,6 +1,7 @@
 package com.example.cheaper.fragments
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -66,7 +67,8 @@ class DashboardFragment: Fragment() {
 
         val btnEscanearProducto = viewOfLayout.findViewById<Button>(R.id.buttonEscanear)
         btnEscanearProducto.setOnClickListener{
-            initScanner()
+            buscarProductoCodigo("750100989981163983")
+           //initScanner()
         }
         return viewOfLayout
     }
@@ -188,16 +190,16 @@ class DashboardFragment: Fragment() {
             else{
                 Log.d("PRODUCTO ESCANEADO", "Producto escaneado exitosamente:  ${intentResultCode.contents}")
                 codigoDeBarras = intentResultCode.contents
-                buscarProductoCodigo()
+                buscarProductoCodigo(codigoDeBarras)
             }
         }
     }
 
-    private fun buscarProductoCodigo(){
+    private fun buscarProductoCodigo(pCodigo : String){
 
         db = FirebaseFirestore.getInstance()
         db.collection("productos").
-        whereEqualTo("codigoBarras",codigoDeBarras).
+        whereEqualTo("codigoBarras",pCodigo).
         get().
         addOnSuccessListener { documents ->
             for (document in documents) {
@@ -221,6 +223,7 @@ class DashboardFragment: Fragment() {
             }
         }
             .addOnFailureListener{ exception ->
+                Log.d(TAG, "get failed with ", exception)
                 val dialogo = CodigoBarrasDialog()
                 dialogo.show(childFragmentManager, "CodigoBarrasDialog")
             }
