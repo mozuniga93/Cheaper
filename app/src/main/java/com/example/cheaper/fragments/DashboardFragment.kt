@@ -61,7 +61,6 @@ class DashboardFragment: Fragment() {
         productRecyclerView.adapter = myAdapter
         myAdapter.notifyDataSetChanged()
         resennasArrayList = getResennas()
-        getProductos(resennasArrayList)
         getUsuarios()
 
 
@@ -144,6 +143,7 @@ class DashboardFragment: Fragment() {
             }
             resennasArrayList.addAll(resennas)
             viewOfLayout.textCantResennas.setText(cantResennas.toString())
+            getProductos(resennasArrayList)
         }
             .addOnFailureListener{ exception ->
                 Log.w(ContentValues.TAG, "Error getting products: ", exception)
