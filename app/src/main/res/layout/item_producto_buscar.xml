@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
-    app:cardElevation="0dp"
-    >
+    android:outlineProvider="none"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -79,17 +79,18 @@
         <Button
             android:id="@+id/buttonProduct_perfil"
             style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="48dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="@color/secundario_amarillo"
-            app:icon="@drawable/ic_show_product"
+            android:layout_width="41dp"
+            android:layout_height="43dp"
+            android:backgroundTint="@color/white"
+            android:outlineProvider="none"
+            app:icon="@drawable/ic_ir"
+            app:iconTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtDescripcionProducto_perfil"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.473"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <View

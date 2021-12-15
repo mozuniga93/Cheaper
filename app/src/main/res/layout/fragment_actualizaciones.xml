@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.FavoritosFragment"
-    android:id="@+id/favoritos">
+    android:id="@+id/fragment_logs"
+    >
 
 
     <LinearLayout
@@ -16,16 +16,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/volverFromEditarProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:text="Volver"
+            android:textColor="@color/primario"
+            android:textSize="16sp" />
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/productsListFavoritos"
+            android:id="@+id/actualizacionesLista"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_producto_buscar"
+            tools:listitem="@layout/item_actualizacion"
             />
+
     </LinearLayout>
 
 </FrameLayout>

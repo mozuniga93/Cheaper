@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/_16sdp"
+    android:layout_marginEnd="@dimen/_16sdp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_16sdp"
+    app:cardElevation="4dp"
+    app:layout_constraintBottom_toBottomOf="@id/viewHeaderBackground"
+    app:layout_constraintTop_toBottomOf="@id/viewHeaderBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_14sdp">
+
+        <TextView
+            android:id="@+id/textViews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nuestra comunidad"
+            android:textColor="@color/primario"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/layoutUsers"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/layoutProductos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViews">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:src="@drawable/ic_user_db"
+                app:tint="@color/secundario_gris"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Usuarios"
+                android:textColor="@color/secundario_gris"
+                android:textSize="10sp"/>
+            <TextView
+                android:id="@+id/textCantUsuarios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textColor="@color/secundario_amarillo"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutProductos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@id/layoutResenas"
+            app:layout_constraintStart_toEndOf="@id/layoutUsers"
+            app:layout_constraintTop_toBottomOf="@id/textViews">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:src="@drawable/ic_product_db"
+                app:tint="@color/secundario_gris"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Productos"
+                android:textColor="@color/secundario_gris"
+                android:textSize="10sp"/>
+            <TextView
+                android:id="@+id/textCantProductos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textColor="@color/secundario_amarillo"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutResenas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/layoutProductos"
+            app:layout_constraintTop_toBottomOf="@id/textViews">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:src="@drawable/ic_price_db"
+                app:tint="@color/secundario_gris"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:text="Precios"
+                android:textColor="@color/secundario_gris"
+                android:textSize="10sp"/>
+            <TextView
+                android:id="@+id/textCantResennas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textColor="@color/secundario_amarillo"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
