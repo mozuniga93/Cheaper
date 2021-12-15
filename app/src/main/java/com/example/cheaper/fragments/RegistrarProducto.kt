@@ -78,7 +78,7 @@ class RegistrarProducto : Fragment() {
         }
 
         // Me lleva al lector de códigos
-        _binding!!.root.findViewById<TextView>(R.id.escanearQR).setOnClickListener {
+        _binding!!.root.findViewById<Button>(R.id.escanearQR).setOnClickListener {
             initScanner()
         }
 
