@@ -16,15 +16,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <Button
             android:id="@+id/volverFromEditarProducto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
-            android:text="Volver"
-            android:textColor="@color/primario"
-            android:textSize="16sp" />
+            style="@style/Widget.MaterialComponents.Button.Icon"
+            android:layout_width="41dp"
+            android:layout_height="43dp"
+            android:backgroundTint="@color/white"
+            android:outlineProvider="none"
+            android:rotationX="-4"
+            android:rotationY="193"
+            app:icon="@android:drawable/ic_menu_close_clear_cancel"
+            app:iconTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.066"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.042"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/actualizacionesLista"
