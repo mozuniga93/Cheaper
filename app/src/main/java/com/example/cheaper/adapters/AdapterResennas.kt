@@ -20,6 +20,7 @@ import com.example.cheaper.repositorios.RepositorioConstantes
 import com.example.cheaper.repositorios.ResennaRepositorio
 import com.example.cheaper.repositorios.UsuarioRepositorio
 import com.example.cheaper.utilidades.ReportarResennaDialog
+import com.example.cheaper.utilidades.SesionDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
@@ -33,7 +34,6 @@ public class AdapterResennas(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-
 
 
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -57,35 +57,56 @@ public class AdapterResennas(
         holder.resennaTiempo.text = tiempo
         Picasso.get().load(currentItem.usuario).into(holder.fotoUsuario)
         holder.cantVotos.text = currentItem.votos.toString()
-        obtenerColeccionDeVotos(currentItem, holder)
         holder.likeResenna.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                actualizarCantidadVotos(currentItem)
-
-                ResennaRepositorio.registrarVotoResenna(
-                    UsuarioRepositorio.usuarioLogueado,
-                    currentItem
-                )
-                cambiarIcono(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
+                val activity = v!!.context as AppCompatActivity
+                if (!UsuarioRepositorio.usuarioEstaLogueado()) {
+                    val dialogo =
+                        SesionDialog("Es necesario iniciar sesión para realizar esta acción.")
+                    dialogo.show(activity.supportFragmentManager, "SesionDialog")
+                } else {
+                    actualizarCantidadVotos(currentItem)
+                    ResennaRepositorio.registrarVotoResenna(
+                        UsuarioRepositorio.usuarioLogueado,
+                        currentItem
+                    )
+                    cambiarIcono(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
+                }
             }
         })
-        obtenerColeccionDeReportes(currentItem, holder)
+        if (UsuarioRepositorio.usuarioEstaLogueado()) {
+            obtenerColeccionDeReportes(currentItem, holder)
+            obtenerColeccionDeVotos(currentItem, holder)
+        }
         holder.btnReportar.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val activity = v!!.context as AppCompatActivity
-                val dialogo = ReportarResennaDialog(currentItem, holder.btnReportar, listaResennas, posicion, votosResennausuarioArrayList)
-                dialogo.show(activity.supportFragmentManager, "ReportarResennaDialog")
+                if (!UsuarioRepositorio.usuarioEstaLogueado()) {
+                    val dialogo =
+                        SesionDialog("Es necesario iniciar sesión para realizar esta acción.")
+                    dialogo.show(activity.supportFragmentManager, "SesionDialog")
+                } else {
+                    val dialogo = ReportarResennaDialog(
+                        currentItem,
+                        holder.btnReportar,
+                        listaResennas,
+                        posicion,
+                        votosResennausuarioArrayList
+                    )
+                    dialogo.show(activity.supportFragmentManager, "ReportarResennaDialog")
+                }
             }
         })
     }
 
-    fun actualizarLista(position: Int){
+    fun actualizarLista(position: Int) {
         listaResennas.removeAt(position)
         notifyDataSetChanged()
         Log.d("Eliminar poscision", true.toString())
     }
 
     private fun obtenerColeccionDeVotos(resenna: Resenna, holder: MyViewHolder) {
+        ajustarBotonNoLike(holder)
         db = FirebaseFirestore.getInstance()
         db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
             .collection(RepositorioConstantes.votoResennaCollection)
@@ -93,7 +114,7 @@ public class AdapterResennas(
             .addOnSuccessListener { result ->
                 for (document in result) {
                     var votoResenna = document.toObject(ResennaVotada::class.java)
-                    if (votoResenna.idUsuario!!.equals(UsuarioRepositorio.usuarioLogueado.id)){
+                    if (votoResenna.idUsuario.equals(UsuarioRepositorio.usuarioLogueado.id)) {
                         ajustarBotonLike(holder)
                     }
                 }
@@ -103,31 +124,40 @@ public class AdapterResennas(
             }
     }
 
+    private fun ajustarBotonNoLike(holder: MyViewHolder) {
+        cambiarIcono(holder.likeResenna, R.drawable.ic_outline_thumb_up_alt_24)
+        holder.likeResenna.setEnabled(true)
+    }
+
+    private fun ajustarBotonNoLikeReporte(holder: MyViewHolder) {
+        cambiarIcono(holder.btnReportar, R.drawable.ic_baseline_outlined_flag_24)
+        holder.likeResenna.setEnabled(true)
+    }
+
     private fun ajustarBotonLike(holder: MyViewHolder) {
-                cambiarIcono(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
-                holder.likeResenna.setEnabled(false)
+        cambiarIcono(holder.likeResenna, R.drawable.ic_baseline_thumb_up_alt_24_gris)
+        holder.likeResenna.setEnabled(false)
     }
 
     fun cambiarIcono(holder: ImageButton, icono: Int) {
         holder.setBackgroundResource(icono)
     }
 
-    private fun actualizarCantidadVotos(item : Resenna){
+    private fun actualizarCantidadVotos(item: Resenna) {
         item.orden = null
         item.votos = item.votos?.plus(1)
 
-        db.collection(RepositorioConstantes.resennasCollection).
-        document(item.id!!).
-        set(item).
-        addOnSuccessListener { documentReference ->
-            Log.d(UsuarioRepositorio.tag, "Voto en resenna actualizado exitosamente.")
-        }
+        db.collection(RepositorioConstantes.resennasCollection).document(item.id!!).set(item)
+            .addOnSuccessListener { documentReference ->
+                Log.d(UsuarioRepositorio.tag, "Voto en resenna actualizado exitosamente.")
+            }
             .addOnFailureListener { e ->
                 Log.w(UsuarioRepositorio.tag, "Error al actualizar voto resenna.", e)
             }
     }
 
     private fun obtenerColeccionDeReportes(resenna: Resenna, holder: MyViewHolder) {
+        ajustarBotonNoLikeReporte(holder)
         db = FirebaseFirestore.getInstance()
         db.collection(RepositorioConstantes.resennasCollection).document(resenna.id!!)
             .collection(RepositorioConstantes.reporteResennaCollection)
@@ -135,7 +165,7 @@ public class AdapterResennas(
             .addOnSuccessListener { result ->
                 for (document in result) {
                     var reporteResenna = document.toObject(ReporteResenna::class.java)
-                    if (reporteResenna.idUsuario!!.equals(UsuarioRepositorio.usuarioLogueado.id)){
+                    if (reporteResenna.idUsuario!!.equals(UsuarioRepositorio.usuarioLogueado.id)) {
                         ajustarBotonReporte(holder)
                     }
                 }
@@ -166,7 +196,7 @@ public class AdapterResennas(
         val fechaf = LocalDate.now()
 
         val diffLong: Long = ChronoUnit.DAYS.between(fechaI, fechaf);
-        val diff : Int = diffLong.toInt()
+        val diff: Int = diffLong.toInt()
         validarDias(diff)
         Log.d("Fecha", fechaI.toString())
         Log.d("Fecha de hoy", fechaf.toString())
@@ -174,7 +204,7 @@ public class AdapterResennas(
 
 
         val cuantoTiempo = validarDias(diff)
-       return cuantoTiempo
+        return cuantoTiempo
     }
 
     private fun validarDias(diff: Int): String {

@@ -40,18 +40,18 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 private lateinit var resennaRecyclerView: RecyclerView
 private lateinit var resennaArrayList: ArrayList<Resenna>
-private lateinit var usuarioArrayList:  ArrayList<Usuario>
+private lateinit var usuarioArrayList: ArrayList<Usuario>
 private lateinit var votosResennausuarioArrayList: ArrayList<ResennaVotada>
 private lateinit var myAdapter: AdapterResennas
 lateinit var db: FirebaseFirestore
 private lateinit var viewOfLayout: View
-private var idProducto : Any? = ""
-private var nombreProducto : Any? = ""
-private var marcaProducto : Any? = ""
-private var categoriaProducto : Any? = ""
-private var descripcionProducto : Any? = ""
-private var imagenProducto : Any? = ""
-private var usuarioProducto : Any? = ""
+private var idProducto: Any? = ""
+private var nombreProducto: Any? = ""
+private var marcaProducto: Any? = ""
+private var categoriaProducto: Any? = ""
+private var descripcionProducto: Any? = ""
+private var imagenProducto: Any? = ""
+private var usuarioProducto: Any? = ""
 private var esFavorito = false
 private var contFiltro = 0
 
@@ -72,6 +72,7 @@ class PerfilProductoFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,10 +92,10 @@ class PerfilProductoFragment : Fragment() {
         resennaRecyclerView.adapter = myAdapter
 
         viewOfLayout?.findViewById<Button>(R.id.btnFiltrar)?.setOnClickListener {
-            if (contFiltro == 0){
+            if (contFiltro == 0) {
                 contFiltro = contFiltro.plus(1)
                 obtenerFotoUsuario()
-            }else{
+            } else {
                 contFiltro = 0
                 obtenerFotoUsuario()
             }
@@ -121,10 +122,10 @@ class PerfilProductoFragment : Fragment() {
     }
 
     private fun cambiarEstadoFavorito() {
-        if(!UsuarioRepositorio.usuarioEstaLogueado()){
+        if (!UsuarioRepositorio.usuarioEstaLogueado()) {
             val dialogo = SesionDialog("Es necesario iniciar sesión para realizar esta acción.")
             dialogo.show(childFragmentManager, "SesionDialog")
-        }else {
+        } else {
             var product = Product(
                 idProducto?.toString(),
                 nombreProducto?.toString()
@@ -149,32 +150,34 @@ class PerfilProductoFragment : Fragment() {
         }
     }
 
-    private fun cargarEstadoFavorito(){
-        if(UsuarioRepositorio.usuarioEstaLogueado()){
-            val productoFavorito = UsuarioRepositorio.usuarioLogueado.productosFavoritos!!.
-                getOrDefault(idProducto, null)
+    private fun cargarEstadoFavorito() {
+        if (UsuarioRepositorio.usuarioEstaLogueado()) {
+            val productoFavorito =
+                UsuarioRepositorio.usuarioLogueado.productosFavoritos!!.getOrDefault(
+                    idProducto,
+                    null
+                )
             esFavorito = productoFavorito != null && productoFavorito.habilitado!!
-        }
-        else
+        } else
             esFavorito = false
 
-        if(esFavorito){
+        if (esFavorito) {
             cambiarIconoFavorito(R.drawable.ic_favorito_relleno)
-        }else {
+        } else {
             cambiarIconoFavorito(R.drawable.ic_favorito_vacio)
         }
     }
 
-    private fun cambiarIconoFavorito(iconoId: Int){
+    private fun cambiarIconoFavorito(iconoId: Int) {
         val button = viewOfLayout?.findViewById<Button>(R.id.btnAgregarFavoritos)
-        button?.setCompoundDrawables(null,null,null,null)
+        button?.setCompoundDrawables(null, null, null, null)
 
-        var iconoDrawable = resources.getDrawable(iconoId,this.context?.theme)
+        var iconoDrawable = resources.getDrawable(iconoId, this.context?.theme)
         iconoDrawable = DrawableCompat.wrap(iconoDrawable)
-        DrawableCompat.setTint(iconoDrawable,resources.getColor(R.color.white))
-        iconoDrawable.setBounds(0,10,0, 0)
+        DrawableCompat.setTint(iconoDrawable, resources.getColor(R.color.white))
+        iconoDrawable.setBounds(0, 10, 0, 0)
 
-        button?.setCompoundDrawablesRelativeWithIntrinsicBounds(null,iconoDrawable,null,null)
+        button?.setCompoundDrawablesRelativeWithIntrinsicBounds(null, iconoDrawable, null, null)
     }
 
     private fun obtenerInfoProducto() {
@@ -191,22 +194,23 @@ class PerfilProductoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun obtenerResennaDestacada(itemView: View, listaResennas: ArrayList<Resenna>) {
         var resennaDestacada = Resenna()
-            for (resenna in listaResennas) {
-                if (resennaDestacada.producto == null) {
+        for (resenna in listaResennas) {
+            if (resennaDestacada.producto == null) {
+                resennaDestacada = resenna
+            } else {
+                if (resennaDestacada.precio!! > resenna.precio!!) {
                     resennaDestacada = resenna
-                } else {
-                    if (resennaDestacada.precio!! > resenna.precio!!) {
-                        resennaDestacada = resenna
-                    }
                 }
             }
-        if(resennaDestacada.producto != null) {
+        }
+        if (resennaDestacada.producto != null) {
             mostrarResennaDestacada(resennaDestacada, itemView)
-        }else{
-            var imagenUrlFinal = "https://firebasestorage.googleapis.com/v0/b/cheaper-manati4.appspot.com/o/user.png?alt=media&token=98ae4512-acf3-4254-a780-e893db9b19b7"
+        } else {
+            var imagenUrlFinal =
+                "https://firebasestorage.googleapis.com/v0/b/cheaper-manati4.appspot.com/o/user.png?alt=media&token=98ae4512-acf3-4254-a780-e893db9b19b7"
             val fotoUsuarioDestacado: ImageView = itemView.findViewById(R.id.IvUsuarioDestacado)
             Picasso.get().load(imagenUrlFinal).into(fotoUsuarioDestacado)
-            val signoColones : TextView = itemView.findViewById(R.id.tvSignoColones)
+            val signoColones: TextView = itemView.findViewById(R.id.tvSignoColones)
             signoColones.text = ""
 
             val precioDestacado: TextView = itemView.findViewById(R.id.tvPrecio_Destacado)
@@ -224,7 +228,11 @@ class PerfilProductoFragment : Fragment() {
         val nombreDestacado: TextView = itemView.findViewById(R.id.lblNombreComercioDestacado)
         nombreDestacado.text = resennaDestacada.tienda.toString()
 
-        val ubicacion = obtenerUbicacion(resennaDestacada.provincia, resennaDestacada.lugar, resennaDestacada.virtual)
+        val ubicacion = obtenerUbicacion(
+            resennaDestacada.provincia,
+            resennaDestacada.lugar,
+            resennaDestacada.virtual
+        )
         val ubicacionDestacado: TextView = itemView.findViewById(R.id.lblUbicacionDestacado)
         ubicacionDestacado.text = ubicacion
 
@@ -235,7 +243,7 @@ class PerfilProductoFragment : Fragment() {
         val tiempoDestacado: TextView = itemView.findViewById(R.id.tvTiempoDestacado)
         tiempoDestacado.text = tiempo
 
-        val signoColones : TextView = itemView.findViewById(R.id.tvSignoColones)
+        val signoColones: TextView = itemView.findViewById(R.id.tvSignoColones)
         signoColones.text = "₡"
     }
 
@@ -315,20 +323,25 @@ class PerfilProductoFragment : Fragment() {
         val btnAgregarResenna = vista.findViewById<Button>(R.id.btnNuevaResenna)
 
         btnAgregarResenna.setOnClickListener {
-            val resennaFragment = ResennaFragment()
-            var bundle = Bundle()
-            bundle.putString("productoId", idProducto.toString())
-            bundle.putString("productoNombre", nombreProducto.toString())
-            bundle.putString("productoMarca", marcaProducto.toString())
-            bundle.putString("productoCategoria", categoriaProducto.toString())
-            bundle.putString("productoDescripcion", descripcionProducto.toString())
-            bundle.putString("productoImagen", imagenProducto.toString())
-            resennaFragment.arguments = bundle
-            val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
-            transaction.replace(R.id.fl_perfil_producto, resennaFragment)
-            transaction.commit()
-        }
 
+            if (!UsuarioRepositorio.usuarioEstaLogueado()) {
+                val dialogo = SesionDialog("Es necesario iniciar sesión para realizar esta acción.")
+                dialogo.show(childFragmentManager, "SesionDialog")
+            } else {
+                val resennaFragment = ResennaFragment()
+                var bundle = Bundle()
+                bundle.putString("productoId", idProducto.toString())
+                bundle.putString("productoNombre", nombreProducto.toString())
+                bundle.putString("productoMarca", marcaProducto.toString())
+                bundle.putString("productoCategoria", categoriaProducto.toString())
+                bundle.putString("productoDescripcion", descripcionProducto.toString())
+                bundle.putString("productoImagen", imagenProducto.toString())
+                resennaFragment.arguments = bundle
+                val transaction: FragmentTransaction = parentFragmentManager!!.beginTransaction()
+                transaction.replace(R.id.fl_perfil_producto, resennaFragment)
+                transaction.commit()
+            }
+        }
     }
 
     private fun irAEditar(vista: View) {
@@ -393,18 +406,18 @@ class PerfilProductoFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun EventChangeListener() {
         Log.d("Contador: ", contFiltro.toString())
-        if(resennaArrayList.size != 0){
-            resennaArrayList.clear()
-        }
-        if(contFiltro == 0) {
+        if (contFiltro == 0) {
             obtenerResennasSinFiltro()
-        }else if(contFiltro == 1){
+        } else if (contFiltro == 1) {
             obtenerResennasOrdenadasPorPrecio()
         }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun obtenerResennasSinFiltro(){
+    private fun obtenerResennasSinFiltro() {
+        if (resennaArrayList.size != 0) {
+            resennaArrayList.clear()
+        }
         db = FirebaseFirestore.getInstance()
         db.collection("resennas").addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(
@@ -434,12 +447,15 @@ class PerfilProductoFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun obtenerResennasOrdenadasPorPrecio(){
+    private fun obtenerResennasOrdenadasPorPrecio() {
+        if (resennaArrayList.size != 0) {
+            resennaArrayList.clear()
+        }
         val activity = viewOfLayout!!.context as AppCompatActivity
         Toast.makeText(activity, "Más barato", Toast.LENGTH_SHORT).show()
 
         db = FirebaseFirestore.getInstance()
-        val docRef =  db.collection("resennas").orderBy("precio" , Query.Direction.ASCENDING)
+        val docRef = db.collection("resennas").orderBy("precio", Query.Direction.ASCENDING)
 
         docRef.addSnapshotListener(object : EventListener<QuerySnapshot> {
             override fun onEvent(
@@ -463,7 +479,6 @@ class PerfilProductoFragment : Fragment() {
                 }
                 myAdapter.notifyDataSetChanged()
                 obtenerResennaDestacada(viewOfLayout, resennaArrayList)
-
             }
         })
     }
@@ -503,20 +518,20 @@ class PerfilProductoFragment : Fragment() {
         })
     }*/
 
-   /* @RequiresApi(Build.VERSION_CODES.O)
-    private fun transformarFechaParaFiltrar(fecha: String?): Int {
-        val fechaI = LocalDate.parse(fecha)
-        val fechaf = LocalDate.now()
+    /* @RequiresApi(Build.VERSION_CODES.O)
+     private fun transformarFechaParaFiltrar(fecha: String?): Int {
+         val fechaI = LocalDate.parse(fecha)
+         val fechaf = LocalDate.now()
 
-        val diffLong: Long = ChronoUnit.DAYS.between(fechaI, fechaf);
-        val diff : Int = diffLong.toInt()
+         val diffLong: Long = ChronoUnit.DAYS.between(fechaI, fechaf);
+         val diff : Int = diffLong.toInt()
 
-        return diff
-    }*/
+         return diff
+     }*/
 
-    private fun cambiarIdPorFoto(resennaFoto: Resenna) : Resenna{
+    private fun cambiarIdPorFoto(resennaFoto: Resenna): Resenna {
         for (document in usuarioArrayList) {
-            if(resennaFoto.usuario.equals(document.id)){
+            if (resennaFoto.usuario.equals(document.id)) {
                 resennaFoto.usuario = document.foto
             }
         }
