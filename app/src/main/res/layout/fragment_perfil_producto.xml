@@ -210,7 +210,7 @@
                 android:outlineProvider="none"
                 android:rotationX="-4"
                 android:rotationY="193"
-                app:icon="@drawable/ic_ir"
+                app:icon="@android:drawable/ic_menu_close_clear_cancel"
                 app:iconTint="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
