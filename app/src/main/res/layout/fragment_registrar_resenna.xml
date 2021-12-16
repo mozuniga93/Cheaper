@@ -25,24 +25,11 @@
             app:layout_constraintTop_toTopOf="@+id/imageViewEditarProducto"
             tools:layout_gravity="center">
 
-            <TextView
-                android:id="@+id/tv_volver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="32dp"
-                android:text="Volver"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/ll_productos"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <LinearLayout
                 android:id="@+id/ll_productos"
                 android:layout_width="343dp"
                 android:layout_height="462dp"
+                android:layout_marginEnd="12dp"
                 android:background="@android:drawable/toast_frame"
                 android:backgroundTint="@color/white"
                 android:elevation="40dp"
@@ -203,6 +190,23 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
+            <Button
+                android:id="@+id/btnCancelar"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="41dp"
+                android:layout_height="43dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:backgroundTint="@color/primario"
+                android:outlineProvider="none"
+                android:rotationX="-4"
+                android:rotationY="193"
+                app:icon="@android:drawable/ic_menu_close_clear_cancel"
+                app:iconTint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
@@ -216,6 +220,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

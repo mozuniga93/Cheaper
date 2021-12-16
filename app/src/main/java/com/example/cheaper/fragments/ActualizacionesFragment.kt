@@ -9,18 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cheaper.*
 import com.example.cheaper.R
 import com.example.cheaper.adapters.ActualizacionAdapter
-import com.example.cheaper.adapters.CategoriaAdapter
 import com.example.cheaper.model.Actualizacion
-import com.example.cheaper.model.Product
-import com.example.cheaper.repositorios.RepositorioConstantes
-import com.example.cheaper.repositorios.UsuarioRepositorio
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ActualizacionesFragment: Fragment() {
 

@@ -9,15 +9,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cheaper.adapters.AdapterResennas
+import com.example.cheaper.fragments.BuscarFragment
 import com.example.cheaper.fragments.EditarProductoFragment
-import com.example.cheaper.fragments.InicioFragment
 import com.example.cheaper.model.Product
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.model.ResennaVotada
@@ -30,7 +32,6 @@ import com.google.firebase.firestore.*
 import com.squareup.picasso.Picasso
 import java.time.LocalDate
 import java.time.Period
-import java.time.temporal.ChronoUnit
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -90,7 +91,7 @@ class PerfilProductoFragment : Fragment() {
         resennaRecyclerView.adapter = myAdapter
 
         viewOfLayout?.findViewById<Button>(R.id.btnFiltrar)?.setOnClickListener {
-            if (contFiltro < 2){
+            if (contFiltro == 0){
                 contFiltro = contFiltro.plus(1)
                 obtenerFotoUsuario()
             }else{
@@ -100,10 +101,10 @@ class PerfilProductoFragment : Fragment() {
 
         }
 
-        // Para volver al inicio
-        viewOfLayout?.findViewById<Button>(R.id.tvVolverFromPerfilProducto)?.setOnClickListener {
-            val inicioFragment = InicioFragment()
-            (activity as MainActivity?)?.makeCurrentFragment(inicioFragment)
+        // Para volver a las categorias
+        viewOfLayout?.findViewById<TextView>(R.id.tvVolverFromPerfilProducto)?.setOnClickListener {
+            val buscarFragment = BuscarFragment()
+            (activity as MainActivity?)?.makeCurrentFragment(buscarFragment)
         }
 
         cargarEstadoFavorito()
@@ -399,8 +400,6 @@ class PerfilProductoFragment : Fragment() {
             obtenerResennasSinFiltro()
         }else if(contFiltro == 1){
             obtenerResennasOrdenadasPorPrecio()
-        }else if(contFiltro == 2){
-            obtenerResennasSinFiltro()
         }
     }
 
@@ -436,6 +435,9 @@ class PerfilProductoFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun obtenerResennasOrdenadasPorPrecio(){
+        val activity = viewOfLayout!!.context as AppCompatActivity
+        Toast.makeText(activity, "Más barato", Toast.LENGTH_SHORT).show()
+
         db = FirebaseFirestore.getInstance()
         val docRef =  db.collection("resennas").orderBy("precio" , Query.Direction.ASCENDING)
 
@@ -466,7 +468,7 @@ class PerfilProductoFragment : Fragment() {
         })
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    /*@RequiresApi(Build.VERSION_CODES.O)
     private fun obtenerResennasMasRecientes(){
         db = FirebaseFirestore.getInstance()
         val docRef =  db.collection("resennas")
@@ -499,9 +501,9 @@ class PerfilProductoFragment : Fragment() {
 
             }
         })
-    }
+    }*/
 
-    @RequiresApi(Build.VERSION_CODES.O)
+   /* @RequiresApi(Build.VERSION_CODES.O)
     private fun transformarFechaParaFiltrar(fecha: String?): Int {
         val fechaI = LocalDate.parse(fecha)
         val fechaf = LocalDate.now()
@@ -510,7 +512,7 @@ class PerfilProductoFragment : Fragment() {
         val diff : Int = diffLong.toInt()
 
         return diff
-    }
+    }*/
 
     private fun cambiarIdPorFoto(resennaFoto: Resenna) : Resenna{
         for (document in usuarioArrayList) {

@@ -14,7 +14,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.example.cheaper.fragments.InicioFragment
+import com.example.cheaper.fragments.BuscarFragment
 import com.example.cheaper.model.Resenna
 import com.example.cheaper.repositorios.ResennaRepositorio
 import com.example.cheaper.utilidades.RegistrarDialog
@@ -67,10 +67,10 @@ class ResennaFragment : Fragment() {
         verificarSiTiendaEsVirtual(vista)
         registrar(vista)
 
-        // Para volver al perfil
-        vista?.findViewById<TextView>(R.id.tv_volver)?.setOnClickListener {
-            val inicioFragment = InicioFragment()
-            (activity as MainActivity?)?.makeCurrentFragment(inicioFragment)
+        // Para volver a las categorias
+        vista?.findViewById<TextView>(R.id.btnCancelar)?.setOnClickListener {
+            val buscarFragment = BuscarFragment()
+            (activity as MainActivity?)?.makeCurrentFragment(buscarFragment)
         }
 
         return vista
