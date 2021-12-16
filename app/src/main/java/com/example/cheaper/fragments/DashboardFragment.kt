@@ -62,6 +62,7 @@ class DashboardFragment: Fragment() {
         myAdapter.notifyDataSetChanged()
         resennasArrayList = getResennas()
         getUsuarios()
+        getCantResennas()
 
 
         val btnEscanearProducto = viewOfLayout.findViewById<Button>(R.id.buttonEscanear)
@@ -117,14 +118,13 @@ class DashboardFragment: Fragment() {
         db = FirebaseFirestore.getInstance()
         db.collection("resennas")
         .orderBy("precio")
-        .limit(7)
+        //.limit(7)
         .get()
         .addOnSuccessListener { documents ->
             resennasArrayList.clear()
             var resennas = ArrayList<Resenna>()
             resennas = arrayListOf()
             for (document in documents) {
-                cantResennas = cantResennas + 1
                 if(resennas.size < 4){
                     var resenna = document.toObject(Resenna::class.java)
                     resenna.id = document.id
@@ -142,7 +142,6 @@ class DashboardFragment: Fragment() {
                 }
             }
             resennasArrayList.addAll(resennas)
-            viewOfLayout.textCantResennas.setText(cantResennas.toString())
             getProductos(resennasArrayList)
         }
             .addOnFailureListener{ exception ->
@@ -164,6 +163,22 @@ class DashboardFragment: Fragment() {
         }
             .addOnFailureListener{ exception ->
                 Log.w(ContentValues.TAG, "Error getting products: ", exception)
+            }
+
+    }
+
+    private fun getCantResennas() {
+        db = FirebaseFirestore.getInstance()
+        db.collection("resennas").
+        get().
+        addOnSuccessListener { documents ->
+            for (document in documents) {
+                cantResennas = cantResennas + 1
+            }
+            viewOfLayout.textCantResennas.setText(cantResennas.toString())
+        }
+            .addOnFailureListener{ exception ->
+                Log.w(ContentValues.TAG, "Error getting resennas: ", exception)
             }
 
     }

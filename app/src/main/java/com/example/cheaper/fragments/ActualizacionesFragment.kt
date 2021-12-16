@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -41,7 +42,7 @@ class ActualizacionesFragment: Fragment() {
         viewOfLayout =  inflater.inflate(R.layout.fragment_actualizaciones, container, false)
 
         // Para volver al perfil
-        viewOfLayout?.findViewById<TextView>(R.id.volverFromEditarProducto)?.setOnClickListener {
+        viewOfLayout?.findViewById<Button>(R.id.volverFromEditarProducto)?.setOnClickListener {
             val editarProductoFragment = EditarProductoFragment()
             var bundle = Bundle()
             bundle.putString("id", idProducto.toString())
